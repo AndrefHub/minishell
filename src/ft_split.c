@@ -5,99 +5,88 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 17:31:01 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/01 16:31:29 by kdancy           ###   ########.fr       */
+/*   Created: 2021/08/01 21:59:01 by lsherry           #+#    #+#             */
+/*   Updated: 2022/05/01 17:15:11 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include <stdlib.h>
 
-int	is_in(char c, char *set)
+int	ft_isin(char c, char *charset)
 {
-	int counter;
-
-	counter = -1;
-	while (set[++counter])
-	{
-		if (c == set[counter])
-			return (counter);
-		++set;
-	}
-	return (-1);
-}
-
-static size_t	words_count(char const *s)
-{
-	size_t	words_count;
-	size_t	word_len;
-
-	words_count = 0;
-	word_len = 0;
-	while (*s != '\0')
-	{
-		if (word_len == 0 && is_in(*s, FT_SPACE) == -1 && *s != '\0')
-		{
-			words_count++;
-			word_len = 1;
-		}
-		else if (word_len == 1 && is_in(*s, FT_SPACE))
-			word_len = 0;
-		s++;
-	}
-	return (words_count);
-}
-
-static size_t ft_min_strclen(const char *s, char *set)
-{
-	int		i;
-	size_t	len;
-
-	i = -1;
-	len = -1;
-	while (set[++i])
-		if (ft_strclen(s, set[i]) < len)
-			len = ft_strclen(s, set[i]);
-	return (len);
-}
-
-static char	*ft_strcdup(const char *s, char *set)
-{
-	size_t	i;
-	int		len;
-	char	*dup;
-
-	i = -1;
-	len = ft_min_strclen(s, set);
-	dup = (char *)malloc(sizeof(char) * (len + 1));
-	i = -1;
-	while (!is_in(s[++i], set) && s[i])
-		dup[i] = s[i];
-	dup[i] = '\0';
-	return (dup);
-}
-
-char	**ft_split_space(char const *s)
-{
-	char	**words;
-	size_t	i;
+	int	i;
 
 	i = 0;
-	if (s)
-		words = malloc(sizeof(char *) * (words_count(s) + 1));
-	if (!s || !words)
-		return (NULL);
-	while (*s)
+	while (charset[i])
 	{
-		if (is_in(*s, FT_SPACE))
-			s++;
-		if (!is_in(*s, FT_SPACE) && *s)
+		if (charset[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int	i_word(char *str, char *charset)
+{
+	int	i;
+
+	i = 0;
+	while (*str)
+	{
+		while (*str && ft_isin(*str, charset))
+			str++;
+		if (*str && !ft_isin(*str, charset))
 		{
-			words[i] = ft_strcdup(s, FT_SPACE);
-			if (!(words[i++]))
-				return (ft_freesplit(words));
-			s += ft_min_strclen(s, words[i - 1]);
+			i++;
+			while (*str && !ft_isin(*str, charset))
+				str++;
 		}
 	}
-	words[i] = NULL;
-	return (words);
+	return (i);
 }
+
+char	*crt_word(char *str, char *charset)
+{
+	char	*word;
+	int		i;
+
+	i = 0;
+	while (str[i] && !ft_isin(str[i], charset))
+		i++;
+	word = (char *)malloc(sizeof(char) * (i + 1));
+	i = 0;
+	while (str[i] && !ft_isin(str[i], charset))
+	{
+		word[i] = str[i];
+		i++;
+	}
+	word[i] = '\0';
+	return (word);
+}
+
+char	**ft_split_space(char *str, char *charset)
+{
+	char	**arr;
+	int		i;
+
+	i = 0;
+	if (str && charset)
+		arr = (char **)malloc(sizeof(char *) * (i_word(str, charset) + 1));
+	else
+		return (NULL);
+	while (*str)
+	{
+		while (*str && ft_isin(*str, charset))
+			str++;
+		if (*str && !ft_isin(*str, charset))
+		{
+			arr[i] = crt_word(str, charset);
+			i++;
+			while (*str && !ft_isin(*str, charset))
+				str++;
+		}
+	}
+	arr[i] = 0;
+	return (arr);
+}
+

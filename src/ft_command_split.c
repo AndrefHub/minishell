@@ -1,5 +1,19 @@
 #include "../minishell.h"
 
+int	is_in(char c, char *set)
+{
+	int counter;
+
+	counter = -1;
+	while (set[++counter])
+	{
+		if (c == set[counter])
+			return (counter);
+		++set;
+	}
+	return (-1);
+}
+
 size_t	command_words_count(char **args)
 {
 	size_t	counter;

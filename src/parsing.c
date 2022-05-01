@@ -68,7 +68,7 @@ char	**parser(char *input, char **envp)
 	// char	*binary;
 	// int		code;
 
-	args = ft_split_space(input);
+	args = ft_split_space(input, "\t ");
 	args[0] = find_binary(args[0], envp);
 	return args;
 	// code = execve(args[0], args, NULL);
