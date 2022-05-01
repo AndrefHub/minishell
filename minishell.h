@@ -51,6 +51,14 @@
 
 # endif
 
+# define FT_SPACE "\t "
+# define FT_DELIM "|&<>"
+
+int		is_in(char c, char *set);
+size_t	command_words_count(char **args);
+char	**ft_command_split(char **args);
+char	**ft_split_space(char const *s);
+
 char	*ft_strcat_delim(char *first, char delim, char *second);
 int		ft_strcmp(const char *s1, const char *s2);
 

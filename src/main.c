@@ -22,7 +22,9 @@ int main(int argc, char **argv, char **envp)
 		int counter = -1;
 		while (args[++counter])
 			printf("%s\n", args[counter]);
+		// printf("%zu", command_words_count(args));
 		free(input);
+		ft_freesplit(args);
 	}
 	return 0;
 }

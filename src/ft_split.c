@@ -6,16 +6,13 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 17:31:01 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/01 14:57:24 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/01 16:31:29 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "libft.h"
+#include "../minishell.h"
 
-#define FT_SPACE "\t "
-#define FT_DELIM |&<>
-
-static int	is_in(char c, char *set)
+int	is_in(char c, char *set)
 {
 	int counter;
 
@@ -38,16 +35,29 @@ static size_t	words_count(char const *s)
 	word_len = 0;
 	while (*s != '\0')
 	{
-		if (word_len == 0 && is_in(s, FT_SPACE) == -1 && *s != '\0')
+		if (word_len == 0 && is_in(*s, FT_SPACE) == -1 && *s != '\0')
 		{
 			words_count++;
 			word_len = 1;
 		}
-		else if (word_len == 1 && is_in(s, FT_SPACE))
+		else if (word_len == 1 && is_in(*s, FT_SPACE))
 			word_len = 0;
 		s++;
 	}
 	return (words_count);
+}
+
+static size_t ft_min_strclen(const char *s, char *set)
+{
+	int		i;
+	size_t	len;
+
+	i = -1;
+	len = -1;
+	while (set[++i])
+		if (ft_strclen(s, set[i]) < len)
+			len = ft_strclen(s, set[i]);
+	return (len);
 }
 
 static char	*ft_strcdup(const char *s, char *set)
@@ -57,10 +67,7 @@ static char	*ft_strcdup(const char *s, char *set)
 	char	*dup;
 
 	i = -1;
-	len = 727272727;
-	while (set[++i])
-		if (ft_strclen(s, set[i]) < len)
-			len = ft_strclen(s, set[i]);
+	len = ft_min_strclen(s, set);
 	dup = (char *)malloc(sizeof(char) * (len + 1));
 	i = -1;
 	while (!is_in(s[++i], set) && s[i])
@@ -69,7 +76,7 @@ static char	*ft_strcdup(const char *s, char *set)
 	return (dup);
 }
 
-char	**ft_split(char const *s)
+char	**ft_split_space(char const *s)
 {
 	char	**words;
 	size_t	i;
@@ -88,7 +95,7 @@ char	**ft_split(char const *s)
 			words[i] = ft_strcdup(s, FT_SPACE);
 			if (!(words[i++]))
 				return (ft_freesplit(words));
-			s += ft_strclen(s, words[i - 1]);
+			s += ft_min_strclen(s, words[i - 1]);
 		}
 	}
 	words[i] = NULL;
