@@ -18,10 +18,10 @@ size_t	command_words_count(char **args)
 {
 	size_t	counter;
 	size_t	words_count;
-	size_t	word_len;
+	//size_t	word_len;
 
 	words_count = 0;
-	word_len = 0;
+	//word_len = 0;
 	while (*args)
 	{
 		counter = 0;
@@ -43,6 +43,7 @@ size_t	command_words_count(char **args)
 			++counter;
 		}
 		++args;
+		++words_count;
 	}
 	return (words_count);
 }

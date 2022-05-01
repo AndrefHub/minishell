@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 21:59:01 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/01 17:15:11 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/01 17:26:14 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	**ft_split_space(char *str, char *charset)
 				str++;
 		}
 	}
-	arr[i] = 0;
+	arr[i] = NULL;
 	return (arr);
 }
 
