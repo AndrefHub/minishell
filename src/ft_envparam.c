@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "../so_long/libft/libft.h"
+#include "../libft/libft.h"
 
 int	find_at_first(const char *string, char *pattern)
 {
@@ -34,7 +34,7 @@ char	*ft_find_envp(char *parameter, char **envp)
 		}
 		i++;
 	}
-	return (NULL);
+	return (ft_strdup(""));
 }
 
 /*
