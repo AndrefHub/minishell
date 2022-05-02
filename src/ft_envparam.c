@@ -38,11 +38,11 @@ char	*ft_find_envp(char *parameter, char **envp)
 	return (ft_strdup(""));
 }
 
-int main(int argc, char **argv, char **envp)
-{
-	(void ) argc;
-	(void ) argv;
-	printf("%s", ft_find_envp(argv[1], envp));
+// int main(int argc, char **argv, char **envp)
+// {
+// 	(void ) argc;
+// 	(void ) argv;
+// 	printf("%s", ft_find_envp(argv[1], envp));
 
-	return 0;
-}
+// 	return 0;
+// }

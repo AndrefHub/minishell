@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include "libft/libft.h"
+#include "../minishell.h"
 
 int	find_at_first(const char *string, char *pattern)
 {
