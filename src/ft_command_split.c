@@ -8,10 +8,12 @@ int	is_in(char c, char *set)
 	while (set[++counter])
 	{
 		if (c == set[counter])
-			return (counter);
+			return (1);
+			// return (counter);
 		++set;
 	}
-	return (-1);
+	return (0);
+	// return (-1);
 }
 
 size_t	command_words_count(char **args)

@@ -30,7 +30,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
-
+/*
 # ifdef COLORED_TEXT
 
 #  define COLOR_RED		"\033[1;31m"
@@ -50,7 +50,7 @@
 #  define COLOR_RESET	""
 
 # endif
-
+*/
 # define FT_SPACE "\t "
 # define FT_DELIM "|&<>"
 
@@ -61,10 +61,13 @@ char	**ft_split_space(char *s, char *set);
 
 char	*ft_strcat_delim(char *first, char delim, char *second);
 int		ft_strcmp(const char *s1, const char *s2);
+char	*ft_strndup(const char *s, size_t n);
 
 char	**get_path(char **envp);
 char	*find_binary(char *command, char **envp);
 char	**parser(char *input, char **envp);
 void 	pipex(char *input, char **envp);
+
+char	*ft_find_envp(char *parameter, char **envp);
 
 #endif

@@ -62,15 +62,46 @@ char	*find_binary(char *command, char **envp)
 	return (ft_strdup(command));
 }
 
+char	*substitute_envp(char *input, char **envp)
+{
+	int		i;
+	char    *subbed;
+
+	i = -1;
+	subbed = ft_strdup("");
+	while (input[++i])
+	{
+		if (input[i] == '$' && input[i + 1])
+		{
+			subbed = ft_strjoin(subbed, ft_find_envp(input + i + 1, envp));
+			while (input[i + 1] && !is_in(input[i + 1], FT_SPACE))
+				++i;
+		}
+		else if (((i > 0 && is_in(input[i - 1], FT_SPACE)) || i == 0) &&
+			input[i] == '~')
+		{
+			subbed = ft_strjoin(subbed, ft_find_envp("HOME", envp));
+			// ++i;
+		}
+		else
+			subbed = ft_strcat_delim(subbed, input[i], ""); // <<< not really good, might change if feeling good 
+	}
+	// free(input); << not needed since we change free it in main
+	return (subbed);
+}
+
 char	**parser(char *input, char **envp)
 {
 	char	**args;
 	// char	*binary;
 	// int		code;
 
+	input = substitute_envp(input, envp);
+	//printf("%s\n", input);
 	args = ft_split_space(input, FT_SPACE);
-	args = cocks();
-	args[0] = find_binary(args[0], envp);
+    
+	//args[0] = find_binary(args[0], envp);
+	free(input);
 	return args;
 	// code = execve(args[0], args, NULL);
 	// ft_freesplit(args);
