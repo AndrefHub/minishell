@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include "libft/libft.h"
+#include "../minishell.h"
 
 int	find_at_first(const char *string, char *pattern)
 {
@@ -16,7 +15,9 @@ int	find_at_first(const char *string, char *pattern)
 			return (0);
 		i++;
 	}
-	return (1);
+	if (ft_strchr("=", string[i]))
+		return (1);
+	return (0);
 }
 
 int echo(int argc, char **argv)

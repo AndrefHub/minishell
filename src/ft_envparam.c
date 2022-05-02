@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include "../libft/libft.h"
+#include "../minishell.h"
 
 int	find_at_first(const char *string, char *pattern)
 {
@@ -31,7 +30,7 @@ char	*ft_find_envp(char *parameter, char **envp)
 	{
 		if (find_at_first(envp[i], parameter))
 		{
-			out = ft_strdup(&envp[i][ft_strlen(parameter) + 1]);
+			out = ft_strdup(envp[i] + ft_strlen(parameter) + 1);
 			return (out);
 		}
 		i++;
@@ -39,11 +38,11 @@ char	*ft_find_envp(char *parameter, char **envp)
 	return (ft_strdup(""));
 }
 
-int main(int argc, char **argv, char **envp)
-{
-	(void ) argc;
-	(void ) argv;
-	printf("%s", ft_find_envp(argv[1], envp));
+// int main(int argc, char **argv, char **envp)
+// {
+// 	(void ) argc;
+// 	(void ) argv;
+// 	printf("%s", ft_find_envp(argv[1], envp));
 
-	return 0;
-}
+// 	return 0;
+// }

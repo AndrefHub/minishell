@@ -1,9 +1,9 @@
 NAME    = minishell
 CC      = gcc
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -ggdb
 LFLAGS	= -lreadline -L./libft -lft
 SRCDIR	= src/
-SRCFILE	= parsing.c funny_functions.c
+SRCFILE	= parsing.c funny_functions.c ft_command_split.c ft_split.c ft_envparam.c
 MAIN	= main.c
 BONUS	= main_bonus.c
 SRCS	= $(addprefix $(SRCDIR), $(SRCFILE))
