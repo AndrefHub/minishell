@@ -43,6 +43,7 @@ size_t	command_words_count(char **args)
 			++counter;
 		}
 		++args;
+		++words_count;
 	}
 	return (words_count);
 }

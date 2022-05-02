@@ -45,7 +45,7 @@ char	*find_binary(char *command, char **envp)
 	int		counter;
 
 	counter = -1;
-    if (command || command[0] || ft_strchr(command, '/'))
+	if (!command || !command[0] || ft_strchr(command, '/'))
 		return (command);
 	path = get_path(envp);
 	while (path[++counter])
@@ -68,7 +68,8 @@ char	**parser(char *input, char **envp)
 	// char	*binary;
 	// int		code;
 
-	args = ft_split_space(input, "\t ");
+	args = ft_split_space(input, FT_SPACE);
+	args = cocks();
 	args[0] = find_binary(args[0], envp);
 	return args;
 	// code = execve(args[0], args, NULL);
