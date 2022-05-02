@@ -32,6 +32,7 @@ int main(int argc, char **argv, char **envp)
 	char	*input;
 	char	**args;
 
+	g_msh.envp = envp;
 	very_important_function(argc, argv, envp);
 	// rl_bind_key('\t', rl_complete); // Autocompletes user's input when tab is pressed
 	while (1)
@@ -39,7 +40,7 @@ int main(int argc, char **argv, char **envp)
 		input = readline("ඞabobusඞ> ");
 		add_history(input);
 //		args = parser(input, envp);
-		pareser(input);
+		parser(input);
 		free(input);
 		ft_freesplit(args);
 	}

@@ -75,6 +75,8 @@ typedef struct s_input
 	t_command	*commands;
 }	t_input;
 
+t_msh g_msh;
+
 # define FT_SPACE "\t "
 # define FT_DELIM "|&<>"
 
@@ -104,5 +106,9 @@ int     check_for_built_in(char **args);
 
 // echo.c
 int     echo(char **argv);
+<<<<<<< HEAD
+=======
+int		env(char **envp);
+>>>>>>> lsherry
 
 #endif
