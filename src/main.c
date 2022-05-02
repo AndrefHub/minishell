@@ -23,9 +23,24 @@ void	parser(char *input)
 
 void	parse_parentheses(char *string)
 {
-	int	init_subshell(command);
+	char	**command;
+
+	while (command) {
+		int init_subshell(command);
+	}
 }
 
+int	init_subshell(char *string)
+{
+
+	char	 **args;
+	args = parse_quotes();
+	char	**commands = divide_semicolon();
+	t_command *lol = create_links(commands[i]);
+	replace_dollar_and_star(lol);
+	divide_on_name_and_args();
+	execute_command();
+}
 
 int main(int argc, char **argv, char **envp)
 {
@@ -34,7 +49,6 @@ int main(int argc, char **argv, char **envp)
 
 	g_msh.envp = envp;
 	very_important_function(argc, argv, envp);
-	// rl_bind_key('\t', rl_complete); // Autocompletes user's input when tab is pressed
 	while (1)
 	{
 		input = readline("ඞabobusඞ> ");

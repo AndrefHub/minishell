@@ -54,19 +54,23 @@
 
 typedef struct s_msh 
 {
-    char **envp;
+    char	**envp;
+	int		err_code;
+	char	*curr_dir;
 }	t_msh;
 
 typedef struct s_command
 {
 	char				**com_args;
-	int					fd_in;
-	int					fd_out;
-	int					open_file_indicator_out;
-	int					open_file_indicator_in;
 	int 				result;
 	struct s_command	*next;
 }	t_command;
+
+typedef	struct s_file
+{
+	int		mode;
+	char	*f_name;
+}	t_file;
 
 typedef struct s_input
 {
