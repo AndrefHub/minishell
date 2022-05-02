@@ -55,10 +55,31 @@
 typedef struct s_msh 
 {
     char **envp;
-} t_msh;
+}	t_msh;
+
+typedef struct s_command
+{
+	char				**com_args;
+	int					fd_in;
+	int					fd_out;
+	int					open_file_indicator_out;
+	int					open_file_indicator_in;
+	int 				result;
+	struct s_command	*next;
+}	t_command;
+
+typedef struct s_input
+{
+	char		*input;
+	char		**lines;
+	t_command	*commands;
+}	t_input;
 
 # define FT_SPACE "\t "
 # define FT_DELIM "|&<>"
+
+char 	**parse_to_lines(char *string);
+void	parse_parentheses(char *string);
 
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
