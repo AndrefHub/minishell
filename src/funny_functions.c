@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   funny_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 16:12:17 by andref            #+#    #+#             */
-/*   Updated: 2022/05/02 08:19:28 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/02 11:02:16 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,16 @@ char	*ft_strndup(const char *s, size_t n)
 		return NULL;
 	dup[len] = '\0';
 	return ((char *) ft_memcpy(dup, s, len));
+}
+
+int	ft_strchr_num(const char *s, int c)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && s[i] != c)
+		++i;
+	if (c == s[i])
+		return (i);
+	return (i + 1);
 }

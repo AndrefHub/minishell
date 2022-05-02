@@ -73,7 +73,7 @@ char	*substitute_envp(char *input, char **envp)
 	{
 		if (input[i] == '$' && input[i + 1])
 		{
-			subbed = ft_strjoin(subbed, ft_find_envp(input + i + 1, envp));
+			subbed = ft_strjoin(subbed, ft_find_envp(ft_strndup(input + i + 1, ft_strchr_num(input + i + 1, ' ')), envp));
 			while (input[i + 1] && !is_in(input[i + 1], FT_SPACE))
 				++i;
 		}

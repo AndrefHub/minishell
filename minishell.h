@@ -62,6 +62,7 @@ char	**ft_split_space(char *s, char *set);
 char	*ft_strcat_delim(char *first, char delim, char *second);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strndup(const char *s, size_t n);
+int 	ft_strchr_num(const char *s, int c);
 
 char	**get_path(char **envp);
 char	*find_binary(char *command, char **envp);
