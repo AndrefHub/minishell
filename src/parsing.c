@@ -45,7 +45,7 @@ char	*find_binary(char *command, char **envp)
 	int		counter;
 
 	counter = -1;
-	if (ft_strchr(command, '/'))
+    if (command || command[0] || ft_strchr(command, '/'))
 		return (command);
 	path = get_path(envp);
 	while (path[++counter])

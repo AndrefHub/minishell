@@ -76,7 +76,7 @@ char	**ft_split_space(char *str, char *charset)
 		return (NULL);
 	while (*str)
 	{
-		while (*str && ft_isin(*str, charset))
+        while (*str && ft_isin(*str, charset))
 			str++;
 		if (*str && !ft_isin(*str, charset))
 		{

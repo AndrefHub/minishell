@@ -1,6 +1,6 @@
 NAME    = minishell
 CC      = gcc
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -ggdb
 LFLAGS	= -lreadline -L./libft -lft
 SRCDIR	= src/
 SRCFILE	= parsing.c funny_functions.c ft_command_split.c ft_split.c
