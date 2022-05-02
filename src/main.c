@@ -19,10 +19,9 @@ int main(int argc, char **argv, char **envp)
 		input = readline("ඞabobusඞ> ");
 		add_history(input);
 		args = parser(input, envp);
-		int counter = -1;
-		while (args[++counter])
-			printf("%s\n", args[counter]);
-		printf("Full word count: %zu\n", command_words_count(args));
+		// int counter = -1;
+		// while (args[++counter])
+		// 	printf("%s\n", args[counter]);
 		free(input);
 		ft_freesplit(args);
 	}

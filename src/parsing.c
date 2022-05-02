@@ -92,14 +92,15 @@ char	*substitute_envp(char *input, char **envp)
 char	**parser(char *input, char **envp)
 {
 	char	**args;
-	int		code;
+	// int		code;
 
 	input = substitute_envp(input, envp);
 	args = ft_split_space(input, FT_SPACE);
 	free(input);
-	args[0] = find_binary(args[0], envp);
-	if (!check_for_built_ins())
-	code = execve(args[0], args, NULL);
+	// args[0] = find_binary(args[0], envp);
+	check_for_built_in(args);
+	// if (!check_for_built_in(args))
+	// 	code = execve(args[0], args, NULL);
 	return args;
 	
 	// ft_freesplit(args);

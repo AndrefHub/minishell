@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 16:12:17 by andref            #+#    #+#             */
-/*   Updated: 2022/05/02 11:02:16 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/02 12:27:30 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,14 @@ int	ft_strchr_num(const char *s, int c)
 	if (c == s[i])
 		return (i);
 	return (i + 1);
+}
+
+int	ft_arraylen(void **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr && arr[i])
+		++i;
+	return (i);
 }
