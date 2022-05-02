@@ -51,6 +51,11 @@
 
 # endif
 */
+
+typedef struct s_msh 
+{
+    char **envp;
+} t_msh;
 # define FT_SPACE "\t "
 # define FT_DELIM "|&<>"
 

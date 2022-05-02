@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsherry <lsherry@student.21-school.ru      +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 11:55:54 by lsherry           #+#    #+#             */
-/*   Updated: 2021/11/06 11:55:55 by lsherry          ###   ########.fr       */
+/*   Updated: 2022/05/02 11:32:51 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,6 @@ size_t	ft_strlen(const char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
-}
-
-char	*ft_strchr(char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	if (c == 0)
-		return ((char *)s + i);
-	while (*s != (char)c && *s)
-		s++;
-	if (*s == (char)c)
-		return (s);
-	return (NULL);
 }
 
 char	*ft_strjoin_gnl(char *s1, char *s2)
@@ -60,24 +44,4 @@ char	*ft_strjoin_gnl(char *s1, char *s2)
 	buf[i] = '\0';
 	free(tmp);
 	return (buf);
-}
-
-char	*ft_strdup(const char *s)
-{
-	unsigned int	len;
-	char			*dup;
-	unsigned int	i;
-
-	i = 0;
-	len = ft_strlen(s);
-	dup = (char *) malloc(len + 1 * sizeof(char));
-	if (!dup)
-		return (NULL);
-	while (i < len && s[i] != '\0')
-	{
-		dup[i] = *(char *)(s + i);
-		i++;
-	}
-	dup[i] = '\0';
-	return (dup);
 }

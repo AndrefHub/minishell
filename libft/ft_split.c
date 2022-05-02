@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsherry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:53:59 by lsherry           #+#    #+#             */
-/*   Updated: 2021/10/13 20:54:20 by lsherry          ###   ########.fr       */
+/*   Updated: 2022/05/02 11:27:13 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ static char	*ft_crword(char const *str, char c)
 	}
 	word[i] = '\0';
 	return (word);
+}
+
+void	*ft_freesplit(char **words)
+{
+	size_t	i;
+
+	i = -1;
+	while (words[++i])
+		free(words[i]);
+	free(words);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)
