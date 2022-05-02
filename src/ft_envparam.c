@@ -36,7 +36,7 @@ char	*ft_find_envp(char *parameter, char **envp)
 	{
 		if (find_at_first(envp[i], parameter, parameter_len))
 		{
-			out = ft_strdup(&envp[i][ft_strlen(parameter) + 1]);
+			out = ft_strdup(envp[i] + ft_strlen(parameter) + 1);
 			return (out);
 		}
 		i++;

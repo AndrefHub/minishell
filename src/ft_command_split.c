@@ -10,7 +10,6 @@ int	is_in(char c, char *set)
 		if (c == set[counter])
 			return (1);
 			// return (counter);
-		++set;
 	}
 	return (0);
 	// return (-1);
