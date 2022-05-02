@@ -92,17 +92,14 @@ char	*substitute_envp(char *input, char **envp)
 char	**parser(char *input, char **envp)
 {
 	char	**args;
-	// char	*binary;
-	// int		code;
+	int		code;
 
 	input = substitute_envp(input, envp);
-	//printf("%s\n", input);
 	args = ft_split_space(input, FT_SPACE);
-    
-	//args[0] = find_binary(args[0], envp);
 	free(input);
 	return args;
-	// code = execve(args[0], args, NULL);
+	
+	code = execve(args[0], args, NULL);
 	// ft_freesplit(args);
 	// if (code < 0)
 	// 	ft_exit_message(binary, 2);

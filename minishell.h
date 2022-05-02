@@ -71,4 +71,7 @@ void 	pipex(char *input, char **envp);
 
 char	*ft_find_envp(char *parameter, char **envp);
 
+// echo.c
+int     echo(int argc, char **argv);
+
 #endif
