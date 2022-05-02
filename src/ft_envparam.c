@@ -15,7 +15,9 @@ int	find_at_first(const char *string, char *pattern)
 			return (0);
 		i++;
 	}
-	return (1);
+	if (ft_strchr("=", string[i]))
+		return (1);
+	return (0);
 }
 
 char	*ft_find_envp(char *parameter, char **envp)
@@ -36,7 +38,6 @@ char	*ft_find_envp(char *parameter, char **envp)
 	return (ft_strdup(""));
 }
 
-/*
 int main(int argc, char **argv, char **envp)
 {
 	(void ) argc;
@@ -45,4 +46,3 @@ int main(int argc, char **argv, char **envp)
 
 	return 0;
 }
-*/
