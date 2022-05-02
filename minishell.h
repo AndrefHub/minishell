@@ -56,6 +56,9 @@ typedef struct s_msh
 {
     char **envp;
 } t_msh;
+
+t_msh g_msh;
+
 # define FT_SPACE "\t "
 # define FT_DELIM "|&<>"
 
@@ -68,15 +71,20 @@ char	*ft_strcat_delim(char *first, char delim, char *second);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strndup(const char *s, size_t n);
 int 	ft_strchr_num(const char *s, int c);
+int 	ft_arraylen(void **arr);
 
 char	**get_path(char **envp);
 char	*find_binary(char *command, char **envp);
 char	**parser(char *input, char **envp);
 void 	pipex(char *input, char **envp);
 
+int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
 
+int     check_for_built_in(char **args);
+
 // echo.c
-int     echo(int argc, char **argv);
+int     echo(char **argv);
+int		env(char **envp);
 
 #endif
