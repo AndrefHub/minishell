@@ -77,8 +77,7 @@ char	*substitute_envp(char *input, char **envp)
 			while (input[i + 1] && !is_in(input[i + 1], FT_SPACE))
 				++i;
 		}
-		else if (((i > 0 && is_in(input[i - 1], FT_SPACE)) || i == 0) &&
-			input[i] == '~')
+		else if (input[i] == '~' && ((i != 0 && is_in(input[i - 1], FT_SPACE)) || i == 0))
 		{
 			subbed = ft_strjoin(subbed, ft_find_envp("HOME", envp));
 			// ++i;
@@ -97,6 +96,7 @@ char	**parser(char *input, char **envp)
 	// int		code;
 
 	input = substitute_envp(input, envp);
+	printf("%s\n", input);
 	//printf("%s\n", input);
 	args = ft_split_space(input, FT_SPACE);
     

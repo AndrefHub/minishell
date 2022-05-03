@@ -27,16 +27,12 @@ char	*ft_find_envp(char *parameter, char **envp)
 	int		parameter_len;
 
 	i = 0;
-	out = ft_strchr(parameter, ' '); // <<< change ' ' to FT_SPACE
-	if (out == NULL)
-		parameter_len = ft_strlen(parameter);
-	else
-		parameter_len = (int)(out - parameter);
+	parameter_len = ft_strchr_num(parameter, ' '); // <<< change ' ' to FT_SPACE
 	while (envp[i])
 	{
 		if (find_at_first(envp[i], parameter, parameter_len))
 		{
-			out = ft_strdup(&envp[i][ft_strlen(parameter) + 1]);
+			out = ft_strdup(envp[i] + ft_strlen(parameter) + 1);
 			return (out);
 		}
 		i++;
