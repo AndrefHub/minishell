@@ -12,9 +12,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33a4f708-41b6-461f-98a9-524373e30af8" name="Changes" comment="">
+    <list default="true" id="21ed8862-5af5-4bb5-81db-ba093b4f99e6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/minishell.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/new_parsing.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/new_parsing.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +68,7 @@
     <option name="majorVersion" value="2021" />
     <option name="minorVersion" value="3.2" />
   </component>
-  <component name="ProjectId" id="28busZj2RwyZrhu0LyrYygwG0hl" />
+  <component name="ProjectId" id="28egjqiUm6uEoWctlCJO7d2lbxH" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -83,22 +84,21 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="33a4f708-41b6-461f-98a9-524373e30af8" name="Changes" comment="" />
-      <created>1651497813962</created>
+      <changelist id="21ed8862-5af5-4bb5-81db-ba093b4f99e6" name="Changes" comment="" />
+      <created>1651582604257</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1651497813962</updated>
-      <workItem from="1651497815134" duration="210000" />
-      <workItem from="1651498159556" duration="2875000" />
+      <updated>1651582604257</updated>
+      <workItem from="1651582605367" duration="7042000" />
     </task>
     <servers />
   </component>

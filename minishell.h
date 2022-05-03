@@ -62,8 +62,7 @@ typedef struct s_msh
 
 typedef struct s_command
 {
-	char				**com_args;
-	int 				result;
+	t_list 				*content;
 	struct s_command	*next;
 }	t_command;
 
@@ -77,7 +76,8 @@ typedef struct s_input
 {
 	char		*input;
 	char		**lines;
-	t_command	*commands;
+	char		**quotes;
+	t_command	*brackets;
 }	t_input;
 
 t_msh g_msh;
@@ -86,7 +86,7 @@ t_msh g_msh;
 # define FT_DELIM "|&<>"
 
 char 	**parse_to_lines(char *string);
-void	parse_parentheses(char *string);
+t_command	*parse_parentheses(t_list *quotes, int k);
 
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
