@@ -113,5 +113,6 @@ int		executor(char **args);
 // echo.c
 int     echo(char **argv);
 int		env(char **envp);
+int		msh_exit(char **argv);
 
 #endif
