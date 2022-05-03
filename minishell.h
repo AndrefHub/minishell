@@ -108,6 +108,7 @@ int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
 
 int     check_for_built_in(char **args);
+int		executor(char **args);
 
 // echo.c
 int     echo(char **argv);

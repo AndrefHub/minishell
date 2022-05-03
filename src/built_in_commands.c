@@ -16,9 +16,12 @@ int     ft_start_builtin(int (*f)(char **), char **argv)
 
 int check_for_built_in(char **args)
 {
+	int is_built_in;
+
+	is_built_in = 0;
 	if (ft_strncmp(args[0], "echo", ft_strlen(args[0])) == 0)
-		ft_start_builtin(echo, args);
+		is_built_in += ft_start_builtin(echo, args);
 	if (ft_strncmp(args[0], "env", ft_strlen(args[0])) == 0)
-		ft_start_builtin(env, g_msh.envp);
-	return 0;
+		is_built_in += ft_start_builtin(env, g_msh.envp);
+	return is_built_in;
 }
