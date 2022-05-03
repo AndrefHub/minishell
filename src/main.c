@@ -21,7 +21,7 @@ int main(int argc, char **argv, char **envp)
 	{
 		input = readline("ඞabobusඞ> ");
 		add_history(input);
-		args = parser(input, envp);
+		args = parser_old(input, envp);
 		code = executor(args);
 		if (code)
 			printf("Error code %d\n", code);

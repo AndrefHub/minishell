@@ -3,7 +3,17 @@ CC      = gcc
 FLAGS	= -Wall -Wextra -Werror -ggdb
 LFLAGS	= -lreadline -L./libft -lft
 SRCDIR	= src/
-SRCFILE	= parsing.c funny_functions.c ft_command_split.c ft_split.c ft_envparam.c executing.c built_in_commands.c echo.c env.c
+SRCFILE	=	additional_functions/ft_command_split.c\
+			additional_functions/ft_envparam.c\
+			additional_functions/ft_split.c\
+			additional_functions/funny_functions.c\
+			built_in/built_in_commands.c\
+			built_in/echo.c\
+			built_in/env.c\
+			executing/executing.c\
+			main.c\
+			parsing/new_parsing.c\
+			parsing/parsing.c
 MAIN	= main.c
 BONUS	= main_bonus.c
 SRCS	= $(addprefix $(SRCDIR), $(SRCFILE))
@@ -20,6 +30,10 @@ all: $(NAME)
 
 $(OBJDIR)%.o: $(SRCDIR)%.c $(HEADER)
 	@mkdir -p $(OBJDIR)
+	@mkdir -p $(OBJDIR)additional_functions
+	@mkdir -p $(OBJDIR)built_in
+	@mkdir -p $(OBJDIR)executing
+	@mkdir -p $(OBJDIR)parsing
 	$(CC) $(FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(PIPHDR)
 
 $(NAME): $(OBJS) $(OBJMAIN) $(HEADER)

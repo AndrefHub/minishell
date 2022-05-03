@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	find_at_first(const char *string, char *pattern)
 {

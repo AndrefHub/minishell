@@ -29,6 +29,7 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <errno.h>
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -52,6 +53,8 @@
 # endif
 */
 
+# define PARSER_SINGLE_Q_FLAG 1
+# define PARSER_DOUBLE_Q_FLAG 2
 
 typedef struct s_msh 
 {
@@ -96,12 +99,12 @@ char	**ft_split_space(char *s, char *set);
 char	*ft_strcat_delim(char *first, char delim, char *second);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strndup(const char *s, size_t n);
-int 	ft_strchr_num(const char *s, int c);
+size_t	ft_strchr_num(const char *s, int c);
 int 	ft_arraylen(void **arr);
 
 char	**get_path(char **envp);
 char	*find_binary(char *command, char **envp);
-char	**parser(char *input, char **envp);
+char	**parser_old(char *input, char **envp);
 void 	pipex(char *input, char **envp);
 
 int 	find_at_first(const char *string, char *pattern);
