@@ -73,13 +73,13 @@ char	*substitute_envp(char *input, char **envp)
 	{
 		if (input[i] == '$' && input[i + 1])
 		{
-			subbed = ft_strjoin(subbed, ft_find_envp(input + i + 1, envp));
+			subbed = ft_strjoin_gnl(subbed, ft_find_envp(ft_strndup(input + i + 1, ft_strchr_num(input + i + 1, ' ')), envp));
 			while (input[i + 1] && !is_in(input[i + 1], FT_SPACE))
 				++i;
 		}
-		else if (input[i] == '~' && ((i != 0 && is_in(input[i - 1], FT_SPACE)) || i == 0))
+		else if (((i > 0 && is_in(input[i - 1], FT_SPACE)) || i == 0) && input[i] == '~')
 		{
-			subbed = ft_strjoin(subbed, ft_find_envp("HOME", envp));
+			subbed = ft_strjoin_gnl(subbed, ft_find_envp("HOME", envp));
 			// ++i;
 		}
 		else
@@ -92,18 +92,22 @@ char	*substitute_envp(char *input, char **envp)
 char	**parser(char *input, char **envp)
 {
 	char	**args;
-	// char	*binary;
 	// int		code;
 
 	input = substitute_envp(input, envp);
+<<<<<<< HEAD
 	printf("%s\n", input);
 	//printf("%s\n", input);
+=======
+>>>>>>> develop
 	args = ft_split_space(input, FT_SPACE);
-    
-	//args[0] = find_binary(args[0], envp);
 	free(input);
+	// args[0] = find_binary(args[0], envp);
+	check_for_built_in(args);
+	// if (!check_for_built_in(args))
+	// 	code = execve(args[0], args, NULL);
 	return args;
-	// code = execve(args[0], args, NULL);
+	
 	// ft_freesplit(args);
 	// if (code < 0)
 	// 	ft_exit_message(binary, 2);
