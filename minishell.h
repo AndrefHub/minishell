@@ -52,9 +52,14 @@
 # endif
 */
 
+(ls -la
+wc -l)
+
+
 typedef struct s_msh 
 {
-    char **envp;
+    char    **envp;
+    t_cmd   *
 } t_msh;
 
 # define FT_SPACE "\t "
@@ -79,7 +84,7 @@ void 	pipex(char *input, char **envp);
 int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
 
-int     check_for_built_in(char **args);
+int     check_for_built_in(char **args, char **envp);
 
 // echo.c
 int     echo(char **argv);
