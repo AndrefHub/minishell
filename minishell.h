@@ -118,4 +118,6 @@ int     echo(char **argv);
 int		env(char **envp);
 int		msh_exit(char **argv);
 
+t_list	*parse_quotes(char *input);
+
 #endif
