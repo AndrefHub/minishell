@@ -1,6 +1,6 @@
 #include "../minishell.h"
 
-int ft_env(char **envp)
+int env(char **envp)
 {
 	if (!envp)
 		return (1);

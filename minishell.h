@@ -52,18 +52,41 @@
 # endif
 */
 
-(ls -la
-wc -l)
-
 
 typedef struct s_msh 
 {
-    char    **envp;
-    t_cmd   *
-} t_msh;
+    char	**envp;
+	int		err_code;
+	char	*curr_dir;
+}	t_msh;
+
+typedef struct s_command
+{
+	char				**com_args;
+	int 				result;
+	struct s_command	*next;
+}	t_command;
+
+typedef	struct s_file
+{
+	int		mode;
+	char	*f_name;
+}	t_file;
+
+typedef struct s_input
+{
+	char		*input;
+	char		**lines;
+	t_command	*commands;
+}	t_input;
+
+t_msh g_msh;
 
 # define FT_SPACE "\t "
 # define FT_DELIM "|&<>"
+
+char 	**parse_to_lines(char *string);
+void	parse_parentheses(char *string);
 
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
@@ -84,9 +107,10 @@ void 	pipex(char *input, char **envp);
 int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
 
-int     check_for_built_in(char **args, char **envp);
+int     check_for_built_in(char **args);
 
 // echo.c
 int     echo(char **argv);
+int		env(char **envp);
 
 #endif

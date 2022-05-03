@@ -12,7 +12,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9bf1c6f4-2349-49fc-8e8c-122e915fcb5d" name="Changes" comment="" />
+    <list default="true" id="33a4f708-41b6-461f-98a9-524373e30af8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/minishell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.c" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,12 +59,15 @@
       </map>
     </option>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
     <option name="majorVersion" value="2021" />
     <option name="minorVersion" value="3.2" />
   </component>
-  <component name="ProjectId" id="28bTmiA3wKe4kGfg1AmBs27Edkz" />
+  <component name="ProjectId" id="28busZj2RwyZrhu0LyrYygwG0hl" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -77,21 +83,22 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9bf1c6f4-2349-49fc-8e8c-122e915fcb5d" name="Changes" comment="" />
-      <created>1651484445812</created>
+      <changelist id="33a4f708-41b6-461f-98a9-524373e30af8" name="Changes" comment="" />
+      <created>1651497813962</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1651484445812</updated>
-      <workItem from="1651484446934" duration="155000" />
+      <updated>1651497813962</updated>
+      <workItem from="1651497815134" duration="210000" />
+      <workItem from="1651498159556" duration="2875000" />
     </task>
     <servers />
   </component>

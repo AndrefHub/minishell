@@ -97,7 +97,7 @@ char	**parser(char *input, char **envp)
 	input = substitute_envp(input, envp);
 	args = ft_split_space(input, FT_SPACE);
 	free(input);
-	check_for_built_in(args, envp);
+	check_for_built_in(args);
 	// if (!check_for_built_in(args))
 	// 	code = execve(args[0], args, NULL);
 	return args;
