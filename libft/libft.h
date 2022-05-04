@@ -60,6 +60,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_calloc( size_t number, size_t size);
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n);
 char	*ft_strdup(const char *s);
+char	*ft_strndup(const char *s, size_t n);
+int		ft_find_substr(const char *string, const char *sub);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
