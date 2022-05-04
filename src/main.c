@@ -1,16 +1,5 @@
 #include "../minishell.h"
 
-// int main()
-// {
-// 	t_list	*cocks = parse_quotes("first\"\'second\'\"end"), *lst = cocks;
-// 	while (lst)
-// 	{
-// 		printf("%s\n", (char *)(lst->content));
-// 		lst = lst->next;
-// 	}
-// 	ft_lstclear(&cocks, free);
-// }
-
 void	very_important_function(int argc, char **argv, char **envp)
 {
 	(void)argc;
