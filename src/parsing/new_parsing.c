@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 //char    **parse_to_lines(char *input)
 //{
@@ -227,7 +227,6 @@ int main(int argc, char **argv, char **envp) {
 	t_list *elem;
 	t_list *tmp;
 
-//	printf("%s\n", &"a\" && echo \"bbb\""[ft_find_substr("a\" && echo \"bbb\"", "aa")]);
 	elem = ft_lstnew(ft_strdup("true || echo \"aaa\" && echo \"bbb\""));
 	tmp = elem;
 
@@ -243,26 +242,16 @@ int main(int argc, char **argv, char **envp) {
 		ft_printf("%s\n", tmp->content);
 		tmp = tmp->next;
 	}
-//	tmp = elem;
-//	ft_putendl_fd("++++++++++++++++++++++++++", 1);
-//	while (tmp) {
-//		ft_split_str_in_lst("echo", tmp);
-//		ft_printf("%s\n", tmp->content);
-//		tmp = tmp->next;
-//	}
-//	tmp = elem;
-//	while (tmp) {
-//		ft_split_str_in_lst(")", tmp, 0);
-//		ft_split_str_in_lst(")", tmp, 1);
-//		tmp = tmp->next;
-//	}
-//	tmp = elem;
-//	while (tmp) {
-//		ft_printf("%s\n", tmp->content);
-//		tmp = tmp->next;
-//	}
 }
 
+// void	parse_parentheses(char *string)
+// {
+// 	char	**command;
+
+// 	while (command) {
+// 		int init_subshell(command);
+// 	}
+// }
 
 // int	init_subshell(char *string)
 // {

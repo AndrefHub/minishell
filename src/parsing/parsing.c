@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	**get_path(char **envp)
 {
@@ -89,7 +89,7 @@ char	*substitute_envp(char *input, char **envp)
 	return (subbed);
 }
 
-char	**parser(char *input, char **envp)
+char	**parser_old(char *input, char **envp)
 {
 	char	**args;
 	// int		code;
