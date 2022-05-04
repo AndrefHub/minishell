@@ -53,8 +53,19 @@
 # endif
 */
 
+# define SINGLE_AND		0x001	// &
+# define PIPELINE		0x002	// |
+# define DOUBLE_AND		0x004	// &&
+# define DOUBLE_OR		0x008	// ||
+# define REDIR_IN		0x010	// <
+# define HEREDOC		0x020	// <<
+# define REDIR_OUT_TR	0x040	// >
+# define REDIR_OUT_AP	0x080	// >>
+# define SEMICOLON		0x100	// ;
+
 # define PARSER_SINGLE_Q_FLAG 1
 # define PARSER_DOUBLE_Q_FLAG 2
+
 
 typedef struct s_msh 
 {
@@ -65,8 +76,8 @@ typedef struct s_msh
 
 typedef struct s_command
 {
-	char				**com_args;
-	int 				result;
+	t_list 				*content;
+	int					link_type;
 	struct s_command	*next;
 }	t_command;
 
@@ -80,7 +91,8 @@ typedef struct s_input
 {
 	char		*input;
 	char		**lines;
-	t_command	*commands;
+	char		**quotes;
+	t_command	*brackets;
 }	t_input;
 
 t_msh g_msh;
@@ -88,8 +100,12 @@ t_msh g_msh;
 # define FT_SPACE "\t "
 # define FT_DELIM "|&<>"
 
-char 	**parse_to_lines(char *string);
-void	parse_parentheses(char *string);
+char 		**parse_to_lines(char *string);
+t_list		*parse_quotes(char *input);
+t_list		*parse_parentheses(t_list *quotes, int k);
+t_command   *parse_semicolon(t_list *parentheses);
+
+t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
 
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
@@ -119,6 +135,5 @@ int     echo(char **argv);
 int		env(char **envp);
 int		msh_exit(char **argv);
 
-t_list	*parse_quotes(char *input);
 
 #endif

@@ -38,11 +38,11 @@ t_list	*parse_quotes(char *input)
 	while (ft_strlen(tmp))
 		ft_lstadd_back(&quotes, ft_lstnew(get_quote(&tmp)));
 	ft_lstadd_back(&quotes, NULL);
-    next = quotes;
-    while (next)
-    {
-        printf("=====%s=======\n", next->content);
-        next = next->next;
-    }
+	next = quotes;
+	while (next)
+	{
+		// printf("=====%s=======\n", next->content);
+		next = next->next;
+	}
 	return (next);
 }
