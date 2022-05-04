@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 //char    **parse_to_lines(char *input)
 //{
@@ -78,52 +78,18 @@ t_command	*ft_command_last(t_command *command)
 
 t_command	*parse_parentheses(t_list *quotes, int k)
 {
-	t_command	*bracket;
-	t_list		*elem;
-	int			i;
 
-	elem = quotes;
-	bracket = ft_new_command(ft_lstnew(ft_strdup("(")));
-	while (quotes)
-	{
-		i = 0;
-		if (elem == quotes)
-			i = k;
-		while (((int *)quotes->content)[i] != 0)
-		{
-			if (ft_strchr("\"", ((int *) quotes->content)[0]) || ft_strchr("\'", ((int *) quotes->content)[0]))
-				break ;
-			if (ft_strchr("(", ((int *) quotes->content)[i]))
-			{
-				bracket->next = parse_parentheses(quotes, ++i);
-			}
-			i++;
-		}
-		ft_lstadd_back(&bracket->content, quotes);
-		quotes = quotes->next;
-	}
-	ft_lstadd_back(&bracket->content, ft_lstnew(ft_strdup(")")));
-	return (bracket);
 }
 
+// void	parse_parentheses(char *string)
+// {
+// 	char	**command;
 
-int main(int argc, char **argv, char **envp)
-{
-	t_command	*command;
-	t_list		*elem;
+// 	while (command) {
+// 		int init_subshell(command);
+// 	}
+// }
 
-	command = parse_parentheses(ft_lstnew(ft_strdup(argv[1])), 0);
-	while (command)
-	{
-		elem = command->content;
-		while (elem)
-		{
-			ft_putstr_fd(elem->content, 1);
-			elem = elem->next;
-		}
-		command = command->next;
-	}
-}
 // int	init_subshell(char *string)
 // {
 //

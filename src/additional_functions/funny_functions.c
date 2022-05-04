@@ -6,11 +6,11 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 16:12:17 by andref            #+#    #+#             */
-/*   Updated: 2022/05/03 14:06:11 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/03 17:39:51 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	*ft_strcat_delim(char *first, char delim, char *second)
 {
@@ -61,9 +61,9 @@ char	*ft_strndup(const char *s, size_t n)
 	return ((char *) ft_memcpy(dup, s, len));
 }
 
-int	ft_strchr_num(const char *s, int c)
+size_t	ft_strchr_num(const char *s, int c)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i] && s[i] != c)

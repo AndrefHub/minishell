@@ -1,4 +1,4 @@
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int executor(char **args)
 {
@@ -9,14 +9,13 @@ int executor(char **args)
 	{
 		pid = fork();
 		if (pid)
-		{
 			waitpid(pid, NULL, 0);
-		}
 		else
 		{
 			args[0] = find_binary(args[0], g_msh.envp);
 			code = execve(args[0], args, g_msh.envp);
-			return (code);
+			if (code)
+				return (errno);
 		}
 	}
 	return (0);
