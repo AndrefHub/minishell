@@ -89,7 +89,7 @@ t_msh g_msh;
 # define FT_DELIM "|&<>"
 
 char 	**parse_to_lines(char *string);
-t_list	*parse_parentheses(t_list *quotes, int k);
+t_list	*parse_parentheses(t_list *quotes);
 
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
