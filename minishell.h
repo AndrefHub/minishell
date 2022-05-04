@@ -108,7 +108,7 @@ t_msh g_msh;
 
 char 		**parse_to_lines(char *string);
 t_list		*parse_quotes(char *input);
-t_list		*parse_parentheses(t_list *quotes, int k);
+t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
 
 t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
