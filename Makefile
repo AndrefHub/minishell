@@ -13,7 +13,8 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			executing/executing.c\
 			parsing/new_parsing.c\
 			parsing/parse_quotes.c\
-			parsing/parsing.c
+			parsing/parsing.c\
+			parsing/parse_semicolons.c
 MAIN	= main.c
 BONUS	= main_bonus.c
 SRCS	= $(addprefix $(SRCDIR), $(SRCFILE))

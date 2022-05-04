@@ -106,12 +106,19 @@ t_msh g_msh;
 # define FT_SPACE "\t "
 # define FT_DELIM "|&<>"
 
+void	ft_print_com(t_command *elem);
+void	ft_print_lst(t_list *elem);
+
 char 		**parse_to_lines(char *string);
 t_list		*parse_quotes(char *input);
 t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
 
 t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
+
+t_command	*ft_new_command(t_list *content, int code);
+void	ft_comadd_back(t_command **lst, t_command *new);
+t_command	*ft_command_last(t_command *command);
 
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);

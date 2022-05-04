@@ -12,15 +12,15 @@ t_list	*ft_lstat(t_list *lst, int n)
 	return (lst);
 }
 
-t_list	*ft_lstnsplit(t_list *begin_, t_list *lst, int n)
+t_list	*ft_lstnsplit(t_list **begin, int n)
 {
 	// t_list	*begin;
-	// t_list	*cocks;
+	t_list	*cocks;
 
-	// begin = lst;
-	//*lst = ft_lstat(*lst, n);
-	ft_lstat(begin_, n - 1)->next = NULL;
-	return (lst);
+	cocks = *begin;
+	*begin = ft_lstat(*begin, n);
+	ft_lstat(cocks, n - 1)->next = NULL;
+	return (cocks);
 }
 
 void	split_by_pattern(t_list **lst, char *pattern)
@@ -38,6 +38,7 @@ void	split_by_pattern(t_list **lst, char *pattern)
 t_command	*parse_semicolon(t_list *parentheses)
 {
 	t_command	*commands;
+	t_list		*new_begin;
 	t_list		*tmp;
 	int			counter;
 	
@@ -45,15 +46,22 @@ t_command	*parse_semicolon(t_list *parentheses)
 	commands = NULL;
 	split_by_pattern(&parentheses, ";");
 	tmp = parentheses;
+	new_begin = tmp;
 	while (tmp)
 	{
 		++counter;
 		if (ft_find_substr((char *) tmp->content, ";") >= 0)
 		{
-			ft_comadd_back(commands, ft_new_command(ft_lstnsplit(parentheses, tmp, counter), SEMICOLON));
+			tmp = tmp->next;
+			ft_comadd_back(&commands, ft_new_command(ft_lstnsplit(&new_begin, counter), SEMICOLON));
+			counter = 0;
+//			new_begin = tmp->next;
 		}
-		tmp = tmp->next;
-	} 
+		else
+			tmp = tmp->next;
+	}
+	ft_comadd_back(&commands, ft_new_command(new_begin, 0));
+	return (commands);
 }
 
 // t_command	*parse_semicolon(t_list *parentheses)

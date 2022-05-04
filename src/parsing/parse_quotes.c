@@ -39,10 +39,10 @@ t_list	*parse_quotes(char *input)
 		ft_lstadd_back(&quotes, ft_lstnew(get_quote(&tmp)));
 	ft_lstadd_back(&quotes, NULL);
 	next = quotes;
-	while (next)
-	{
-		// printf("=====%s=======\n", next->content);
-		next = next->next;
-	}
+//	while (next)
+//	{
+//		// printf("=====%s=======\n", next->content);
+//		next = next->next;
+//	}
 	return (next);
 }
