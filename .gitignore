@@ -49,3 +49,14 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Executable
+minishell
+
+# IDE files
+.idea
+.vscode
+
+# Deprecated
+libft_228
+.DS_Store
