@@ -11,9 +11,10 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			built_in/echo.c\
 			built_in/env.c\
 			executing/executing.c\
-			main.c\
 			parsing/new_parsing.c\
-			parsing/parsing.c
+			parsing/parse_quotes.c\
+			parsing/parsing.c\
+			parsing/parse_semicolons.c
 MAIN	= main.c
 BONUS	= main_bonus.c
 SRCS	= $(addprefix $(SRCDIR), $(SRCFILE))

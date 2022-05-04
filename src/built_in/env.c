@@ -10,10 +10,3 @@ int env(char **envp)
 	}
 	return (0);
 }
-
-/*
-int main(int argc, char **argv, char **envp)
-{
-	ft_env(envp);
-	return (0);
-}*/

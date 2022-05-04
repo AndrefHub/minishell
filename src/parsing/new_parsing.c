@@ -1,23 +1,48 @@
 #include "../../minishell.h"
 
-//char    **parse_to_lines(char *input)
-//{
-//    return (ft_split(input, '\n')); // for now. Need to add '\' functionality
-//}
-//
-//void	parser(char *input)
-//{
-//	char	**commands;
-//	int		i;
-//
-//	i = 0;
-//	commands = parse_to_lines(input);
-//	while (commands[i])
-//	{
-//		parse_quotes();
-//		i++;
-//	}
-//}
+char    **parse_to_lines(char *input)
+{
+    return (ft_split(input, '\n')); // for now. Need to add '\' functionality
+}
+
+void	ft_print_lst(t_list *elem)
+{
+	while (elem)
+	{
+		ft_putstr_fd(elem->content, 1);
+		ft_putstr_fd(" <<<<<\n", 1);
+		elem = elem->next;
+	}
+}
+
+void	ft_print_com(t_command *elem)
+{
+	while (elem)
+	{
+		ft_putendl_fd("command:", 1);
+		ft_print_lst(elem->content);
+		elem = elem->next;
+	}
+}
+
+void	parser(char *input)
+{
+	t_command	*cmd;
+	t_list	*lst;
+	char	**commands;
+	int		i;
+
+	i = 0;
+	commands = parse_to_lines(input);
+	while (commands[i])
+	{
+		lst = parse_quotes(commands[i]);
+		lst = parse_parentheses(lst);
+		cmd = parse_semicolon(lst);
+		ft_print_com(cmd);
+		i++;
+	}
+}
 //
 //char	**parse_quotes(char *string)
 //{
@@ -51,7 +76,7 @@
  * [< echo >> text.txt>]
  * */
 
-t_command	*ft_new_command(t_list *content)
+t_command	*ft_new_command(t_list *content, int code)
 {
 	t_command	*command;
 
@@ -59,6 +84,7 @@ t_command	*ft_new_command(t_list *content)
 	if (!command)
 		return (NULL);
 	command->content = content;
+	command->link_type = code;
 	command->next = NULL;
 	return (command);
 }
@@ -155,15 +181,6 @@ t_list	*parse_parentheses(t_list *quotes)
 	}
 	return (quotes);
 }
-
-// void	parse_parentheses(char *string)
-// {
-// 	char	**command;
-
-// 	while (command) {
-// 		int init_subshell(command);
-// 	}
-// }
 
 // int	init_subshell(char *string)
 // {
