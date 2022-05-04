@@ -32,12 +32,23 @@
  * true || echo "aaa" && echo "bbb"
  * [<true || echo >, <"aaa">, < && echo >, <"bbb">]
  *
- * true || (echo aaa && echo bbb)
- * [<true || (echo >, <"aaa">, < && echo >, <"bbb">, <)>]
+ * (true || (echo aaa && echo bbb) | wc -l ); (echo >> text.txt)
+ * [<true || (echo >, <"aaa">, < && echo >, <"bbb">, <) | wc -l ; echo >> text.txt>]
  *
  *
- * [<true || >]
+ * [<(>, <true || >, <)>]
  * [<(>, <echo >, <"aaa">, < && echo >, <"bbb">, <)>]
+ * [< | wc -l ; echo >> text.txt>]
+ *
+ * [<(>, <true || >, <)>]
+ * [<(>, <echo >, <"aaa">, < && echo >, <"bbb">, <)>]
+ * [< | wc -l >, <;>]
+ * [< echo >> text.txt>]
+ *
+ * [<(>, <true || >]
+ * [<(>, <echo >, <"aaa">, < && echo >, <"bbb">, <)>]
+ * [< | wc -l >, <;>]
+ * [< echo >> text.txt>]
  * */
 
 t_command	*ft_new_command(t_list *content)
@@ -76,54 +87,183 @@ t_command	*ft_command_last(t_command *command)
 	return (command);
 }
 
-t_command	*parse_parentheses(t_list *quotes, int k)
+int	ft_find_substr(const char *string, const char *sub)
 {
-	t_command	*bracket;
-	t_list		*elem;
-	int			i;
+	int		i;
+	int		j;
+	int		flag;
 
-	elem = quotes;
-	bracket = ft_new_command(ft_lstnew(ft_strdup("(")));
-	while (quotes)
+	i = 0;
+	flag = 0;
+	if (!string || !sub)
+		return (-1);
+	while (string[i + ft_strlen(sub) - 1])
 	{
-		i = 0;
-		if (elem == quotes)
-			i = k;
-		while (((int *)quotes->content)[i] != 0)
+		j = 0;
+		while (sub[j])
 		{
-			if (ft_strchr("\"", ((int *) quotes->content)[0]) || ft_strchr("\'", ((int *) quotes->content)[0]))
+			if (string[i + j] == sub[j])
+				j++;
+			else
 				break ;
-			if (ft_strchr("(", ((int *) quotes->content)[i]))
-			{
-				bracket->next = parse_parentheses(quotes, ++i);
-			}
-			i++;
+			if (sub[j] == 0)
+				flag = 1;
 		}
-		ft_lstadd_back(&bracket->content, quotes);
-		quotes = quotes->next;
+		if (flag == 1)
+			break;
+		i++;
 	}
-	ft_lstadd_back(&bracket->content, ft_lstnew(ft_strdup(")")));
-	return (bracket);
+	if (!flag)
+		return (-1);
+	return (i);
 }
 
-
-int main(int argc, char **argv, char **envp)
+/*t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)
 {
-	t_command	*command;
-	t_list		*elem;
+	t_list	*next;
+	int		len;
+	char	*str;
+	int		i;
 
-	command = parse_parentheses(ft_lstnew(ft_strdup(argv[1])), 0);
-	while (command)
+	if (!elem)
+		return (NULL);
+	str = elem->content;
+	next = elem->next;
+	elem->next = NULL;
+	i = 0;
+	len = ft_find_substr(str, pattern);
+	if (len != -1)
+		i = (int) ft_strlen(str);
+	else if (len == 0)
+		elem->content = ft_strdup(str);
+	else
 	{
-		elem = command->content;
-		while (elem)
-		{
-			ft_putstr_fd(elem->content, 1);
-			elem = elem->next;
-		}
-		command = command->next;
+		elem->content = ft_strdup(pattern);
+		ft_lstadd_back(&elem, ft_lstnew(ft_strdup(pattern)));
 	}
+	while (str[i])
+	{
+		len = ft_find_substr(&str[i], pattern);
+		if (len != -1)
+		{
+			if (len != 0 && i == 1)
+				ft_lstadd_back(&elem, ft_lstnew(ft_strndup(&str[i], len)));
+			ft_lstadd_back(&elem, ft_lstnew(ft_strdup(pattern)));
+			i += len;
+		}
+		else
+		{
+			ft_lstadd_back(&elem, ft_lstnew(ft_strdup(&str[i])));
+			break ;
+		}
+	}
+	free(str);
+	ft_lstlast(elem)->next = next;
+	return (elem);
+}*/
+
+t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)
+{
+	t_list	*next;
+	int		len;
+	char	*str;
+	int		i;
+	int mode;
+
+	mode = (int) ft_strlen(pattern);
+	if (!elem)
+		return (NULL);
+	str = elem->content;
+	next = elem->next;
+	elem->next = NULL;
+	i = 0;
+	len = ft_find_substr(str, pattern);
+	if (len == -1 || (len == 0 && ft_strlen(str) == ft_strlen(pattern)))
+		i = (int ) ft_strlen(str);
+	else if (len == 0)
+		elem->content = ft_strdup(pattern);
+	else
+	{
+		elem->content = ft_strndup(str, len);
+		ft_lstadd_back(&elem, ft_lstnew(ft_strdup(pattern)));
+		i += len + mode;
+	}
+	while (str[i])
+	{
+		len = ft_find_substr(&str[i + ft_strlen(pattern) - mode], pattern);
+		if (len != -1)
+		{
+			if (len != 0 && i != 1)
+			{
+				ft_lstadd_back(&elem, ft_lstnew(ft_strndup(&str[i], len)));
+				ft_lstadd_back(&elem, ft_lstnew(ft_strdup(pattern)));
+			}
+			i += len + mode;
+		}
+		else
+		{
+			ft_lstadd_back(&elem, ft_lstnew(ft_strdup(&str[i])));
+			break ;
+		}
+	}
+	if (!(len == -1 || (len == 0 && ft_strlen(str) == ft_strlen(pattern))))
+		free(str);
+	ft_lstlast(elem)->next = next;
+	return (elem);
 }
+
+//t_list	*parse_parentheses(t_list *quotes, int k)
+//{
+//	t_list	*bracket;
+//	int		i;
+//
+//	while (quotes)
+//	{
+//		if ()
+//	}
+//}
+
+int main(int argc, char **argv, char **envp) {
+	t_list *elem;
+	t_list *tmp;
+
+//	printf("%s\n", &"a\" && echo \"bbb\""[ft_find_substr("a\" && echo \"bbb\"", "aa")]);
+	elem = ft_lstnew(ft_strdup("true || echo \"aaa\" && echo \"bbb\""));
+	tmp = elem;
+
+	while (tmp) {
+		ft_split_str_in_lst("echo", tmp);
+		ft_printf("%s\n", tmp->content);
+		tmp = tmp->next;
+	}
+	ft_putendl_fd("++++++++++++++++++++++++++", 1);
+	tmp = elem;
+	while (tmp) {
+		ft_split_str_in_lst("\"", tmp);
+		ft_printf("%s\n", tmp->content);
+		tmp = tmp->next;
+	}
+//	tmp = elem;
+//	ft_putendl_fd("++++++++++++++++++++++++++", 1);
+//	while (tmp) {
+//		ft_split_str_in_lst("echo", tmp);
+//		ft_printf("%s\n", tmp->content);
+//		tmp = tmp->next;
+//	}
+//	tmp = elem;
+//	while (tmp) {
+//		ft_split_str_in_lst(")", tmp, 0);
+//		ft_split_str_in_lst(")", tmp, 1);
+//		tmp = tmp->next;
+//	}
+//	tmp = elem;
+//	while (tmp) {
+//		ft_printf("%s\n", tmp->content);
+//		tmp = tmp->next;
+//	}
+}
+
+
 // int	init_subshell(char *string)
 // {
 //
