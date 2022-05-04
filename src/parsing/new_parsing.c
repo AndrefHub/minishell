@@ -2,22 +2,23 @@
 
 char    **parse_to_lines(char *input)
 {
+	// return input;
 	return (ft_split(input, '\n')); // for now. Need to add '\' functionality
 }
 
-// void	parser(char *input)
-// {
-// 	char	**commands;
-// 	int		i;
+void	parser(char *input)
+{
+	// char	**commands;
+	// int		i;
 
-// 	i = 0;
-// 	commands = parse_to_lines(input);
-// 	while (commands[i])
-// 	{
-// 		parse_parentheses(commands[i]);
-// 		i++;
-// 	}
-// }
+	// i = 0;
+	//commands = parse_to_lines(input);
+	// while (commands[i])
+	// {
+		parse_quotes(input);
+	// 	i++;
+	// }
+}
 
 
 // void	parse_parentheses(char *string)

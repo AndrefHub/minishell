@@ -105,6 +105,7 @@ int 	ft_arraylen(void **arr);
 char	**get_path(char **envp);
 char	*find_binary(char *command, char **envp);
 char	**parser_old(char *input, char **envp);
+void	parser(char *input);
 void 	pipex(char *input, char **envp);
 
 int 	find_at_first(const char *string, char *pattern);

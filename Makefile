@@ -12,6 +12,7 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			built_in/env.c\
 			executing/executing.c\
 			parsing/new_parsing.c\
+			parsing/parse_quotes.c\
 			parsing/parsing.c
 MAIN	= main.c
 BONUS	= main_bonus.c

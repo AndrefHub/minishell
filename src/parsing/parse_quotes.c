@@ -33,12 +33,16 @@ t_list	*parse_quotes(char *input)
 	t_list	*next;
 	char	*tmp;
 
-	quotes = ft_lstnew(NULL);
+	quotes = NULL;
 	tmp = input;
 	while (ft_strlen(tmp))
 		ft_lstadd_back(&quotes, ft_lstnew(get_quote(&tmp)));
 	ft_lstadd_back(&quotes, NULL);
-	next = quotes->next;
-	ft_lstdelone(quotes, free);
+    next = quotes;
+    while (next)
+    {
+        printf("=====%s=======\n", next->content);
+        next = next->next;
+    }
 	return (next);
 }
