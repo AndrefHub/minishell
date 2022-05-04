@@ -53,25 +53,31 @@
 # endif
 */
 
-# define SINGLE_AND		0x001	// &
-# define PIPELINE		0x002	// |
-# define DOUBLE_AND		0x004	// &&
-# define DOUBLE_OR		0x008	// ||
-# define REDIR_IN		0x010	// <
-# define HEREDOC		0x020	// <<
-# define REDIR_OUT_TR	0x040	// >
-# define REDIR_OUT_AP	0x080	// >>
-# define SEMICOLON		0x100	// ;
+# define SEMICOLON		0x001	// ;
+# define DOUBLE_AND		0x002	// &&
+# define DOUBLE_OR		0x004	// ||
+# define HEREDOC		0x008	// <<
+# define REDIR_OUT_AP	0x010	// >>
+# define SINGLE_AND		0x020	// &
+# define PIPELINE		0x040	// |
+# define REDIR_IN		0x080	// <
+# define REDIR_OUT_TR	0x100	// >
 
 # define PARSER_SINGLE_Q_FLAG 1
 # define PARSER_DOUBLE_Q_FLAG 2
 
+typedef struct s_spop
+{
+	char	*sp_operator;
+	int		code;
+}	t_spop;
 
 typedef struct s_msh 
 {
     char	**envp;
 	int		err_code;
 	char	*curr_dir;
+	char	**sp_ops;
 }	t_msh;
 
 typedef struct s_command

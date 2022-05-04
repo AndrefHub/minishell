@@ -7,15 +7,39 @@ void	very_important_function(int argc, char **argv, char **envp)
 	(void)envp;
 }
 
+char	*make_sp_ops(void )
+{
+	char	**lst;
+	int		counter;
+
+	lst = malloc(sizeof(*lst) * 10);
+	lst[0] = ft_strdup(";");
+	lst[1] = ft_strdup("&&");
+	lst[2] = ft_strdup("||");
+	lst[3] = ft_strdup("<<");
+	lst[4] = ft_strdup(">>");
+	lst[5] = ft_strdup("&");
+	lst[6] = ft_strdup("|");
+	lst[7] = ft_strdup("<");
+	lst[8] = ft_strdup(">");
+	lst[9] = NULL;
+	return (lst);
+}
+
+void	set_g_msh(char **envp)
+{
+	g_msh.envp = envp;
+	g_msh.sp_ops = make_sp_ops();
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	char	*input;
 	// char	**args;
 	// int		code;
 
-	g_msh.envp = envp;
 	very_important_function(argc, argv, envp);
-	
+	set_g_msh(envp);
 	while (1)
 	{
 		input = readline("ඞabobusඞ> ");
