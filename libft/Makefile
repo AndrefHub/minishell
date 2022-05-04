@@ -25,6 +25,8 @@ SRCS		:= ft_isalnum.c\
 				ft_strdup.c\
 				ft_strlcat.c\
 				ft_strlcpy.c\
+				ft_strndup.c\
+				ft_find_substr.c\
 			ft_substr.c\
 			ft_strjoin.c\
 			ft_strtrim.c\

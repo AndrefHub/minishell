@@ -85,7 +85,7 @@ char	*substitute_envp(char *input, char **envp)
 		else
 			subbed = ft_strcat_delim(subbed, input[i], ""); // <<< not really good, might change if feeling good 
 	}
-	// free(input); << not needed since we change free it in main
+	// free(input); << not needed since we change free it in 
 	return (subbed);
 }
 

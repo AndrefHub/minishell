@@ -50,5 +50,14 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-.idea
 *a.out
+# Executable
+minishell
+
+# IDE files
+.idea
+.vscode
+
+# Deprecated
+libft_228
+.DS_Store
