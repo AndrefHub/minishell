@@ -5,19 +5,23 @@
 //    return (ft_split(input, '\n')); // for now. Need to add '\' functionality
 //}
 //
-//void	parser(char *input)
-//{
-//	char	**commands;
-//	int		i;
-//
-//	i = 0;
-//	commands = parse_to_lines(input);
-//	while (commands[i])
-//	{
-//		parse_quotes();
-//		i++;
-//	}
-//}
+void	parser(char *input)
+{
+	t_command	*cmd;
+	t_list	*lst;
+	char	**commands;
+	int		i;
+
+	i = 0;
+	commands = parse_to_lines(input);
+	while (commands[i])
+	{
+		lst = parse_quotes(commands[i]);
+		lst = parse_parentheses(lst);
+		cmd = parse_semicolon(lst);
+		i++;
+	}
+}
 //
 //char	**parse_quotes(char *string)
 //{
@@ -212,37 +216,26 @@ t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)
 	return (elem);
 }
 
-//t_list	*parse_parentheses(t_list *quotes, int k)
-//{
-//	t_list	*bracket;
-//	int		i;
-//
-//	while (quotes)
-//	{
-//		if ()
-//	}
-//}
+// int main(int argc, char **argv, char **envp) {
+// 	t_list *elem;
+// 	t_list *tmp;
 
-int main(int argc, char **argv, char **envp) {
-	t_list *elem;
-	t_list *tmp;
+// 	elem = ft_lstnew(ft_strdup("true || echo \"aaa\" && echo \"bbb\""));
+// 	tmp = elem;
 
-	elem = ft_lstnew(ft_strdup("true || echo \"aaa\" && echo \"bbb\""));
-	tmp = elem;
-
-	while (tmp) {
-		ft_split_str_in_lst("echo", tmp);
-		ft_printf("%s\n", tmp->content);
-		tmp = tmp->next;
-	}
-	ft_putendl_fd("++++++++++++++++++++++++++", 1);
-	tmp = elem;
-	while (tmp) {
-		ft_split_str_in_lst("\"", tmp);
-		ft_printf("%s\n", tmp->content);
-		tmp = tmp->next;
-	}
-}
+// 	while (tmp) {
+// 		ft_split_str_in_lst("echo", tmp);
+// 		ft_printf("%s\n", tmp->content);
+// 		tmp = tmp->next;
+// 	}
+// 	ft_putendl_fd("++++++++++++++++++++++++++", 1);
+// 	tmp = elem;
+// 	while (tmp) {
+// 		ft_split_str_in_lst("\"", tmp);
+// 		ft_printf("%s\n", tmp->content);
+// 		tmp = tmp->next;
+// 	}
+// }
 
 // void	parse_parentheses(char *string)
 // {
