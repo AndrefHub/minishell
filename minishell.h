@@ -115,6 +115,7 @@ t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
 
 t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
+void		split_by_pattern(t_list **lst, char *pattern);
 
 t_command	*ft_new_command(t_list *content, int code);
 void		ft_comadd_back(t_command **lst, t_command *new);
