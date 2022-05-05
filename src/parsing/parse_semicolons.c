@@ -15,12 +15,12 @@ t_list	*ft_lstat(t_list *lst, int n)
 t_list	*ft_lstnsplit(t_list **begin, int n)
 {
 	// t_list	*begin;
-	t_list	*cocks;
+	t_list	*old_begin;
 
-	cocks = *begin;
+	old_begin = *begin;
 	*begin = ft_lstat(*begin, n);
-	ft_lstat(cocks, n - 1)->next = NULL;
-	return (cocks);
+	ft_lstat(old_begin, n - 1)->next = NULL;
+	return (old_begin);
 }
 
 void	split_by_pattern(t_list **lst, char *pattern)
@@ -65,10 +65,19 @@ t_command	*parse_pattern(t_list *lst, char *pattern, int link_type)
 
 t_command	*parse_semicolon(t_list *parentheses)
 {
-	return (parse_pattern(parentheses, g_msh.sp_ops[0], SEMICOLON));
+	return (parse_pattern(parentheses, g_msh.sp_ops[SEMICOLON], SEMICOLON));
 }
 
+t_command	*parse_special_characters(t_command *commands)
+{
+	int counter;
 
+	counter = 0;
+	while (++counter < 9)
+	{
+		// Для каждого t_list в t_command 
+	}
+}
 
 // t_command	*parse_semicolon(t_list *parentheses)
 // {

@@ -20,9 +20,8 @@ void	ft_print_com(t_command *elem)
 	int counter;
 
 	counter = 0;
-	while (elem)
+	while (elem && ++counter)
 	{
-		++counter;
 		ft_putstr_fd("command ", 1);
 		ft_putnbr_fd(counter, 1);
 		ft_putendl_fd(":", 1);

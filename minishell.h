@@ -53,15 +53,25 @@
 # endif
 */
 
-# define SEMICOLON		0x001	// ;
-# define DOUBLE_AND		0x002	// &&
-# define DOUBLE_OR		0x004	// ||
-# define HEREDOC		0x008	// <<
-# define REDIR_OUT_AP	0x010	// >>
-# define SINGLE_AND		0x020	// &
-# define PIPELINE		0x040	// |
-# define REDIR_IN		0x080	// <
-# define REDIR_OUT_TR	0x100	// >
+# define SEMICOLON		0x0	// ;
+# define DOUBLE_AND		0x1	// &&
+# define DOUBLE_OR		0x2	// ||
+# define HEREDOC		0x3	// <<
+# define REDIR_OUT_AP	0x4	// >>
+# define SINGLE_AND		0x5	// &
+# define PIPELINE		0x6	// |
+# define REDIR_IN		0x7	// <
+# define REDIR_OUT_TR	0x8	// >
+
+// # define SEMICOLON		0x001	// ;
+// # define DOUBLE_AND		0x002	// &&
+// # define DOUBLE_OR		0x004	// ||
+// # define HEREDOC		0x008	// <<
+// # define REDIR_OUT_AP	0x010	// >>
+// # define SINGLE_AND		0x020	// &
+// # define PIPELINE		0x040	// |
+// # define REDIR_IN		0x080	// <
+// # define REDIR_OUT_TR	0x100	// >
 
 # define PARSER_SINGLE_Q_FLAG 1
 # define PARSER_DOUBLE_Q_FLAG 2
