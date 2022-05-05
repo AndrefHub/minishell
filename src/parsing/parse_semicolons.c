@@ -35,7 +35,7 @@ void	split_by_pattern(t_list **lst, char *pattern)
 	}
 }
 
-t_command	*parse_semicolon(t_list *parentheses)
+t_command	*parse_pattern(t_list *lst, char *pattern, int link_type)
 {
 	t_command	*commands;
 	t_list		*new_begin;
@@ -44,18 +44,17 @@ t_command	*parse_semicolon(t_list *parentheses)
 	
 	counter = 0;
 	commands = NULL;
-	split_by_pattern(&parentheses, ";");
-	tmp = parentheses;
+	split_by_pattern(&lst, pattern);
+	tmp = lst;
 	new_begin = tmp;
 	while (tmp)
 	{
 		++counter;
-		if (ft_find_substr((char *) tmp->content, ";") >= 0)
+		if (ft_find_substr((char *) tmp->content, pattern) >= 0)
 		{
 			tmp = tmp->next;
-			ft_comadd_back(&commands, ft_new_command(ft_lstnsplit(&new_begin, counter), SEMICOLON));
+			ft_comadd_back(&commands, ft_new_command(ft_lstnsplit(&new_begin, counter), link_type));
 			counter = 0;
-//			new_begin = tmp->next;
 		}
 		else
 			tmp = tmp->next;
@@ -63,6 +62,13 @@ t_command	*parse_semicolon(t_list *parentheses)
 	ft_comadd_back(&commands, ft_new_command(new_begin, 0));
 	return (commands);
 }
+
+t_command	*parse_semicolon(t_list *parentheses)
+{
+	return (parse_pattern(parentheses, g_msh.sp_ops[0], SEMICOLON));
+}
+
+
 
 // t_command	*parse_semicolon(t_list *parentheses)
 // {
