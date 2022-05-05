@@ -30,28 +30,27 @@ t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)
 {
 	t_list	*next;
 	int		len;
-	char	*str;
 	int		i;
+	char	*str;
 
 	if (!elem)
 		return (NULL);
 	str = elem->content;
 	len = ft_find_substr(str, pattern);
-	if (str[0] == '"' || str[0] == '\'' || str[ft_strlen(str)] == '"'
+	if (!str || str[0] == '"' || str[0] == '\'' || str[ft_strlen(str)] == '"'
 		|| str[ft_strlen(str)] == '\'' || len == -1
 		|| (len == 0 && ft_strlen(str) == ft_strlen(pattern)))
 		return (elem);
 	next = elem->next;
 	elem->next = NULL;
-	i = 0;
 	if (len == 0)
 		elem->content = ft_strdup(pattern);
-	if (len != 0)
+	else
 	{
 		elem->content = ft_strndup(str, len);
 		ft_lstadd_back(&elem, ft_lstnew(ft_strdup(pattern)));
 	}
-	i += len + ft_strlen(pattern);
+	i = len + ft_strlen(pattern);
 	while (str[i])
 	{
 		len = ft_find_substr(&str[i], pattern);
@@ -59,7 +58,7 @@ t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)
 		{
 			if (len == 0)
 				ft_lstadd_back(&elem, ft_lstnew(ft_strdup(pattern)));
-			if (len != 0)
+			else
 			{
 				ft_lstadd_back(&elem, ft_lstnew(ft_strndup(&str[i], len)));
 				ft_lstadd_back(&elem, ft_lstnew(ft_strdup(pattern)));
@@ -72,8 +71,7 @@ t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)
 			break ;
 		}
 	}
-	if (!(len == -1 || (len == 0 && ft_strlen(str) == ft_strlen(pattern))))
-		free(str);
+	free(str);
 	ft_lstlast(elem)->next = next;
 	return (elem);
 }
