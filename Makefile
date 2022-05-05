@@ -7,6 +7,8 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			additional_functions/ft_envparam.c\
 			additional_functions/ft_split.c\
 			additional_functions/funny_functions.c\
+			additional_functions/ft_print_data.c\
+			additional_functions/ft_command_list.c\
 			built_in/built_in_commands.c\
 			built_in/echo.c\
 			built_in/env.c\
@@ -15,6 +17,7 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			parsing/parse_quotes.c\
 			parsing/parsing.c\
 			parsing/parse_semicolons.c
+
 MAIN	= main.c
 BONUS	= main_bonus.c
 SRCS	= $(addprefix $(SRCDIR), $(SRCFILE))

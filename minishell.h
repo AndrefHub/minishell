@@ -120,6 +120,9 @@ t_command	*ft_new_command(t_list *content, int code);
 void		ft_comadd_back(t_command **lst, t_command *new);
 t_command	*ft_command_last(t_command *command);
 
+t_list	*ft_lstnsplit(t_list **begin, int n);
+t_list	*ft_lstat(t_list *lst, int n);
+
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
 char	**ft_command_split(char **args);

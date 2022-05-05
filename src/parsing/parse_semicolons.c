@@ -1,28 +1,5 @@
 #include "../../minishell.h"
 
-t_list	*ft_lstat(t_list *lst, int n)
-{
-	int	counter;
-
-	counter = -1;
-	while (++counter < n && lst)
-	{
-		lst = lst->next;
-	}
-	return (lst);
-}
-
-t_list	*ft_lstnsplit(t_list **begin, int n)
-{
-	// t_list	*begin;
-	t_list	*cocks;
-
-	cocks = *begin;
-	*begin = ft_lstat(*begin, n);
-	ft_lstat(cocks, n - 1)->next = NULL;
-	return (cocks);
-}
-
 void	split_by_pattern(t_list **lst, char *pattern)
 {
 	t_list	*tmp;
