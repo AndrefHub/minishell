@@ -21,7 +21,9 @@ void	parser(char *input)
 		lst = parse_parentheses(lst);
 //		ft_print_lst(lst);
 		cmd = parse_semicolon(lst);
+		cmd = parse_special_characters(cmd);
 		ft_print_com(cmd);
+
 		i++;
 	}
 }

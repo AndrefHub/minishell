@@ -27,7 +27,7 @@ t_command	*parse_pattern(t_list *lst, char *pattern, int link_type)
 	while (tmp)
 	{
 		++counter;
-		if (ft_find_substr((char *) tmp->content, pattern) >= 0)
+		if (ft_strncmp(((char *) tmp->content), pattern, ft_strlen(pattern)) == 0)
 		{
 			tmp = tmp->next;
 			ft_comadd_back(&commands, ft_new_command(ft_lstnsplit(&new_begin, counter), link_type));
@@ -36,7 +36,8 @@ t_command	*parse_pattern(t_list *lst, char *pattern, int link_type)
 		else
 			tmp = tmp->next;
 	}
-	ft_comadd_back(&commands, ft_new_command(new_begin, 0));
+	if (counter)
+		ft_comadd_back(&commands, ft_new_command(new_begin, 0));
 	return (commands);
 }
 
@@ -48,12 +49,23 @@ t_command	*parse_semicolon(t_list *parentheses)
 t_command	*parse_special_characters(t_command *commands)
 {
 	int counter;
+	t_command	*lol;
+	t_command	*tmp;
 
 	counter = 0;
-	while (++counter < 9)
+	while (++counter < 5)
 	{
-		// Для каждого t_list в t_command 
+		lol = NULL;
+		tmp = commands;
+		while (commands)
+		{
+			ft_comadd_back(&lol, parse_pattern(commands->content, g_msh.sp_ops[counter], counter));
+			commands = commands->next;
+		}
+		ft_comclear(&tmp);
+		commands = lol;
 	}
+	return (commands);
 }
 
 // t_command	*parse_semicolon(t_list *parentheses)

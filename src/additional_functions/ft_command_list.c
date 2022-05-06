@@ -59,3 +59,20 @@ t_list	*ft_lstnsplit(t_list **begin, int n)
 	ft_lstat(cocks, n - 1)->next = NULL;
 	return (cocks);
 }
+
+void	ft_comclear(t_command **com)
+{
+	t_command	*elem;
+	t_command	*copy;
+
+	copy = *com;
+	while (copy)
+	{
+		elem = copy->next;
+		if (copy->content)
+			ft_lstclear(&(copy->content), free);
+		free(copy);
+		copy = elem;
+	}
+	*com = ((void *)0);
+}

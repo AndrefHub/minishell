@@ -123,6 +123,7 @@ char 		**parse_to_lines(char *string);
 t_list		*parse_quotes(char *input);
 t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
+t_command	*parse_special_characters(t_command *commands);
 
 t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
 void		split_by_pattern(t_list **lst, char *pattern);
@@ -130,10 +131,12 @@ void		split_by_pattern(t_list **lst, char *pattern);
 t_command	*ft_new_command(t_list *content, int code);
 void		ft_comadd_back(t_command **lst, t_command *new);
 t_command	*ft_command_last(t_command *command);
+void		ft_comclear(t_command **com);
 
 t_list	*ft_lstnsplit(t_list **begin, int n);
 t_list	*ft_lstat(t_list *lst, int n);
 
+int		ft_isin(char c, char *charset);
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
 char	**ft_command_split(char **args);
