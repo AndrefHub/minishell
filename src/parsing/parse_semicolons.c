@@ -60,9 +60,11 @@ t_command	*parse_special_characters(t_command *commands)
 		while (commands)
 		{
 			ft_comadd_back(&lol, parse_pattern(commands->content, g_msh.sp_ops[counter], counter));
+			if (!commands->next)
+				commands->next = NULL;
 			commands = commands->next;
 		}
-		ft_comclear(&tmp);
+//		ft_comclear(&tmp);
 		commands = lol;
 	}
 	return (commands);
