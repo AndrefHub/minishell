@@ -60,6 +60,11 @@ t_list	*ft_lstnsplit(t_list **begin, int n)
 	return (cocks);
 }
 
+void	do_nothing(void *nono)
+{
+	(void) nono;
+}
+
 void	ft_comclear(t_command **com)
 {
 	t_command	*elem;
@@ -70,7 +75,7 @@ void	ft_comclear(t_command **com)
 	{
 		elem = copy->next;
 		if (copy->content)
-			ft_lstclear(&(copy->content), free);
+			ft_lstclear(&(copy->content), do_nothing);
 		free(copy);
 		copy = elem;
 	}
