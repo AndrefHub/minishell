@@ -1,5 +1,7 @@
 #include "../minishell.h"
 
+t_msh g_msh;
+
 void	very_important_function(int argc, char **argv, char **envp)
 {
 	(void)argc;

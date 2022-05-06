@@ -30,6 +30,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
+# include <sys/wait.h>
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -111,7 +112,7 @@ typedef struct s_input
 	t_command	*brackets;
 }	t_input;
 
-t_msh g_msh;
+extern t_msh g_msh;
 
 # define FT_SPACE "\t "
 # define FT_DELIM "|&<>"

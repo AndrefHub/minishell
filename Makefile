@@ -38,7 +38,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.c $(HEADER)
 	@mkdir -p $(OBJDIR)built_in
 	@mkdir -p $(OBJDIR)executing
 	@mkdir -p $(OBJDIR)parsing
-	$(CC) $(FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(PIPHDR)
+	$(CC) $(FLAGS) -c $< -o $@  -include $(LIBHDR) # -include $(PIPHDR)
 
 $(NAME): $(OBJS) $(OBJMAIN) $(HEADER)
 	@make -C libft
