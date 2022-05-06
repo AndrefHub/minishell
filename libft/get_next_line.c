@@ -6,24 +6,11 @@
 /*   By: lsherry <lsherry@student.21-school.ru      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/06 11:55:43 by lsherry           #+#    #+#             */
-/*   Updated: 2021/11/16 17:19:17 by lsherry          ###   ########.fr       */
+/*   Updated: 2022/05/06 13:27:29 by lsherry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static char	*ft_strnew(size_t size)
-{
-	char	*str;
-
-	str = (char *)malloc(sizeof(char) * size + 1);
-	if (!str)
-		return (NULL);
-	str[size] = 0;
-	while (size-- != 0)
-		str[size] = 0;
-	return (str);
-}
 
 static char	*rem_checker(char **rem, char **str)
 {

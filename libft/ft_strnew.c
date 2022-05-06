@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_find_substr.c                                   :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsherry <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/06 14:58:38 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/06 14:58:39 by lsherry          ###   ########.fr       */
+/*   Created: 2022/05/06 19:35:57 by lsherry           #+#    #+#             */
+/*   Updated: 2022/05/06 19:36:13 by lsherry          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_find_substr(const char *string, const char *sub)
+char	*ft_strnew(size_t size)
 {
-	int	i;
-	int	j;
+	char	*str;
 
-	i = 0;
-	if (!string || !sub)
-		return (-1);
-	while (string[i + ft_strlen(sub) - 1])
-	{
-		j = 0;
-		while (sub[j])
-		{
-			if (string[i + j] != sub[j])
-				break ;
-			j++;
-			if (sub[j] == 0)
-				return (i);
-		}
-		i++;
-	}
-	return (-1);
+	str = (char *)malloc(sizeof(char) * size + 1);
+	if (!str)
+		return (NULL);
+	str[size] = 0;
+	while (size-- != 0)
+		str[size] = 0;
+	return (str);
 }
