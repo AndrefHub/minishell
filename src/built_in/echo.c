@@ -3,10 +3,8 @@
 int echo(char **argv)
 {
 	int flag;
-	int	i;
 
 	flag = 1;
-	i = 0;
 	if (find_at_first(argv[1], "-n"))
 	{
 		argv++;
