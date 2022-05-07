@@ -56,7 +56,10 @@ t_list	*ft_lstnsplit(t_list **begin, int n)
 
 	cocks = *begin;
 	*begin = ft_lstat(*begin, n);
-	ft_lstat(cocks, n - 1)->next = NULL;
+	free(ft_lstat(cocks, n - 1)->content);
+	free(ft_lstat(cocks, n - 1));
+	ft_lstat(cocks, n - 2)->next = NULL;
+	// ft_lstat(cocks, n - 1)->next = NULL;
 	return (cocks);
 }
 

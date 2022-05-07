@@ -56,10 +56,10 @@
 # define SEMICOLON		0x0	// ;
 # define DOUBLE_AND		0x1	// &&
 # define DOUBLE_OR		0x2	// ||
-# define HEREDOC		0x3	// <<
-# define REDIR_OUT_AP	0x4	// >>
-# define SINGLE_AND		0x5	// &
-# define PIPELINE		0x6	// |
+# define SINGLE_AND		0x3	// &
+# define PIPELINE		0x4	// |
+# define HEREDOC		0x5	// <<
+# define REDIR_OUT_AP	0x6	// >>
 # define REDIR_IN		0x7	// <
 # define REDIR_OUT_TR	0x8	// >
 
@@ -139,7 +139,7 @@ t_list	*ft_lstat(t_list *lst, int n);
 int		ft_isin(char c, char *charset);
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
-char	**ft_command_split(char **args);
+t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
 char	**ft_split_space(char *s, char *set);
 
 char	*ft_strcat_delim(char *first, char delim, char *second);
@@ -148,11 +148,11 @@ char	*ft_strndup(const char *s, size_t n);
 size_t	ft_strchr_num(const char *s, int c);
 int 	ft_arraylen(void **arr);
 
-char	**get_path(char **envp);
-char	*find_binary(char *command, char **envp);
-char	**parser_old(char *input, char **envp);
-void	parser(char *input);
-void 	pipex(char *input, char **envp);
+char		**get_path(char **envp);
+char		*find_binary(char *command, char **envp);
+char		**parser_old(char *input, char **envp);
+t_command	*parser(char *input);
+void 		pipex(char *input, char **envp);
 
 int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
