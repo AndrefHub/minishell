@@ -36,7 +36,7 @@ void	set_g_msh(char **envp)
 int main(int argc, char **argv, char **envp)
 {
 	char		*input;
-	t_command	*commands;
+	// t_command	*commands;
 	// char	**args;
 	// int		code;
 
@@ -50,7 +50,7 @@ int main(int argc, char **argv, char **envp)
 		// code = executor(args);
 		// if (code)
 		// 	printf("Error code %d\n", code);
-		commands = parser(input);
+		parser(input);
 		if (ft_strncmp("q", input, 1) == 0)
 			exit(0);
 
