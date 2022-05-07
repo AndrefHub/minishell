@@ -17,7 +17,7 @@ void	ft_print_com(t_command *elem)
 		ft_putendl_fd("command:", 1);
 		ft_print_lst(elem->content);
 		ft_putstr_fd("Link type: ", 1);
-		ft_putnbr_fd(elem->link_type, 1);
+		ft_putendl_fd(g_msh.sp_ops[elem->link_type], 1);
 		elem = elem->next;
 	}
 }

@@ -37,7 +37,7 @@ t_command	*parse_pattern(t_list *lst, char *pattern, int link_type)
 			tmp = tmp->next;
 	}
 	if (counter)
-		ft_comadd_back(&commands, ft_new_command(new_begin, -1));
+		ft_comadd_back(&commands, ft_new_command(new_begin, ENDING_TYPE));
 	return (commands);
 }
 
@@ -77,7 +77,7 @@ t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type
 		to_split->content = new_begin;
 		ft_comadd_back(&commands, to_split);
 	}
-	if (prev)
+	if (*prev)
 		(*prev)->next = commands;
 	return (commands);
 }

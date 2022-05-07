@@ -11,7 +11,7 @@ char	**make_sp_ops(void )
 {
 	char	**lst;
 
-	lst = malloc(sizeof(*lst) * 10);
+	lst = malloc(sizeof(*lst) * 11);
 	lst[0] = ft_strdup(";");
 	lst[1] = ft_strdup("&&");
 	lst[2] = ft_strdup("||");
@@ -21,7 +21,8 @@ char	**make_sp_ops(void )
 	lst[6] = ft_strdup(">>");
 	lst[7] = ft_strdup("<");
 	lst[8] = ft_strdup(">");
-	lst[9] = NULL;
+	lst[9] = ft_strdup("end");
+	lst[10] = NULL;
 	return (lst);
 }
 
