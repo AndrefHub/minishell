@@ -64,7 +64,7 @@ t_command	*parse_special_characters(t_command *commands)
 				commands->next = NULL;
 			commands = commands->next;
 		}
-//		ft_comclear(&tmp);
+		ft_comclear(&tmp);
 		commands = lol;
 	}
 	return (commands);
