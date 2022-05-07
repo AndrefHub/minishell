@@ -5,15 +5,17 @@ char    **parse_to_lines(char *input)
     return (ft_split(input, '\n')); // for now. Need to add '\' functionality
 }
 
-void	parser(char *input)
+t_command	*parser(char *input)
 {
+	t_command	*full_cmd;
 	t_command	*cmd;
-	t_list	*lst;
-	char	**commands;
-	int		i;
+	t_list		*lst;
+	char		**commands;
+	int			i;
 
 	i = 0;
-	commands = parse_to_lines(input);
+	commands = parse_to_lines(input); // Maybe change '\n' to ' ' (?) Or parse to lines only after quotes
+	full_cmd = NULL;
 	while (commands[i])
 	{
 		lst = parse_quotes(commands[i]);
@@ -22,10 +24,11 @@ void	parser(char *input)
 //		ft_print_lst(lst);
 		cmd = parse_semicolon(lst);
 		cmd = parse_special_characters(cmd);
-		ft_print_com(cmd);
-
+		ft_comadd_back(&full_cmd, cmd);
 		i++;
 	}
+	ft_print_com(full_cmd);
+	return (full_cmd);
 }
 
 t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)

@@ -17,10 +17,10 @@ char	**make_sp_ops(void )
 	lst[0] = ft_strdup(";");
 	lst[1] = ft_strdup("&&");
 	lst[2] = ft_strdup("||");
-	lst[3] = ft_strdup("<<");
-	lst[4] = ft_strdup(">>");
-	lst[5] = ft_strdup("&");
-	lst[6] = ft_strdup("|");
+	lst[3] = ft_strdup("&");
+	lst[4] = ft_strdup("|");
+	lst[5] = ft_strdup("<<");
+	lst[6] = ft_strdup(">>");
 	lst[7] = ft_strdup("<");
 	lst[8] = ft_strdup(">");
 	lst[9] = NULL;
@@ -35,7 +35,8 @@ void	set_g_msh(char **envp)
 
 int main(int argc, char **argv, char **envp)
 {
-	char	*input;
+	char		*input;
+	t_command	*commands;
 	// char	**args;
 	// int		code;
 
@@ -49,7 +50,10 @@ int main(int argc, char **argv, char **envp)
 		// code = executor(args);
 		// if (code)
 		// 	printf("Error code %d\n", code);
-		parser(input);
+		commands = parser(input);
+		if (ft_strncmp("q", input, 1) == 0)
+			exit(0);
+
 		free(input);
 		// ft_freesplit(args);
 	}
