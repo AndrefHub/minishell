@@ -63,6 +63,7 @@
 # define REDIR_OUT_AP	0x6	// >>
 # define REDIR_IN		0x7	// <
 # define REDIR_OUT_TR	0x8	// >
+# define ENDING_TYPE	0x9	// >
 
 // # define SEMICOLON		0x001	// ;
 // # define DOUBLE_AND		0x002	// &&
