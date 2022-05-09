@@ -140,6 +140,8 @@ void		convert_commands_to_char_ptrs(t_command *cmd);
 
 t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
 void		split_by_pattern(t_list **lst, char *pattern);
+void		ft_com_rm_space(t_command *cmd);
+t_list		*ft_rm_space(t_list **lst);
 
 /* t_command structure tools */
 t_command	*ft_new_command(t_list *content, int code);

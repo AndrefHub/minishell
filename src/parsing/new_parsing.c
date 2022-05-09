@@ -23,17 +23,13 @@ t_command	*parser(char *input)
 		lst = parse_parentheses(lst);
 		cmd = parse_semicolon(lst);
 		cmd = parse_special_characters(cmd);
-//		com = cmd;
-//		while (com)	// set before command start
-//		{
-//			com = set_variables(cmd);
-//			com = com->next;
-//		}
-//		com = ft_rm_space(cmd);
+//		split_by_pattern(&cmd->content, " ");
+		ft_com_rm_space(cmd);
 //		convert_commands_to_char_ptrs(cmd);
 		ft_comadd_back(&full_cmd, cmd);
 		i++;
 	}
+//			set_variables(com);
 	ft_print_com(full_cmd);
 	return (full_cmd);
 }

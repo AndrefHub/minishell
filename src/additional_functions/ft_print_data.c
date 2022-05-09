@@ -5,7 +5,7 @@ void	ft_print_lst(t_list *elem)
 	while (elem)
 	{
 		ft_putstr_fd(elem->content, 1);
-		ft_putstr_fd(" <<<<<\n", 1);
+		ft_putstr_fd("<<<<<\n", 1);
 		elem = elem->next;
 	}
 }
