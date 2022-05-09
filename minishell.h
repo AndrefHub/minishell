@@ -163,7 +163,7 @@ int 	ft_arraylen(void **arr);
 t_list	*ft_list_files(char *name);
 char	**get_path(char **envp);
 char	*find_binary(char *command, char **envp);
-void	parser(char *input);
+t_command	*parser(char *input);
 void 	pipex(char *input, char **envp);
 
 /* working with envp */
