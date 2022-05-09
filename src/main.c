@@ -1,5 +1,7 @@
 #include "../minishell.h"
 
+t_msh g_msh;
+
 void	very_important_function(int argc, char **argv, char **envp)
 {
 	(void)argc;
@@ -11,17 +13,18 @@ char	**make_sp_ops(void )
 {
 	char	**lst;
 
-	lst = malloc(sizeof(*lst) * 10);
+	lst = malloc(sizeof(*lst) * 11);
 	lst[0] = ft_strdup(";");
 	lst[1] = ft_strdup("&&");
 	lst[2] = ft_strdup("||");
-	lst[3] = ft_strdup("<<");
-	lst[4] = ft_strdup(">>");
-	lst[5] = ft_strdup("&");
-	lst[6] = ft_strdup("|");
+	lst[3] = ft_strdup("&");
+	lst[4] = ft_strdup("|");
+	lst[5] = ft_strdup("<<");
+	lst[6] = ft_strdup(">>");
 	lst[7] = ft_strdup("<");
 	lst[8] = ft_strdup(">");
-	lst[9] = NULL;
+	lst[9] = ft_strdup("end");
+	lst[10] = NULL;
 	return (lst);
 }
 
@@ -29,11 +32,13 @@ void	set_g_msh(char **envp)
 {
 	g_msh.envp = envp;
 	g_msh.sp_ops = make_sp_ops();
+	g_msh.last_ex_code = 0;
 }
 
 int main(int argc, char **argv, char **envp)
 {
-	char	*input;
+	char		*input;
+	// t_command	*commands;
 	// char	**args;
 	// int		code;
 
@@ -48,6 +53,9 @@ int main(int argc, char **argv, char **envp)
 		// if (code)
 		// 	printf("Error code %d\n", code);
 		parser(input);
+		if (ft_strncmp("q", input, 1) == 0)
+			exit(0);
+
 		free(input);
 		// ft_freesplit(args);
 	}

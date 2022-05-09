@@ -30,7 +30,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
-#include <dirent.h>
+# include <dirent.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <unistd.h>
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -57,12 +60,13 @@
 # define SEMICOLON		0x0	// ;
 # define DOUBLE_AND		0x1	// &&
 # define DOUBLE_OR		0x2	// ||
-# define HEREDOC		0x3	// <<
-# define REDIR_OUT_AP	0x4	// >>
-# define SINGLE_AND		0x5	// &
-# define PIPELINE		0x6	// |
+# define SINGLE_AND		0x3	// &
+# define PIPELINE		0x4	// |
+# define HEREDOC		0x5	// <<
+# define REDIR_OUT_AP	0x6	// >>
 # define REDIR_IN		0x7	// <
 # define REDIR_OUT_TR	0x8	// >
+# define ENDING_TYPE	0x9	// >
 
 // # define SEMICOLON		0x001	// ;
 // # define DOUBLE_AND		0x002	// &&
@@ -87,6 +91,7 @@ typedef struct s_msh
 {
     char	**envp;
 	int		err_code;
+	int		last_ex_code;
 	char	*curr_dir;
 	char	**sp_ops;
 }	t_msh;
@@ -94,9 +99,7 @@ typedef struct s_msh
 typedef struct s_command
 {
 	t_list 				*content;
-	char				*command_name;
-	char				**flags;
-	char				**arguments;
+	char				**name_args;
 	int					link_type;
 	struct s_command	*next;
 }	t_command;
@@ -116,7 +119,7 @@ typedef struct s_input
 	t_command	*brackets;
 }	t_input;
 
-t_msh g_msh;
+extern t_msh g_msh;
 
 # define FT_SPACE "\t "
 # define FT_DELIM "|&<>"
@@ -145,7 +148,7 @@ t_list	*ft_lstat(t_list *lst, int n);
 int		ft_isin(char c, char *charset);
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
-char	**ft_command_split(char **args);
+t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
 char	**ft_split_space(char *s, char *set);
 /* string tools */
 char	*ft_strcat_delim(char *first, char delim, char *second);
@@ -157,9 +160,9 @@ int 	ft_arraylen(void **arr);
 t_list	*ft_list_files(char *name);
 char	**get_path(char **envp);
 char	*find_binary(char *command, char **envp);
-void	parser(char *input);
+t_command	*parser(char *input);
 void 	pipex(char *input, char **envp);
-/* working with envp */
+
 int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
 /* builtins */
