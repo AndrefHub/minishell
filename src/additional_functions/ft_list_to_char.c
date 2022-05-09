@@ -7,7 +7,7 @@ void	ft_list_to_char_ptr(t_command *cmd)
 	t_list	*local_copy;
 
 	local_copy = cmd->content;
-	arrsize = ft_lstsize(local_copy)
+	arrsize = ft_lstsize(local_copy);
 	cmd->name_args = malloc(sizeof(*(cmd->name_args)) * (arrsize + 1));
 	counter = -1;
 	while (++counter < arrsize)
@@ -22,6 +22,7 @@ void	convert_commands_to_char_ptrs(t_command *cmd)
 {
 	t_command	*local_copy;
 
+	local_copy = cmd;
 	while (local_copy)
 	{
 		ft_list_to_char_ptr(local_copy);

@@ -27,7 +27,7 @@ t_command	*parse_pattern(t_list *lst, char *pattern, int link_type)
 	while (tmp)
 	{
 		++counter;
-		if (ft_strncmp(((char *) tmp->content), pattern, ft_strlen(pattern)) == 0)
+		if (ft_strncmp(((char *) tmp->content), pattern, ft_strlen(tmp->content)) == 0)
 		{
 			tmp = tmp->next;
 			ft_comadd_back(&commands, ft_new_command(ft_lstnsplit(&new_begin, counter), link_type));
