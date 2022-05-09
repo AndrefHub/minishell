@@ -20,9 +20,6 @@ t_command	*set_variables(t_command *command)
 			delete = lst->next;
 			lst->next = delete->next;
 			ft_lstdelone(delete, free);
-			lst = lst->next;
-			if (!lst)
-				break ;
 		}
 		lst = lst->next;
 	}
