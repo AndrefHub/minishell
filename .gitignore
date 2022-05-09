@@ -51,6 +51,7 @@ Mkfile.old
 dkms.conf
 
 *a.out
+*.genius
 # Executable
 minishell
 

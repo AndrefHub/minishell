@@ -78,22 +78,26 @@ t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type
 		ft_comadd_back(&commands, to_split);
 	}
 	else
+	{
 		ft_command_last(commands)->next = to_split->next;
+	}
 	if (*prev)
 		(*prev)->next = commands;
 	return (commands);
 }
 
-t_command	*parse_special_characters(t_command *commands)
+t_command	*parse_special_characters(t_list *lst)
 {
 	t_command	*new_begin;
+	t_command	*commands;
 	t_command	*prev;
 	t_command	*buffer;
 	int			counter;
 
+	commands = ft_new_command(lst, ENDING_TYPE);
 	prev = NULL;
 	buffer = commands;
-	counter = 0;
+	counter = -1;
 	while (++counter < 5)
 	{
 		prev = NULL;

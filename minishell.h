@@ -45,15 +45,6 @@
 #  define COLOR_CYAN	"\033[1;36m"
 #  define COLOR_RESET	"\033[0m"
 
-# else
-
-#  define COLOR_RED		""
-#  define COLOR_GREEN	""
-#  define COLOR_YELLOW	""
-#  define COLOR_BLUE	""
-#  define COLOR_CYAN	""
-#  define COLOR_RESET	""
-
 # endif
 */
 
@@ -131,12 +122,14 @@ char 		**parse_to_lines(char *string);
 t_list		*parse_quotes(char *input);
 t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
-t_command	*parse_special_characters(t_command *commands);
+t_command	*parse_special_characters(t_list *lst);
 t_command	*set_variables(t_command *command);
 void		convert_commands_to_char_ptrs(t_command *cmd);
 
 t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
 void		split_by_pattern(t_list **lst, char *pattern);
+void		ft_com_rm_space(t_command *cmd);
+t_list		*ft_rm_space(t_list **lst);
 
 /* t_command structure tools */
 t_command	*ft_new_command(t_list *content, int code);
