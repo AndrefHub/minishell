@@ -89,6 +89,8 @@ t_command	*parse_special_characters(t_command *commands)
 	t_command	*buffer;
 	int			counter;
 
+	prev = NULL;
+	buffer = commands;
 	counter = 0;
 	while (++counter < 5)
 	{
