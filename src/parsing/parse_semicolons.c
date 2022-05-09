@@ -23,7 +23,7 @@ t_command	*parse_pattern(t_list *lst, char *pattern, int link_type)
 	commands = NULL;
 	split_by_pattern(&lst, pattern);
 	tmp = lst;
-	new_begin = tmp;
+	new_begin = lst;
 	while (tmp)
 	{
 		++counter;
