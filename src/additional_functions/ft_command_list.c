@@ -52,15 +52,27 @@ t_list	*ft_lstat(t_list *lst, int n)
 t_list	*ft_lstnsplit(t_list **begin, int n)
 {
 	// t_list	*begin;
-	t_list	*cocks;
+	t_list	*old_begin;
 
-	cocks = *begin;
-	*begin = ft_lstat(*begin, n);
-	free(ft_lstat(cocks, n - 1)->content);
-	free(ft_lstat(cocks, n - 1));
-	ft_lstat(cocks, n - 2)->next = NULL;
-	// ft_lstat(cocks, n - 1)->next = NULL;
-	return (cocks);
+	old_begin = *begin;
+	*begin = ft_lstat(old_begin, n);
+	if (n > 1)
+	{
+		free(ft_lstat(old_begin, n - 1)->content);
+		free(ft_lstat(old_begin, n - 1));
+		ft_lstat(old_begin, n - 2)->next = NULL;
+	}
+	else
+	{
+		// free(ft_lstat(old_begin, n - 1)->content);
+		// free(ft_lstat(old_begin, n - 1));
+		// return (ft_lstnew(NULL));
+		free(ft_lstat(old_begin, n - 1)->content);
+		ft_lstat(old_begin, n - 1)->content = ft_strdup("");
+		ft_lstat(old_begin, n - 1)->next = NULL;
+	}
+	return (old_begin);
+	// ft_lstat(old_begin, n - 1)->next = NULL;
 }
 
 void	do_nothing(void *nono)

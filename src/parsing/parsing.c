@@ -50,7 +50,7 @@ char	*find_binary(char *command, char **envp)
 	path = get_path(envp);
 	while (path[++counter])
 	{
-		binary = ft_strcat_delim(path[counter], '/', command);
+		binary = ft_strcat_delim(path[counter], '/', "");
 		if (access(binary, X_OK) == 0)
 		{
 			ft_freesplit(path);
