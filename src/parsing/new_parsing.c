@@ -24,7 +24,9 @@ t_command	*parser(char *input)
 //		ft_print_lst(lst);
 		cmd = parse_semicolon(lst);
 		cmd = parse_special_characters(cmd);
-		ft_comadd_back(&full_cmd, cmd);
+		cmd = set_variables(cmd);
+		ft_print_com(cmd);
+//		cmd = get_full_command(cmd);
 		i++;
 	}
 	ft_print_com(full_cmd);
@@ -55,7 +57,7 @@ t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)
 		elem->content = ft_strndup(str, len);
 		ft_lstadd_back(&elem, ft_lstnew(ft_strdup(pattern)));
 	}
-	i = len + ft_strlen(pattern);
+	i = len + (int) ft_strlen(pattern);
 	while (str[i])
 	{
 		len = ft_find_substr(&str[i], pattern);
@@ -68,7 +70,7 @@ t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)
 				ft_lstadd_back(&elem, ft_lstnew(ft_strndup(&str[i], len)));
 				ft_lstadd_back(&elem, ft_lstnew(ft_strdup(pattern)));
 			}
-			i += len + ft_strlen(pattern);
+			i += len + (int )ft_strlen(pattern);
 		}
 		else
 		{
