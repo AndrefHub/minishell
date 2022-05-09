@@ -82,6 +82,7 @@ typedef struct s_msh
 {
     char	**envp;
 	int		err_code;
+	char	*err_text;
 	int		last_ex_code;
 	char	*curr_dir;
 	char	**sp_ops;
@@ -159,7 +160,7 @@ int 	ft_arraylen(void **arr);
 t_list	*ft_list_files(char *name);
 char	**get_path(char **envp);
 char	*find_binary(char *command, char **envp);
-t_command	*parser(char *input);
+void	start(char *input);
 void 	pipex(char *input, char **envp);
 
 /* working with envp */
