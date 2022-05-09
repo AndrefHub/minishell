@@ -131,7 +131,8 @@ char 		**parse_to_lines(char *string);
 t_list		*parse_quotes(char *input);
 t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
-t_command	*parse_special_characters(t_command *commands);
+t_command	*parse_special_characters(t_list *lst);
+// t_command	*parse_special_characters(t_command *commands);
 t_command	*set_variables(t_command *command);
 void		convert_commands_to_char_ptrs(t_command *cmd);
 
