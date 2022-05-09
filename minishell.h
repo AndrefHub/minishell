@@ -30,12 +30,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
-# include <dirent.h>
 # include <sys/wait.h>
+# include <dirent.h>
 # include <sys/types.h>
 # include <unistd.h>
-# include <sys/wait.h>
-# include <dirent.h>
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -46,15 +44,6 @@
 #  define COLOR_BLUE	"\033[1;34m"
 #  define COLOR_CYAN	"\033[1;36m"
 #  define COLOR_RESET	"\033[0m"
-
-# else
-
-#  define COLOR_RED		""
-#  define COLOR_GREEN	""
-#  define COLOR_YELLOW	""
-#  define COLOR_BLUE	""
-#  define COLOR_CYAN	""
-#  define COLOR_RESET	""
 
 # endif
 */
@@ -102,7 +91,6 @@ typedef struct s_command
 {
 	t_list 				*content;
 	char				**name_args;
-	char				**cmd;
 	int					link_type;
 	struct s_command	*next;
 }	t_command;
@@ -134,7 +122,7 @@ char 		**parse_to_lines(char *string);
 t_list		*parse_quotes(char *input);
 t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
-t_command	*parse_special_characters(t_command *commands);
+t_command	*parse_special_characters(t_list *lst);
 t_command	*set_variables(t_command *command);
 void		convert_commands_to_char_ptrs(t_command *cmd);
 

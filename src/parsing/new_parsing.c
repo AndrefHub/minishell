@@ -21,15 +21,14 @@ t_command	*parser(char *input)
 	{
 		lst = parse_quotes(commands[i]);
 		lst = parse_parentheses(lst);
-		cmd = parse_semicolon(lst);
-		cmd = parse_special_characters(cmd);
-//		split_by_pattern(&cmd->content, " "); // before start process
+		cmd = parse_special_characters(lst);
 		ft_com_rm_space(cmd);
+//		cmd = get_full_command(cmd);
+//			set_variables(com); // before start process
 //		convert_commands_to_char_ptrs(cmd);
 		ft_comadd_back(&full_cmd, cmd);
 		i++;
 	}
-//			set_variables(com);
 	ft_print_com(full_cmd);
 	return (full_cmd);
 }

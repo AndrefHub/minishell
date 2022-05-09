@@ -23,11 +23,11 @@ t_command	*parse_pattern(t_list *lst, char *pattern, int link_type)
 	commands = NULL;
 	split_by_pattern(&lst, pattern);
 	tmp = lst;
-	new_begin = tmp;
+	new_begin = lst;
 	while (tmp)
 	{
 		++counter;
-		if (ft_strncmp(((char *) tmp->content), pattern, ft_strlen(pattern)) == 0)
+		if (ft_strncmp(((char *) tmp->content), pattern, ft_strlen(tmp->content)) == 0)
 		{
 			tmp = tmp->next;
 			ft_comadd_back(&commands, ft_new_command(ft_lstnsplit(&new_begin, counter), link_type));
@@ -77,19 +77,27 @@ t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type
 		to_split->content = new_begin;
 		ft_comadd_back(&commands, to_split);
 	}
+	else
+	{
+		ft_command_last(commands)->next = to_split->next;
+	}
 	if (*prev)
 		(*prev)->next = commands;
 	return (commands);
 }
 
-t_command	*parse_special_characters(t_command *commands)
+t_command	*parse_special_characters(t_list *lst)
 {
 	t_command	*new_begin;
+	t_command	*commands;
 	t_command	*prev;
 	t_command	*buffer;
 	int			counter;
 
-	counter = 0;
+	commands = ft_new_command(lst, ENDING_TYPE);
+	prev = NULL;
+	buffer = commands;
+	counter = -1;
 	while (++counter < 5)
 	{
 		prev = NULL;
