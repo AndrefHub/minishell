@@ -9,6 +9,7 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			additional_functions/funny_functions.c\
 			additional_functions/ft_print_data.c\
 			additional_functions/ft_command_list.c\
+			additional_functions/ft_list_to_char.c\
 			built_in/built_in_commands.c\
 			built_in/echo.c\
 			built_in/env.c\

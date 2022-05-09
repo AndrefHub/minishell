@@ -90,16 +90,14 @@ t_command	*parse_special_characters(t_command *commands)
 	int			counter;
 
 	counter = 0;
-	prev = NULL;
-	buffer = commands;
 	while (++counter < 5)
 	{
 		prev = NULL;
 		buffer = commands;
 		while (commands)
 		{
-			if (commands == buffer)
-				new_begin =	ft_command_split(&prev, commands, counter);
+			if (commands == buffer)											// Check if *commands is the first element of the list.
+				new_begin =	ft_command_split(&prev, commands, counter);		// If true, save new begin of the list to new_begin.
 			else
 				ft_command_split(&prev, commands, counter);
 			prev = commands;

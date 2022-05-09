@@ -47,14 +47,7 @@ int main(int argc, char **argv, char **envp)
 	{
 		input = readline("ඞabobusඞ> ");
 		add_history(input);
-		// args = parser_old(input, envp);
-		// code = executor(args);
-		// if (code)
-		// 	printf("Error code %d\n", code);
 		parser(input);
-		if (ft_strncmp("q", input, 1) == 0)
-			exit(0);
-
 		free(input);
 		// ft_freesplit(args);
 	}
