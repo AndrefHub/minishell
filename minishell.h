@@ -34,6 +34,8 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <unistd.h>
+# include <sys/wait.h>
+# include <dirent.h>
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -66,7 +68,7 @@
 # define REDIR_OUT_AP	0x6	// >>
 # define REDIR_IN		0x7	// <
 # define REDIR_OUT_TR	0x8	// >
-# define ENDING_TYPE	0x9	// >
+# define ENDING_TYPE	0x9	// 
 
 // # define SEMICOLON		0x001	// ;
 // # define DOUBLE_AND		0x002	// &&
@@ -100,6 +102,7 @@ typedef struct s_command
 {
 	t_list 				*content;
 	char				**name_args;
+	char				**cmd;
 	int					link_type;
 	struct s_command	*next;
 }	t_command;
@@ -133,29 +136,38 @@ t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
 t_command	*parse_special_characters(t_command *commands);
 t_command	*set_variables(t_command *command);
+void		convert_commands_to_char_ptrs(t_command *cmd);
 
 t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
 void		split_by_pattern(t_list **lst, char *pattern);
+
 /* t_command structure tools */
 t_command	*ft_new_command(t_list *content, int code);
 void		ft_comadd_back(t_command **lst, t_command *new);
 t_command	*ft_command_last(t_command *command);
 void		ft_comclear(t_command **com);
+
 /* t_list structure tools */
 t_list	*ft_lstnsplit(t_list **begin, int n);
 t_list	*ft_lstat(t_list *lst, int n);
+
 /* ft_split tools */
 int		ft_isin(char c, char *charset);
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
 t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
 char	**ft_split_space(char *s, char *set);
+
 /* string tools */
 char	*ft_strcat_delim(char *first, char delim, char *second);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strndup(const char *s, size_t n);
 size_t	ft_strchr_num(const char *s, int c);
 int 	ft_arraylen(void **arr);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26ff390aa78a90d452b8bb3ce362b024ef124594
 /* working with path */
 t_list	*ft_list_files(char *name);
 char	**get_path(char **envp);
@@ -163,14 +175,18 @@ char	*find_binary(char *command, char **envp);
 t_command	*parser(char *input);
 void 	pipex(char *input, char **envp);
 
+<<<<<<< HEAD
+=======
+/* working with envp */
+>>>>>>> 26ff390aa78a90d452b8bb3ce362b024ef124594
 int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
+
 /* builtins */
 int		executor(char **args);
 int     check_for_built_in(char **args);
 int     echo(char **argv);
 int		env(char **envp);
 int		msh_exit(char **argv);
-
 
 #endif

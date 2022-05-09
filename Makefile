@@ -9,7 +9,11 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			additional_functions/funny_functions.c\
 			additional_functions/ft_print_data.c\
 			additional_functions/ft_command_list.c\
+<<<<<<< HEAD
 			additional_functions/ft_split_str_in_lst.c\
+=======
+			additional_functions/ft_list_to_char.c\
+>>>>>>> 26ff390aa78a90d452b8bb3ce362b024ef124594
 			built_in/built_in_commands.c\
 			built_in/echo.c\
 			built_in/env.c\
