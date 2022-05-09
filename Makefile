@@ -16,7 +16,8 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			parsing/new_parsing.c\
 			parsing/parse_quotes.c\
 			parsing/parsing.c\
-			parsing/parse_semicolons.c
+			parsing/parse_semicolons.c\
+			parsing/set_variables.c
 
 MAIN	= main.c
 BONUS	= main_bonus.c

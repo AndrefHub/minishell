@@ -30,6 +30,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
+#include <dirent.h>
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -93,14 +94,18 @@ typedef struct s_msh
 typedef struct s_command
 {
 	t_list 				*content;
+	char				*command_name;
+	char				**flags;
+	char				**arguments;
 	int					link_type;
 	struct s_command	*next;
 }	t_command;
 
 typedef	struct s_file
 {
-	int		mode;
 	char	*f_name;
+	int		mode;
+	struct s_file *next;
 }	t_file;
 
 typedef struct s_input
@@ -118,49 +123,48 @@ t_msh g_msh;
 
 void	ft_print_com(t_command *elem);
 void	ft_print_lst(t_list *elem);
-
+/* Parsing */
 char 		**parse_to_lines(char *string);
 t_list		*parse_quotes(char *input);
 t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
 t_command	*parse_special_characters(t_command *commands);
+t_command	*set_variables(t_command *command);
 
 t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
 void		split_by_pattern(t_list **lst, char *pattern);
-
+/* t_command structure tools */
 t_command	*ft_new_command(t_list *content, int code);
 void		ft_comadd_back(t_command **lst, t_command *new);
 t_command	*ft_command_last(t_command *command);
 void		ft_comclear(t_command **com);
-
+/* t_list structure tools */
 t_list	*ft_lstnsplit(t_list **begin, int n);
 t_list	*ft_lstat(t_list *lst, int n);
-
+/* ft_split tools */
 int		ft_isin(char c, char *charset);
 int		is_in(char c, char *set);
 size_t	command_words_count(char **args);
 char	**ft_command_split(char **args);
 char	**ft_split_space(char *s, char *set);
-
+/* string tools */
 char	*ft_strcat_delim(char *first, char delim, char *second);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strndup(const char *s, size_t n);
 size_t	ft_strchr_num(const char *s, int c);
 int 	ft_arraylen(void **arr);
-
+/* working with path */
+t_list	*ft_list_files(char *name);
 char	**get_path(char **envp);
 char	*find_binary(char *command, char **envp);
-char	**parser_old(char *input, char **envp);
 void	parser(char *input);
 void 	pipex(char *input, char **envp);
-
+/* working with envp */
 int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
-
-int     check_for_built_in(char **args);
+/* builtins */
 int		executor(char **args);
-
-// echo.c
+int     check_for_built_in(char **args);
 int     echo(char **argv);
 int		env(char **envp);
 int		msh_exit(char **argv);
