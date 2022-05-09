@@ -32,6 +32,7 @@ void	set_g_msh(char **envp)
 {
 	g_msh.envp = envp;
 	g_msh.sp_ops = make_sp_ops();
+	g_msh.last_ex_code = 0;
 }
 
 int main(int argc, char **argv, char **envp)

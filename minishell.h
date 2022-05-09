@@ -30,8 +30,15 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
+<<<<<<< HEAD
 # include <sys/wait.h>
 # include <dirent.h>
+=======
+# include <dirent.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <unistd.h>
+>>>>>>> 41a813c3c40e45d1112d57e97db58fbb2b86587a
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -89,6 +96,7 @@ typedef struct s_msh
 {
     char	**envp;
 	int		err_code;
+	int		last_ex_code;
 	char	*curr_dir;
 	char	**sp_ops;
 }	t_msh;
@@ -158,15 +166,21 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strndup(const char *s, size_t n);
 size_t	ft_strchr_num(const char *s, int c);
 int 	ft_arraylen(void **arr);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 41a813c3c40e45d1112d57e97db58fbb2b86587a
 /* working with path */
 t_list	*ft_list_files(char *name);
 char	**get_path(char **envp);
 char	*find_binary(char *command, char **envp);
-void	parser(char *input);
+t_command	*parser(char *input);
 void 	pipex(char *input, char **envp);
 
+<<<<<<< HEAD
 /* working with envp */
+=======
+>>>>>>> 41a813c3c40e45d1112d57e97db58fbb2b86587a
 int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
 

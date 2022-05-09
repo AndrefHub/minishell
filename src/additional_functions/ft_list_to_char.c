@@ -8,14 +8,14 @@ void	ft_list_to_char_ptr(t_command *cmd)
 
 	local_copy = cmd->content;
 	arrsize = ft_lstsize(local_copy)
-	cmd->cmd = malloc(sizeof(*(cmd->cmd)) * (arrsize + 1));
+	cmd->name_args = malloc(sizeof(*(cmd->name_args)) * (arrsize + 1));
 	counter = -1;
 	while (++counter < arrsize)
 	{
-		cmd->cmd[counter] = (char *)(local_copy->content);
+		cmd->name_args[counter] = (char *)(local_copy->content);
 		local_copy = local_copy->next;
 	}
-	cmd->cmd[counter] = NULL;
+	cmd->name_args[counter] = NULL;
 }
 
 void	convert_commands_to_char_ptrs(t_command *cmd)
