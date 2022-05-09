@@ -30,8 +30,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <errno.h>
-# include <sys/wait.h>
 # include <dirent.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <unistd.h>
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -89,6 +91,7 @@ typedef struct s_msh
 {
     char	**envp;
 	int		err_code;
+	int		last_ex_code;
 	char	*curr_dir;
 	char	**sp_ops;
 }	t_msh;
@@ -96,7 +99,7 @@ typedef struct s_msh
 typedef struct s_command
 {
 	t_list 				*content;
-	char				**cmd;
+	char				**name_args;
 	int					link_type;
 	struct s_command	*next;
 }	t_command;
