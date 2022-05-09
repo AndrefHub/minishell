@@ -153,15 +153,6 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strndup(const char *s, size_t n);
 size_t	ft_strchr_num(const char *s, int c);
 int 	ft_arraylen(void **arr);
-<<<<<<< HEAD
-
-char		**get_path(char **envp);
-char		*find_binary(char *command, char **envp);
-char		**parser_old(char *input, char **envp);
-t_command	*parser(char *input);
-void 		pipex(char *input, char **envp);
-
-=======
 /* working with path */
 t_list	*ft_list_files(char *name);
 char	**get_path(char **envp);
@@ -169,7 +160,6 @@ char	*find_binary(char *command, char **envp);
 void	parser(char *input);
 void 	pipex(char *input, char **envp);
 /* working with envp */
->>>>>>> 1eae5726ef01b51df1df119dd17f4978b306050e
 int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
 /* builtins */
