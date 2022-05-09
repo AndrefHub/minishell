@@ -12,7 +12,7 @@ t_command	*parser(char *input)
 	t_list		*lst;
 	char		**commands;
 	int			i;
-	t_command	*com;
+//	t_command	*com;
 
 	i = 0;
 	commands = parse_to_lines(input); // Maybe change '\n' to ' ' (?) Or parse to lines only after quotes
@@ -23,14 +23,14 @@ t_command	*parser(char *input)
 		lst = parse_parentheses(lst);
 		cmd = parse_semicolon(lst);
 		cmd = parse_special_characters(cmd);
-		com = cmd;
-		while (com)
-		{
-			com = set_variables(cmd);
-			com = com->next;
-		}
-		cmd = set_variables(cmd);
-		convert_commands_to_char_ptrs(cmd);
+//		com = cmd;
+//		while (com)	// set before command start
+//		{
+//			com = set_variables(cmd);
+//			com = com->next;
+//		}
+//		com = ft_rm_space(cmd);
+//		convert_commands_to_char_ptrs(cmd);
 		ft_comadd_back(&full_cmd, cmd);
 		i++;
 	}
