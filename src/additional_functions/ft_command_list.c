@@ -67,9 +67,9 @@ t_list	*ft_lstnsplit(t_list **begin, int n)
 		// free(ft_lstat(old_begin, n - 1)->content);
 		// free(ft_lstat(old_begin, n - 1));
 		// return (ft_lstnew(NULL));
-		free(ft_lstat(old_begin, n - 1)->content);
-		ft_lstat(old_begin, n - 1)->content = ft_strdup("");
-		ft_lstat(old_begin, n - 1)->next = NULL;
+		free(old_begin->content);
+		old_begin->content = ft_strdup("");
+		old_begin->next = NULL;
 	}
 	return (old_begin);
 	// ft_lstat(old_begin, n - 1)->next = NULL;

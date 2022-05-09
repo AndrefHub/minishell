@@ -77,6 +77,8 @@ t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type
 		to_split->content = new_begin;
 		ft_comadd_back(&commands, to_split);
 	}
+	else
+		ft_command_last(commands)->next = to_split->next;
 	if (*prev)
 		(*prev)->next = commands;
 	return (commands);
