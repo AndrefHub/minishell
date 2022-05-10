@@ -23,16 +23,13 @@ void	start_one_line(char *line)
 //		if (!check_syntax(cmd))
 //			return ;
 		convert_commands_to_char_ptrs(cmd);
-		// for (int i = 0; cmd->name_args[i]; ++i)
-		// {
-		// 	ft_putendl_fd(cmd->name_args[i], 2);
-		// }
 		// execute_command(cmd);
+		pipeline(cmd);
 		// ft_print_lst(cmd->content);
 		// ft_putendl_fd(g_msh.sp_ops[cmd->link_type], 1);
 		cmd = cmd->next;
 	}
-	pipeline(full_cmd);
+
 }
 
 void	start_cycle(char **lines)

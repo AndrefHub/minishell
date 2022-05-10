@@ -14,6 +14,14 @@ void	execute(char **command)
 	// 	ft_exit_message(binary, 2);
 }
 
+void	init_t_pipe_fd(t_pipe_fd *fd_data)
+{
+	fd_data->stdin_res = dup(0);
+	fd_data->stdout_res = dup(1);
+	fd_data->fd_in = dup(fd_data->stdin_res);
+	fd_data->fd_in = 1;
+}
+
 void	do_pipe(t_pipe_fd *fd_data)
 {
 	pipe(fd_data->pipe_fds);
@@ -27,17 +35,21 @@ void	dup2_and_close(int from, int to)
 	close(from);
 }
 
+void	set_error_code(int wpid_ret)
+{
+	if (wpid_ret < 0)
+		g_msh.err_code = errno;
+	else
+		g_msh.err_code = 0;
+}
+
 void	pipeline(t_command *to_pipe)
 {
 	t_command   *tmp;
 	pid_t		pid_fork;
 	t_pipe_fd	fd_data;
 
-	// init fd_data
-	fd_data.stdin_res = dup(0);
-	fd_data.stdout_res = dup(1);
-	fd_data.fd_in = dup(fd_data.stdin_res);
-	// init fd_data end
+	init_t_pipe_fd(&fd_data);
 	tmp = to_pipe;
 	while (1)
 	{
@@ -56,5 +68,5 @@ void	pipeline(t_command *to_pipe)
 	}
 	dup2_and_close(fd_data.stdin_res, 0);
 	dup2_and_close(fd_data.stdout_res, 1);
-	waitpid(pid_fork, NULL, 0);
+	set_error_code(waitpid(pid_fork, NULL, 0))
 }
