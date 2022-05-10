@@ -1,30 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:36:33 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/10 17:56:41 by kdancy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
-char	**get_path()
-{
-	return (ft_split(ft_find_envp("PATH", g_msh.envp), ':'));
-}
-
-// char	**get_var_from_envp(char **envp, char *var)
-// {
-// 	char	**path;
-// 	int		counter;
-
-// 	path = NULL;
-// 	counter = 0;
-// 	while (envp[counter])
-// 	{
-// 		if (ft_strncmp(envp[counter], "PATH=", 5) == 0)
-// 		{
-// 			path = ft_split(envp[counter] + 5, ':');
-// 			break ;
-// 		}
-// 		++counter;
-// 	}
-// 	return (path);
-// }
-
-char	*find_binary(char *command, char **envp)
+char	*find_binary(char *command)
 {
 	char	**path;
 	char	*binary;
@@ -33,7 +21,7 @@ char	*find_binary(char *command, char **envp)
 	counter = -1;
 	if (!command || !command[0] || ft_strchr(command, '/'))
 		return (command);
-	path = get_path(envp);
+	path = ft_split(ft_find_envp("PATH", g_msh.envp), ':');
 	while (path[++counter])
 	{
 		binary = ft_strcat_delim(path[counter], '/', command);

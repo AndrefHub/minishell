@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_parsing.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/10 17:36:27 by kdancy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 char    **parse_to_lines(char *input)
@@ -24,11 +36,11 @@ void	start_one_line(char *line)
 //			return ;
 		convert_commands_to_char_ptrs(cmd);
 		// execute_command(cmd);
-		pipeline(cmd);
 		// ft_print_lst(cmd->content);
 		// ft_putendl_fd(g_msh.sp_ops[cmd->link_type], 1);
 		cmd = cmd->next;
 	}
+	pipeline(full_cmd);
 
 }
 

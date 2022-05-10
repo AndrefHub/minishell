@@ -2,16 +2,10 @@
 
 void	execute(char **command)
 {
-	// char	*binary;
-	int		code;
-
-	command[0] = find_binary(command[0], g_msh.envp);
-	code = execve(command[0], command, g_msh.envp);
-	// ft_putnbr_fd(code, 2);
-	// ft_putendl_fd("", 2);
-	// ft_freesplit(command);
-	// if (code < 0)
-	// 	ft_exit_message(binary, 2);
+	command[0] = find_binary(command[0]);
+	execve(command[0], command, g_msh.envp);
+	perror("msh");
+	exit(errno);
 }
 
 void	init_t_pipe_fd(t_pipe_fd *fd_data)
@@ -19,7 +13,7 @@ void	init_t_pipe_fd(t_pipe_fd *fd_data)
 	fd_data->stdin_res = dup(0);
 	fd_data->stdout_res = dup(1);
 	fd_data->fd_in = dup(fd_data->stdin_res);
-	fd_data->fd_in = 1;
+	fd_data->fd_out = 1;
 }
 
 void	do_pipe(t_pipe_fd *fd_data)
@@ -49,6 +43,7 @@ void	pipeline(t_command *to_pipe)
 	pid_t		pid_fork;
 	t_pipe_fd	fd_data;
 
+	// if ()
 	init_t_pipe_fd(&fd_data);
 	tmp = to_pipe;
 	while (1)
@@ -68,5 +63,5 @@ void	pipeline(t_command *to_pipe)
 	}
 	dup2_and_close(fd_data.stdin_res, 0);
 	dup2_and_close(fd_data.stdout_res, 1);
-	set_error_code(waitpid(pid_fork, NULL, 0))
+	set_error_code(waitpid(pid_fork, NULL, 0));
 }

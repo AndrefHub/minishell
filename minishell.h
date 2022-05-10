@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/10 17:58:24 by kdancy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -162,8 +174,7 @@ int 	ft_arraylen(void **arr);
 
 /* working with path */
 t_list	*ft_list_files(char *name);
-char	**get_path(char **envp);
-char	*find_binary(char *command, char **envp);
+char	*find_binary(char *command);
 void	start(char *input);
 void 	pipex(char *input, char **envp);
 
