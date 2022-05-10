@@ -48,7 +48,7 @@ int main(int argc, char **argv, char **envp)
 	{
 		input = readline("ඞabobusඞ> ");
 		add_history(input);
-		parser(input);
+		start(input);
 		free(input);
 		// ft_freesplit(args);
 	}
