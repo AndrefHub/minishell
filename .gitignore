@@ -50,7 +50,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-*a.out
+*out
 *.genius
 # Executable
 minishell
