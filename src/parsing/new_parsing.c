@@ -5,7 +5,7 @@ char    **parse_to_lines(char *input)
     return (ft_split(input, '\n')); // for now. Need to add '\' functionality
 }
 
-void start_one_line(char *line)
+void	start_one_line(char *line)
 {
 	t_command	*cmd;
 	t_list		*lst;
@@ -21,13 +21,15 @@ void start_one_line(char *line)
 //		if (!check_syntax(cmd))
 //			return ;
 		convert_commands_to_char_ptrs(cmd);
-//		execute_command(cmd);
+		pipeline(cmd);
+		// execute_command(cmd);
 		ft_print_lst(cmd->content);
+		ft_putendl_fd(g_msh.sp_ops[cmd->link_type], 1);
 		cmd = cmd->next;
 	}
 }
 
-void start_cycle(char **lines)
+void	start_cycle(char **lines)
 {
 	int	i;
 
@@ -48,17 +50,7 @@ void start(char *input)
 		start_one_line(commands[0]);
 	else
 		start_cycle(commands);
-/*	while (commands[i])
-	{
-		lst = parse_quotes(commands[i]);
-		lst = parse_parentheses(lst);
-		cmd = parse_special_characters(lst);
-//			set_variables(com); // before start process
-//		ft_com_rm_space(cmd);
-//		convert_commands_to_char_ptrs(cmd);
-		ft_comadd_back(&full_cmd, cmd);
-		i++;
-	}*/
+
 }
 
 t_list	*parse_parentheses(t_list *quotes)

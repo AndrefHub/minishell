@@ -169,6 +169,7 @@ char	*ft_find_envp(char *parameter, char **envp);
 
 /* builtins */
 int		executor(char **args);
+void    pipeline(t_command *to_pipe);
 int     check_for_built_in(char **args);
 int     echo(char **argv);
 int		env(char **envp);

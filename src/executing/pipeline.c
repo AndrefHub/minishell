@@ -2,17 +2,17 @@
 
 void	execute(char **command)
 {
-	char	*binary;
+	// char	*binary;
 	int		code;
 
-	commamd[0] = find_binary(command[0], g_msh.envp);
+	command[0] = find_binary(command[0], g_msh.envp);
 	code = execve(command[0], command, g_msh.envp);
 	// ft_freesplit(command);
-	if (code < 0)
-		ft_exit_message(binary, 2);
+	// if (code < 0)
+	// 	ft_exit_message(binary, 2);
 }
 
-void    pipeline(t_command *to_pipe)
+void	pipeline(t_command *to_pipe)
 {
 	t_command   *tmp;
 	pid_t		pid;
@@ -29,6 +29,7 @@ void    pipeline(t_command *to_pipe)
 			dup2(fd[0], 0);
 			if (tmp->next->link_type != PIPELINE)
 				waitpid(pid, NULL, 0);
+			tmp = tmp->next;
 		}
 		else
 		{

@@ -44,7 +44,7 @@ void	ft_com_rm_space(t_command *cmd)
 	t_command	*command;
 
 	command = cmd;
-	while(command)
+	while (command)
 	{
 		lst = command->content;
 		command->content = ft_rm_space(&lst);
