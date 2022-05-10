@@ -26,6 +26,8 @@ t_command	*parser(char *input)
 		ft_comadd_back(&full_cmd, cmd);
 		i++;
 	}
+	// ft_print_com(full_cmd);
+	convert_commands_to_char_ptrs(full_cmd);
 	ft_print_com(full_cmd);
 	return (full_cmd);
 }
