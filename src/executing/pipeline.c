@@ -31,14 +31,15 @@ void	dup2_and_close(int from, int to)
 
 void	set_error_code(int wpid_ret)
 {
-	if (wpid_ret < 0)
-		g_msh.err_code = errno;
-	else
-		g_msh.err_code = 0;
+	int	code;
+	
+	code = WEXITSTATUS(wpid_ret);
+	g_msh.err_code = code;
 }
 
 t_command	*pipeline(t_command *to_pipe)
 {
+	int			ret_code;
 	pid_t		pid_fork;
 	t_pipe_fd	fd_data;
 
@@ -62,6 +63,7 @@ t_command	*pipeline(t_command *to_pipe)
 	}
 	dup2_and_close(fd_data.stdin_res, 0);
 	dup2_and_close(fd_data.stdout_res, 1);
-	set_error_code(waitpid(pid_fork, NULL, 0));
+	waitpid(pid_fork, &ret_code, 0);
+	set_error_code(ret_code);
 	return (to_pipe);
 }
