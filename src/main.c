@@ -46,7 +46,7 @@ int main(int argc, char **argv, char **envp)
 	set_g_msh(envp);
 	while (1)
 	{
-		input = readline("ඞabobusඞ> ");
+		input = readline("\033[1;31mඞ\033[0mabobus\033[1;36mඞ\033[0m> ");
 		add_history(input);
 		start(input);
 		free(input);

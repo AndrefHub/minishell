@@ -72,11 +72,14 @@
 # define PARSER_SINGLE_Q_FLAG 1
 # define PARSER_DOUBLE_Q_FLAG 2
 
-typedef struct s_spop
+typedef struct s_pipe_fd
 {
-	char	*sp_operator;
-	int		code;
-}	t_spop;
+	int	fd_in;
+	int	fd_out;
+	int	pipe_fds[2];
+	int	stdin_res;
+	int	stdout_res;
+}	t_pipe_fd;
 
 typedef struct s_msh 
 {
@@ -93,6 +96,7 @@ typedef struct s_command
 	t_list 				*content;
 	char				**name_args;
 	int					link_type;
+
 	struct s_command	*next;
 }	t_command;
 

@@ -7,6 +7,7 @@ char    **parse_to_lines(char *input)
 
 void	start_one_line(char *line)
 {
+	t_command	*full_cmd;
 	t_command	*cmd;
 	t_list		*lst;
 
@@ -14,6 +15,7 @@ void	start_one_line(char *line)
 	lst = parse_parentheses(lst);
 	cmd = parse_special_characters(lst);
 	free(line);
+	full_cmd = cmd;
 	while (cmd)
 	{
 		set_variables(cmd); // before start process
@@ -21,12 +23,16 @@ void	start_one_line(char *line)
 //		if (!check_syntax(cmd))
 //			return ;
 		convert_commands_to_char_ptrs(cmd);
-		pipeline(cmd);
+		// for (int i = 0; cmd->name_args[i]; ++i)
+		// {
+		// 	ft_putendl_fd(cmd->name_args[i], 2);
+		// }
 		// execute_command(cmd);
-		ft_print_lst(cmd->content);
-		ft_putendl_fd(g_msh.sp_ops[cmd->link_type], 1);
+		// ft_print_lst(cmd->content);
+		// ft_putendl_fd(g_msh.sp_ops[cmd->link_type], 1);
 		cmd = cmd->next;
 	}
+	pipeline(full_cmd);
 }
 
 void	start_cycle(char **lines)
