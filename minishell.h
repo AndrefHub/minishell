@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:58:24 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/10 19:51:00 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,6 @@
 // # define PIPELINE		0x040	// |
 // # define REDIR_IN		0x080	// <
 // # define REDIR_OUT_TR	0x100	// >
-
-# define PARSER_SINGLE_Q_FLAG 1
-# define PARSER_DOUBLE_Q_FLAG 2
 
 typedef struct s_pipe_fd
 {
@@ -176,15 +173,14 @@ int 	ft_arraylen(void **arr);
 t_list	*ft_list_files(char *name);
 char	*find_binary(char *command);
 void	start(char *input);
-void 	pipex(char *input, char **envp);
 
 /* working with envp */
 int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
 
 /* builtins */
-int		executor(char **args);
-void    pipeline(t_command *to_pipe);
+int		execute_commands(t_command *cmd);
+t_command	*pipeline(t_command *to_pipe);
 int     check_for_built_in(char **args);
 int     echo(char **argv);
 int		env(char **envp);

@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:36 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:40:41 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/10 18:15:19 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,3 @@ t_list	*ft_list_files(char *name)
 	}
 	return (file_list);
 }
-
-//int main(int argc, char **argv)
-//{
-////	ft_print_lst(ft_list_files(argv[1]));
-//
-//	return (0);
-//}

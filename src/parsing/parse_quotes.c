@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:28 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:36:29 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/10 18:14:51 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,7 @@ char	*get_quote(char **input)
 		to_find = '\"';
 	}
 	if (q == 0)
-	{
-		q = ft_strchr_num(*input + 1, to_find) + 1 + 1; 
-	}	
+		q = ft_strchr_num(*input + 1, to_find) + 1 + 1;
 	if (q > ft_strlen(*input))
 		q = ft_strlen(*input);
 	remainder = ft_strndup(*input, q);
@@ -51,10 +49,5 @@ t_list	*parse_quotes(char *input)
 		ft_lstadd_back(&quotes, ft_lstnew(get_quote(&tmp)));
 	ft_lstadd_back(&quotes, NULL);
 	next = quotes;
-//	while (next)
-//	{
-//		// printf("=====%s=======\n", next->content);
-//		next = next->next;
-//	}
 	return (next);
 }

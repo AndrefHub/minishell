@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:43 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:38:05 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/10 18:03:18 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ t_list	*ft_lstat(t_list *lst, int n)
 
 t_list	*ft_lstnsplit(t_list **begin, int n)
 {
-	// t_list	*begin;
 	t_list	*old_begin;
 
 	old_begin = *begin;
@@ -76,15 +75,11 @@ t_list	*ft_lstnsplit(t_list **begin, int n)
 	}
 	else
 	{
-		// free(ft_lstat(old_begin, n - 1)->content);
-		// free(ft_lstat(old_begin, n - 1));
-		// return (ft_lstnew(NULL));
 		free(old_begin->content);
 		old_begin->content = ft_strdup("");
 		old_begin->next = NULL;
 	}
 	return (old_begin);
-	// ft_lstat(old_begin, n - 1)->next = NULL;
 }
 
 void	do_nothing(void *nono)
