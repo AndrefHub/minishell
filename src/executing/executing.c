@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:46 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 19:59:03 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 19:04:00 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ int	execute(char **command)
 	char 	*binary;
 
 	pid_fork = fork();
-	if (!pid_fork) {
+	if (!pid_fork)
+	{
 		binary = find_binary(command[0]);
 		if (!binary || !ft_strlen(binary))
 		{
-			print_nothing(0);
+			// print_nothing(0);
 			exit(0);
 		}
 		execve(binary, command, g_msh.envp);

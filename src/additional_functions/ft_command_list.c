@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:43 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 18:03:18 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 14:27:37 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ t_command	*ft_new_command(t_list *content, int code)
 		return (NULL);
 	command->content = content;
 	command->link_type = code;
+	command->infile = NULL;
+	command->outfile = NULL;
 	command->next = NULL;
 	return (command);
 }

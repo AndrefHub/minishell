@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:31 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 19:18:07 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 16:02:11 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,8 @@ t_command	*parse_special_characters(t_list *lst)
 	int			counter;
 
 	commands = ft_new_command(lst, ENDING_TYPE);
-	// prev = NULL;
-	// buffer = commands;
-	counter = -1;
-	while (++counter < 5)
+	counter = SEMICOLON - 1;
+	while (++counter < HEREDOC)
 	{
 		prev = NULL;
 		buffer = commands;
@@ -98,4 +96,83 @@ t_command	*parse_special_characters(t_list *lst)
 		commands = new_begin;
 	}
 	return (new_begin);
+}
+
+t_file	*ft_file_new(char *filename, int link_type)
+{
+	t_file	*file;
+
+	file = malloc(sizeof(*file));
+	if (!file)
+		return (NULL);
+	file->f_name = ft_strdup(filename);
+	file->fd = -1;
+	file->mode = link_type;
+	return (file);
+}
+
+//	Add error signal for multiple in/outfiles
+void	set_file_in_command(t_command *command, int link_type, t_list *tmp)
+{
+	char	*filename;
+
+	if (!tmp || !tmp->next || !tmp->next->content)
+		filename = "";
+	else
+		filename = (char *) tmp->next->content;
+	if ((link_type == HEREDOC || link_type == REDIR_IN)
+		&& command->infile == NULL)
+		command->infile = ft_file_new(filename, link_type);
+	else if ((link_type == REDIR_OUT_AP || link_type == REDIR_OUT_TR)
+		&& command->outfile == NULL)
+		command->outfile = ft_file_new(filename, link_type);
+}
+
+t_command	*parse_redirects_single_command(t_command *command, int link_type)
+{
+	t_list		*begin;
+	t_list		*prev;
+	t_list		*tmp;
+	int			counter;
+	
+	counter = 0;
+	split_by_pattern(&(command->content), g_msh.sp_ops[link_type]);
+	prev = NULL;
+	begin = command->content;
+	tmp = command->content;
+	while (tmp)
+	{
+		if (ft_strncmp(((char *) tmp->content), g_msh.sp_ops[link_type],
+			ft_strlen(g_msh.sp_ops[link_type])) == 0)
+		{
+			set_file_in_command(command, link_type, tmp);
+			tmp = ft_lst_delnext(prev, tmp, &begin);
+			tmp = ft_lst_delnext(prev, tmp, &begin);
+		}
+		else
+		{
+			prev = tmp;
+			tmp = tmp->next;
+		}
+	}
+	command->content = begin;
+	return (command);
+}
+
+t_command	*parse_redirects(t_command *commands)
+{
+	t_command	*tmp;
+	int			counter;
+	
+	counter = HEREDOC - 1;
+	while (++counter < ENDING_TYPE)
+	{
+		tmp = commands;
+		while (tmp)
+		{
+			parse_redirects_single_command(tmp, counter);
+			tmp = tmp->next;
+		}
+	}
+	return (commands);
 }

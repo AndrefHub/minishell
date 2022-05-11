@@ -45,7 +45,7 @@ void setup_term(void)
 
 void	init_sig_handler(void (*handler) (int, siginfo_t *, void *))
 {
-	setup_term();
+	// setup_term();
 	struct sigaction sigact;
 	sigact.sa_flags = SA_SIGINFO;
 	sigact.sa_sigaction = handler;
