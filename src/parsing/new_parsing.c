@@ -28,6 +28,7 @@ void	start_one_line(char *line)
 	cmd = parse_special_characters(lst);
 	free(line);
 	full_cmd = cmd;
+	init_sig_handler(child_sig_handler);
 	while (cmd)
 	{
 		set_variables(cmd); // before start process
@@ -63,7 +64,7 @@ void start(char *input)
 	if (!input)
 		exit(130);
 	if (!ft_strlen(input)) {
-		print_nothing();
+		print_nothing(0);
 		return;
 	}
 	commands = parse_to_lines(input);

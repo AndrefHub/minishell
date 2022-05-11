@@ -12,6 +12,26 @@
 
 #include "../../minishell.h"
 
+int	execute(char **command)
+{
+	pid_t	pid_fork;
+	char 	*binary;
+
+	pid_fork = fork();
+	if (!pid_fork) {
+		binary = find_binary(command[0]);
+		if (!binary || !ft_strlen(binary))
+		{
+			print_nothing(0);
+			exit(0);
+		}
+		execve(binary, command, g_msh.envp);
+		perror(binary);
+		exit(errno);
+	}
+	return (pid_fork);
+}
+
 int	execute_commands(t_command *cmd)
 {
 	int			prev_link_type;

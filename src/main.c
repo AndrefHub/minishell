@@ -56,9 +56,10 @@ int main(int argc, char **argv, char **envp)
 
 	very_important_function(argc, argv, envp);
 	set_g_msh(envp);
-	init_sig_handler(parent_sig_handler);
+	setup_term();
 	while (1)
 	{
+		init_sig_handler(parent_sig_handler);
 		input = readline(MINISHELLNAME);
 		add_history(input);
 		start(input);
