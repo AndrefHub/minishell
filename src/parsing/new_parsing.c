@@ -61,6 +61,12 @@ void start(char *input)
 {
 	char		**commands;
 
+	if (!input)
+		exit(130);
+	if (!ft_strlen(input)) {
+		print_nothing();
+		return;
+	}
 	commands = parse_to_lines(input);
 	if (!commands[1])
 		start_one_line(commands[0]);
