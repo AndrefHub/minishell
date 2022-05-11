@@ -151,8 +151,8 @@ t_list	*ft_lstnsplit(t_list **begin, int n);
 t_list	*ft_lstat(t_list *lst, int n);
 
 /* ft_split tools */
-int		ft_isin(char c, char *charset);
-int		is_in(char c, char *set);
+//int		ft_isin(char c, char *charset);
+int     is_in(char c, const char *charset);
 size_t	command_words_count(char **args);
 t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
 char	**ft_split_space(char *s, char *set);
@@ -160,7 +160,7 @@ char	**ft_split_space(char *s, char *set);
 /* string tools */
 char	*ft_strcat_delim(char *first, char delim, char *second);
 int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strndup(const char *s, size_t n);
+
 size_t	ft_strchr_num(const char *s, int c);
 int 	ft_arraylen(void **arr);
 
