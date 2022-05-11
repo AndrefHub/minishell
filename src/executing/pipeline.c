@@ -1,58 +1,12 @@
 #include "../../minishell.h"
 
-void	parent_sig_handler(int sigsum, siginfo_t *sig, void *context)
-{
-	if (sigsum == SIGINT)
-		clear_term_signal();
-	else if (sigsum == SIGQUIT)
-	{
-		print_nothing();
-		write(2, "  \r", 3);
-		write(2, MINISHELLNAME, ft_strlen(MINISHELLNAME));
-	}
-	(void ) sig;
-	(void ) context;
-}
-//
-//void	child_sig_handler(int sigsum, siginfo_t *sig, void *context)
-//{
-//
-//}
-
-void	clear_term_signal(void )
-{
-	print_nothing();
-	write(2, "  \n", 3);
-	rl_replace_line("", 0);
-	print_nothing();
-}
-
-void	print_nothing(void )
-{
-	rl_on_new_line();
-	rl_redisplay();
-}
-
-void	init_sig_handler(void (*handler) (int, siginfo_t *, void *))
-{
-	struct sigaction sigact;
-
-	sigact.sa_flags = SA_SIGINFO;
-	sigact.sa_sigaction = handler;
-	sigemptyset(&sigact.sa_mask);
-	sigact.sa_flags = 0;
-	sigaction(SIGINT, &sigact, NULL); //Ctrl + C
-// 	sigaction(SIGTERM, &sigact, NULL); //
-	sigaction(SIGQUIT, &sigact, NULL); //Ctrl +
-
-}
-
 int	execute(char **command)
 {
 	pid_t pid_fork;
 	pid_fork = fork();
 
-	if (!pid_fork) {
+	if (!pid_fork)
+	{
 		command[0] = find_binary(command[0]);
 		execve(command[0], command, g_msh.envp);
 		perror(command[0]);
