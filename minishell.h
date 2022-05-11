@@ -147,48 +147,47 @@ t_command	*ft_command_last(t_command *command);
 void		ft_comclear(t_command **com);
 
 /* t_list structure tools */
-t_list	*ft_lstnsplit(t_list **begin, int n);
-t_list	*ft_lstat(t_list *lst, int n);
+t_list		*ft_lstnsplit(t_list **begin, int n);
+t_list		*ft_lstat(t_list *lst, int n);
 
 /* ft_split tools */
-//int		ft_isin(char c, char *charset);
-int     is_in(char c, const char *charset);
-size_t	command_words_count(char **args);
+int     	is_in(char c, const char *charset);
+size_t		command_words_count(char **args);
 t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
-char	**ft_split_space(char *s, char *set);
+char		**ft_split_space(char *s, char *set);
 
 /* string tools */
-char	*ft_strcat_delim(char *first, char delim, char *second);
-int		ft_strcmp(const char *s1, const char *s2);
+char		*ft_strcat_delim(char *first, char delim, char *second);
+int			ft_strcmp(const char *s1, const char *s2);
 
-size_t	ft_strchr_num(const char *s, int c);
-int 	ft_arraylen(void **arr);
+size_t		ft_strchr_num(const char *s, int c);
+int 		ft_arraylen(void **arr);
 
 /* working with path */
-t_list	*ft_list_files(char *name);
-char	*find_binary(char *command);
-void	start(char *input);
-void setup_term(void);
+t_list		*ft_list_files(char *name);
+char		*find_binary(char *command);
+void		start(char *input);
+void 		setup_term(void);
 
 /* working with envp */
-int 	find_at_first(const char *string, char *pattern);
-char	*ft_find_envp(char *parameter, char **envp);
+int 		find_at_first(const char *string, char *pattern);
+char		*ft_find_envp(char *parameter, char **envp);
 
 /* builtins */
-int		execute_commands(t_command *cmd);
+int			execute_commands(t_command *cmd);
 t_command	*pipeline(t_command *to_pipe);
-int     check_for_built_in(char **args);
-int     echo(char **argv);
-int		env(char **envp);
-int		msh_exit(char **argv);
+int     	check_for_built_in(char **args);
+int     	echo(char **argv);
+int			env(char **envp);
+int			msh_exit(char **argv);
 
-void	init_sig_handler(void (*handler) (int, siginfo_t *, void *));
-void	parent_sig_handler(int sigsum, siginfo_t *sig, void *context);
-void	child_sig_handler(int sigsum, siginfo_t *sig, void *context);
+void		init_sig_handler(void (*handler) (int, siginfo_t *, void *));
+void		parent_sig_handler(int sigsum, siginfo_t *sig, void *context);
+void		child_sig_handler(int sigsum, siginfo_t *sig, void *context);
 
-void	print_nothing(int mode);
-void	clear_term_signal(void );
+void		print_nothing(int mode);
+void		clear_term_signal(void );
 
-int	execute(char **command);
+int			execute(char **command);
 
 #endif
