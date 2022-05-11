@@ -37,5 +37,5 @@ int msh_exit(char **argv)
 {
 	(void)argv;
 	exit(0);
-	return (0);
+
 }

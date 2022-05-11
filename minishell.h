@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 18:39:10 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 19:47:04 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,16 +155,17 @@ t_list		*ft_lstat(t_list *lst, int n);
 t_list		*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst);
 
 /* ft_split tools */
-int			ft_isin(char c, char *charset);
-int			is_in(char c, char *set);
-size_t		command_words_count(char **args);
+//int		ft_isin(char c, char *charset);
+int     is_in(char c, const char *charset);
+size_t	command_words_count(char **args);
+
 t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
 char		**ft_split_space(char *s, char *set);
 
 /* string tools */
 char	*ft_strcat_delim(char *first, char delim, char *second);
 int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strndup(const char *s, size_t n);
+
 size_t	ft_strchr_num(const char *s, int c);
 int 	ft_arraylen(void **arr);
 

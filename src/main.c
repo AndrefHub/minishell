@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:42 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 19:03:05 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 19:52:21 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,17 +54,17 @@ int main(int argc, char **argv, char **envp)
 
 	very_important_function(argc, argv, envp);
 	set_g_msh(envp);
-	// setup_term();
+	setup_term();
 	while (1)
 	{
-		// init_sig_handler(parent_sig_handler);
+		init_sig_handler(parent_sig_handler);
 		input = readline(MINISHELLNAME);
-		if (input && input[0])
-		{
+		// if (input && input[0])
+		// {
 			add_history(input);
 			start(input);
 			free(input);
-		}// ft_freesplit(args);
+		// }// ft_freesplit(args);
 	}
 	return 0;
 }
