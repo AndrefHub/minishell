@@ -61,19 +61,3 @@ char	*substitute_envp(char *input, char **envp)
 	return (subbed);
 }
 
-char	**parser_old(char *input, char **envp)
-{
-	char	**args;
-	// int		code;
-
-	input = substitute_envp(input, envp);
-	args = ft_split_space(input, FT_SPACE);
-	free(input);
-	// if (!check_for_built_in(args))
-	// 	code = execve(args[0], args, NULL);
-	return args;
-	
-	// ft_freesplit(args);
-	// if (code < 0)
-	// 	ft_exit_message(binary, 2);
-}

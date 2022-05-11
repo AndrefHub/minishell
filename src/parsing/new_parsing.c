@@ -31,11 +31,11 @@ void	start_one_line(char *line)
 	init_sig_handler(child_sig_handler);
 	while (cmd)
 	{
-		set_variables(cmd); // before start process
+//		set_variables(cmd); // before start process
 		ft_com_rm_space(cmd);
 //		if (!check_syntax(cmd))
 //			return ;
-		convert_commands_to_char_ptrs(cmd);
+
 		// ft_print_lst(cmd->content);
 		// ft_putendl_fd(g_msh.sp_ops[cmd->link_type], 1);
 		cmd = cmd->next;

@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 
-int	ft_isin(char c, char *charset)
+int	ft_isin(char c, const char *charset)
 {
 	int	i;
 

@@ -39,8 +39,9 @@ int	execute_commands(t_command *cmd)
 	prev_link_type = SEMICOLON;
 	while (cmd)
 	{
-		if ((prev_link_type == DOUBLE_AND && g_msh.err_code == 0)
-			|| (prev_link_type == DOUBLE_OR && g_msh.err_code != 0)
+		set_variables(cmd);
+		if ((prev_link_type == DOUBLE_AND && g_msh.last_ex_code == 0)
+			|| (prev_link_type == DOUBLE_OR && g_msh.last_ex_code != 0)
 			|| prev_link_type == SEMICOLON)
 		{
 			cmd = pipeline(cmd);

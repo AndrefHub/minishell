@@ -26,7 +26,7 @@ void	set_error_code(int wpid_ret)
 	int	code;
 	
 	code = WEXITSTATUS(wpid_ret);
-	g_msh.err_code = code;
+	g_msh.last_ex_code = code;
 }
 
 t_command	*pipeline(t_command *to_pipe)
@@ -47,6 +47,7 @@ t_command	*pipeline(t_command *to_pipe)
 			do_pipe(&fd_data);
 		dup2_and_close(fd_data.fd_out, 1);
 		init_sig_handler(child_sig_handler);
+		convert_commands_to_char_ptrs(to_pipe);
 		pid_fork = execute(to_pipe->name_args);
 		if (to_pipe->link_type != PIPELINE)
 			break ;
