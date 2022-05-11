@@ -1,5 +1,11 @@
 #include "../../minishell.h"
 
+void	dup2_and_close(int from, int to)
+{
+	dup2(from, to);
+	close(from);
+}
+
 void	init_t_pipe_fd(t_pipe_fd *fd_data)
 {
 	fd_data->stdin_res = dup(0);
@@ -26,7 +32,7 @@ void	set_error_code(int wpid_ret)
 	int	code;
 	
 	code = wpid_ret >> 8 & 0xff;
-	g_msh.err_code = code;
+	g_msh.last_ex_code = code;
 }
 
 t_command	*pipeline(t_command *to_pipe)
@@ -40,13 +46,21 @@ t_command	*pipeline(t_command *to_pipe)
 	init_t_pipe_fd(&fd_data);
 	while (1)
 	{
+		if (is_file_open(to_pipe->infile))
+		{
+			// close(fd_data.fd_in);
+			dup2(to_pipe->infile->fd, fd_data.fd_in);
+		}
 		dup2_and_close(fd_data.fd_in, 0);
-		if (to_pipe->link_type != PIPELINE)
+		if (is_file_open(to_pipe->outfile))
+			fd_data.fd_out = to_pipe->outfile->fd;
+		else if (to_pipe->link_type != PIPELINE)
 			fd_data.fd_out = fd_data.stdout_res;
 		else
 			do_pipe(&fd_data);
 		dup2_and_close(fd_data.fd_out, 1);
 		init_sig_handler(child_sig_handler);
+		convert_commands_to_char_ptrs(to_pipe);
 		pid_fork = execute(to_pipe->name_args);
 		if (to_pipe->link_type != PIPELINE)
 			break ;

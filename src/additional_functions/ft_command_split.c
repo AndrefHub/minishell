@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-int	is_in(char c, char *set)
+int	is_in(char c, const char *set)
 {
 	int counter;
 
