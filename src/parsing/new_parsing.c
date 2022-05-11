@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 18:01:56 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 18:05:11 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	start_one_line(char *line)
 	cmd = parse_special_characters(lst);
 	free(line);
 	full_cmd = cmd;
+	init_sig_handler(child_sig_handler);
 	while (cmd)
 	{
 		set_variables(cmd); // before start process
@@ -66,7 +67,7 @@ void start(char *input)
 		exit(130);
 	if (!ft_strlen(input))
 	{
-		print_nothing();
+		print_nothing(0);
 		return;
 	}
 	commands = parse_to_lines(input);

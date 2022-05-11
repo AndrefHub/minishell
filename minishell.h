@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 17:50:53 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 18:04:48 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@
 # include <readline/history.h>
 # include <errno.h>
 # include <sys/wait.h>
+#include <sys/ioctl.h>
 # include <dirent.h>
 # include <sys/types.h>
+#include <termios.h>
 # include <unistd.h>
 #include <signal.h>
 # include "libft/libft.h"
@@ -72,15 +74,6 @@
 # define REDIR_OUT_TR	0x7	// >
 # define ENDING_TYPE	0x8	// 
 
-// # define SEMICOLON		0x001	// ;
-// # define DOUBLE_AND		0x002	// &&
-// # define DOUBLE_OR		0x004	// ||
-// # define HEREDOC		0x008	// <<
-// # define REDIR_OUT_AP	0x010	// >>
-// # define SINGLE_AND		0x020	// &
-// # define PIPELINE		0x040	// |
-// # define REDIR_IN		0x080	// <
-// # define REDIR_OUT_TR	0x100	// >
 # define MINISHELLNAME "\033[1;31mඞ\033[0mabobus\033[1;36mඞ\033[0m> "
 
 typedef struct s_pipe_fd
@@ -179,6 +172,7 @@ int 	ft_arraylen(void **arr);
 t_list	*ft_list_files(char *name);
 char	*find_binary(char *command);
 void	start(char *input);
+void setup_term(void);
 
 /* working with envp */
 int 	find_at_first(const char *string, char *pattern);
@@ -194,9 +188,12 @@ int		msh_exit(char **argv);
 
 void	init_sig_handler(void (*handler) (int, siginfo_t *, void *));
 void	parent_sig_handler(int sigsum, siginfo_t *sig, void *context);
+void	child_sig_handler(int sigsum, siginfo_t *sig, void *context);
 
-void	print_nothing(void );
+void	print_nothing(int mode);
 void	clear_term_signal(void );
 
 void	open_files(t_command *command);
+int		execute(char **command);
+
 #endif
