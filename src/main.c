@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:42 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:36:44 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:03:02 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,16 @@ char	**make_sp_ops(void )
 {
 	char	**lst;
 
-	lst = malloc(sizeof(*lst) * 11);
+	lst = malloc(sizeof(*lst) * (ENDING_TYPE + 1));
 	lst[0] = ft_strdup(";");
 	lst[1] = ft_strdup("&&");
 	lst[2] = ft_strdup("||");
-	lst[3] = ft_strdup("&");
-	lst[4] = ft_strdup("|");
-	lst[5] = ft_strdup("<<");
+	lst[3] = ft_strdup("|");
+	lst[4] = ft_strdup("<<");
+	lst[5] = ft_strdup("<");
 	lst[6] = ft_strdup(">>");
-	lst[7] = ft_strdup("<");
-	lst[8] = ft_strdup(">");
-	lst[9] = ft_strdup("end");
-	lst[10] = NULL;
+	lst[7] = ft_strdup(">");
+	lst[8] = NULL;
 	return (lst);
 }
 

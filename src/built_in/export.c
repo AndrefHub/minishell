@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executing.c                                        :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 17:36:46 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 11:49:42 by kdancy           ###   ########.fr       */
+/*   Created: 2022/05/11 12:12:18 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/11 13:15:20 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
-
-int	execute_commands(t_command *cmd)
-{
-	int			prev_link_type;
-
-	prev_link_type = SEMICOLON;
-	while (cmd)
-	{
-		if ((prev_link_type == DOUBLE_AND && g_msh.err_code == 0)
-			|| (prev_link_type == DOUBLE_OR && g_msh.err_code != 0)
-			|| prev_link_type == SEMICOLON)
-		{
-			cmd = pipeline(cmd);
-		}
-		prev_link_type = cmd->link_type;
-		cmd = cmd->next;
-	}
-	return (0);
-}
+// int export(char **args)
+// {
+	
+// }

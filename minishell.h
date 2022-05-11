@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 19:51:00 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:06:12 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@
 # define SEMICOLON		0x0	// ;
 # define DOUBLE_AND		0x1	// &&
 # define DOUBLE_OR		0x2	// ||
-# define SINGLE_AND		0x3	// &
-# define PIPELINE		0x4	// |
-# define HEREDOC		0x5	// <<
+// # define SINGLE_AND		0x3	// &
+# define PIPELINE		0x3	// |
+# define HEREDOC		0x4	// <<
+# define REDIR_IN		0x5	// <
 # define REDIR_OUT_AP	0x6	// >>
-# define REDIR_IN		0x7	// <
-# define REDIR_OUT_TR	0x8	// >
-# define ENDING_TYPE	0x9	// 
+# define REDIR_OUT_TR	0x7	// >
+# define ENDING_TYPE	0x8	// 
 
 // # define SEMICOLON		0x001	// ;
 // # define DOUBLE_AND		0x002	// &&
@@ -100,21 +100,23 @@ typedef struct s_msh
 	char	**sp_ops;
 }	t_msh;
 
+typedef	struct s_file
+{
+	char	*f_name;
+	int		fd;
+	int		mode;
+	// struct s_file	*next;
+}	t_file;
+
 typedef struct s_command
 {
 	t_list 				*content;
 	char				**name_args;
 	int					link_type;
-
+	t_file				*infile;
+	t_file				*outfile;
 	struct s_command	*next;
 }	t_command;
-
-typedef	struct s_file
-{
-	char	*f_name;
-	int		mode;
-	struct s_file *next;
-}	t_file;
 
 typedef struct s_input
 {
@@ -137,6 +139,7 @@ t_list		*parse_quotes(char *input);
 t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
 t_command	*parse_special_characters(t_list *lst);
+t_command	*parse_redirects(t_command *commands);
 t_command	*set_variables(t_command *command);
 void		convert_commands_to_char_ptrs(t_command *cmd);
 
@@ -154,6 +157,7 @@ void		ft_comclear(t_command **com);
 /* t_list structure tools */
 t_list	*ft_lstnsplit(t_list **begin, int n);
 t_list	*ft_lstat(t_list *lst, int n);
+t_list	*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst);
 
 /* ft_split tools */
 int		ft_isin(char c, char *charset);

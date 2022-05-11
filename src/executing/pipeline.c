@@ -8,12 +8,24 @@ void	execute(char **command)
 	exit(errno);
 }
 
+void	dup2_and_close(int from, int to)
+{
+	dup2(from, to);
+	close(from);
+}
+
 void	init_t_pipe_fd(t_pipe_fd *fd_data)
 {
 	fd_data->stdin_res = dup(0);
 	fd_data->stdout_res = dup(1);
 	fd_data->fd_in = dup(fd_data->stdin_res);
 	fd_data->fd_out = 1;
+}
+
+void	reset_t_pipe_fd(t_pipe_fd *fd_data)
+{
+	dup2_and_close(fd_data->stdin_res, 0);
+	dup2_and_close(fd_data->stdout_res, 1);
 }
 
 void	do_pipe(t_pipe_fd *fd_data)
@@ -23,17 +35,11 @@ void	do_pipe(t_pipe_fd *fd_data)
 	fd_data->fd_out = fd_data->pipe_fds[1];
 }
 
-void	dup2_and_close(int from, int to)
-{
-	dup2(from, to);
-	close(from);
-}
-
 void	set_error_code(int wpid_ret)
 {
 	int	code;
 	
-	code = WEXITSTATUS(wpid_ret);
+	code = wpid_ret >> 8 & 0xff;
 	g_msh.err_code = code;
 }
 
@@ -43,8 +49,8 @@ t_command	*pipeline(t_command *to_pipe)
 	pid_t		pid_fork;
 	t_pipe_fd	fd_data;
 
-	if (!to_pipe)
-		return (NULL);
+	if (!to_pipe || !to_pipe->content)
+		return (to_pipe);
 	init_t_pipe_fd(&fd_data);
 	while (1)
 	{
@@ -61,9 +67,13 @@ t_command	*pipeline(t_command *to_pipe)
 			break ;
 		to_pipe = to_pipe->next;
 	}
-	dup2_and_close(fd_data.stdin_res, 0);
-	dup2_and_close(fd_data.stdout_res, 1);
+	reset_t_pipe_fd(&fd_data);
 	waitpid(pid_fork, &ret_code, 0);
 	set_error_code(ret_code);
 	return (to_pipe);
 }
+
+// t_command	*single_command_execute(t_command *to_pipe)
+// {
+// 	if (!)
+// }
