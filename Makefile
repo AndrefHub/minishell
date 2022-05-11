@@ -18,7 +18,6 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			executing/executing.c\
 			executing/pipeline.c\
 			executing/open_files.c\
-			executing/signals.c\
 			parsing/new_parsing.c\
 			parsing/parse_quotes.c\
 			parsing/parsing.c\

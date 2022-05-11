@@ -1,20 +1,5 @@
 #include "../../minishell.h"
 
-int	execute(char **command)
-{
-	pid_t pid_fork;
-	pid_fork = fork();
-
-	if (!pid_fork)
-	{
-		command[0] = find_binary(command[0]);
-		execve(command[0], command, g_msh.envp);
-		perror(command[0]);
-		exit(errno);
-	}
-	return (pid_fork);
-}
-
 void	dup2_and_close(int from, int to)
 {
 	dup2(from, to);
@@ -61,13 +46,20 @@ t_command	*pipeline(t_command *to_pipe)
 	init_t_pipe_fd(&fd_data);
 	while (1)
 	{
+		if (is_file_open(to_pipe->infile))
+		{
+			// close(fd_data.fd_in);
+			dup2(to_pipe->infile->fd, fd_data.fd_in);
+		}
 		dup2_and_close(fd_data.fd_in, 0);
-		if (to_pipe->link_type != PIPELINE)
+		if (is_file_open(to_pipe->outfile))
+			fd_data.fd_out = to_pipe->outfile->fd;
+		else if (to_pipe->link_type != PIPELINE)
 			fd_data.fd_out = fd_data.stdout_res;
 		else
 			do_pipe(&fd_data);
 		dup2_and_close(fd_data.fd_out, 1);
-		init_sig_handler(child_sig_handler);
+		// init_sig_handler(child_sig_handler);
 		pid_fork = execute(to_pipe->name_args);
 		if (to_pipe->link_type != PIPELINE)
 			break ;

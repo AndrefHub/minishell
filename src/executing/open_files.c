@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:03:54 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 18:01:49 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 19:06:04 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,13 @@ void	open_outfile(t_file *file)
 
 int	is_file_open(t_file *file)
 {
+	if (file == NULL)
+		return (0);
 	if (REDIR_IN <= file->mode && file->mode <= REDIR_OUT_TR)
 		return (file->fd > -1);
-	if (file->mode == HEREDOC)
-		return (file->f_name);
+	// if (file->mode == HEREDOC)
+	// 	return (file->f_name != NULL);
+	return (0);
 }
 
 void	open_files(t_command *command)

@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 18:32:05 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 18:39:10 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ void	child_sig_handler(int sigsum, siginfo_t *sig, void *context);
 void	print_nothing(int mode);
 void	clear_term_signal(void );
 
+int		is_file_open(t_file *file);
 void	open_files(t_command *command);
 int		execute(char **command);
 
