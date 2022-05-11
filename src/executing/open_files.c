@@ -59,9 +59,9 @@ void	open_outfile(t_file *file)
 	if (file)
 	{
 		if (file->mode == REDIR_OUT_AP)
-			file->fd = open(file->f_name, O_WRONLY | O_CREAT | O_APPEND);
+			file->fd = open(file->f_name, O_RDWR | O_CREAT | O_APPEND, 0644);
 		else if (file->mode == REDIR_OUT_TR)
-			file->fd = open(file->f_name, O_WRONLY | O_CREAT | O_TRUNC);
+			file->fd = open(file->f_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
 }
 
