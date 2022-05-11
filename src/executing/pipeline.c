@@ -1,11 +1,65 @@
 #include "../../minishell.h"
 
-void	execute(char **command)
+void	parent_sig_handler(int sigsum, siginfo_t *sig, void *context)
 {
-	command[0] = find_binary(command[0]);
-	execve(command[0], command, g_msh.envp);
-	perror(command[0]);
-	exit(errno);
+	if (sigsum == SIGINT)
+		clear_term_signal();
+	else if (sigsum == SIGQUIT)
+	{
+		print_nothing();
+		write(2, "  \r", 3);
+		write(2, MINISHELLNAME, ft_strlen(MINISHELLNAME));
+	}
+	(void ) sig;
+	(void ) context;
+}
+//
+//void	child_sig_handler(int sigsum, siginfo_t *sig, void *context)
+//{
+//
+//}
+
+void	clear_term_signal(void )
+{
+	print_nothing();
+	write(2, "  \n", 3);
+	rl_replace_line("", 0);
+	print_nothing();
+}
+
+void	print_nothing(void )
+{
+	rl_on_new_line();
+	rl_redisplay();
+}
+
+void	init_sig_handler(void (*handler) (int, siginfo_t *, void *))
+{
+	struct sigaction sigact;
+
+	sigact.sa_flags = SA_SIGINFO;
+	sigact.sa_sigaction = handler;
+	sigemptyset(&sigact.sa_mask);
+	sigact.sa_flags = 0;
+	sigaction(SIGINT, &sigact, NULL); //Ctrl + C
+// 	sigaction(SIGTERM, &sigact, NULL); //
+	sigaction(SIGQUIT, &sigact, NULL); //Ctrl +
+
+}
+
+int	execute(char **command)
+{
+	pid_t pid_fork;
+	pid_fork = fork();
+
+	if (!pid_fork) {
+		command[0] = find_binary(command[0]);
+		execve(command[0], command, g_msh.envp);
+		perror(command[0]);
+		exit(errno);
+	}
+
+	return (pid_fork);
 }
 
 void	init_t_pipe_fd(t_pipe_fd *fd_data)
@@ -54,9 +108,7 @@ t_command	*pipeline(t_command *to_pipe)
 		else
 			do_pipe(&fd_data);
 		dup2_and_close(fd_data.fd_out, 1);
-		pid_fork = fork();
-		if (!pid_fork) 
-			execute(to_pipe->name_args);
+		pid_fork = execute(to_pipe->name_args);
 		if (to_pipe->link_type != PIPELINE)
 			break ;
 		to_pipe = to_pipe->next;

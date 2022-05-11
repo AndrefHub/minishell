@@ -46,6 +46,7 @@
 # include <dirent.h>
 # include <sys/types.h>
 # include <unistd.h>
+#include <signal.h>
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -69,7 +70,7 @@
 # define REDIR_OUT_AP	0x6	// >>
 # define REDIR_IN		0x7	// <
 # define REDIR_OUT_TR	0x8	// >
-# define ENDING_TYPE	0x9	// 
+# define ENDING_TYPE	0x9	//
 
 // # define SEMICOLON		0x001	// ;
 // # define DOUBLE_AND		0x002	// &&
@@ -80,6 +81,7 @@
 // # define PIPELINE		0x040	// |
 // # define REDIR_IN		0x080	// <
 // # define REDIR_OUT_TR	0x100	// >
+# define MINISHELLNAME "\033[1;31mඞ\033[0mabobus\033[1;36mඞ\033[0m> "
 
 typedef struct s_pipe_fd
 {
@@ -186,4 +188,9 @@ int     echo(char **argv);
 int		env(char **envp);
 int		msh_exit(char **argv);
 
+void	init_sig_handler(void (*handler) (int, siginfo_t *, void *));
+void	parent_sig_handler(int sigsum, siginfo_t *sig, void *context);
+
+void	print_nothing(void );
+void	clear_term_signal(void );
 #endif
