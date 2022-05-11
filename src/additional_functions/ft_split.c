@@ -6,13 +6,13 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 21:59:01 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/01 17:26:14 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/10 17:37:26 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-int	ft_isin(char c, char *charset)
+int	ft_isin(char c, const char *charset)
 {
 	int	i;
 

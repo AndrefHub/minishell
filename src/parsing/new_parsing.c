@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   new_parsing.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/11 19:50:27 by kdancy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 char    **parse_to_lines(char *input)
@@ -5,41 +17,66 @@ char    **parse_to_lines(char *input)
     return (ft_split(input, '\n')); // for now. Need to add '\' functionality
 }
 
-t_command	*parser(char *input)
+void	start_one_line(char *line)
 {
 	t_command	*full_cmd;
 	t_command	*cmd;
 	t_list		*lst;
-	char		**commands;
-	int			i;
-//	t_command	*com;
 
-	i = 0;
-	commands = parse_to_lines(input); // Maybe change '\n' to ' ' (?) Or parse to lines only after quotes
-	full_cmd = NULL;
-	while (commands[i])
+	lst = parse_quotes(line);
+	lst = parse_parentheses(lst);
+	cmd = parse_special_characters(lst);
+	free(line);
+	full_cmd = cmd;
+	init_sig_handler(child_sig_handler);
+	while (cmd)
 	{
-		lst = parse_quotes(commands[i]);
-		lst = parse_parentheses(lst);
-		cmd = parse_special_characters(lst);
-		cmd = set_variables(cmd);
-//		cmd = get_full_command(cmd);
-//		com = cmd;
-//		while (com)	// set before command start
-//		{
-//			com = set_variables(cmd);
-//			com = com->next;
-//		}
-//		com = ft_rm_space(cmd);
-//		convert_commands_to_char_ptrs(cmd);
-		ft_comadd_back(&full_cmd, cmd);
-		i++;
+//		set_variables(cmd); // before start process
+		ft_com_rm_space(cmd);
+		parse_redirects(cmd);
+		open_files(cmd);
+//		if (!check_syntax(cmd))
+//			return ;
+
+		// ft_print_lst(cmd->content);
+		// ft_putendl_fd(g_msh.sp_ops[cmd->link_type], 1);
+		cmd = cmd->next;
 	}
-	convert_commands_to_char_ptrs(cmd);
-	ft_print_com(full_cmd);
-	return (full_cmd);
+	execute_commands(full_cmd);
+	// pipeline(full_cmd);
+
 }
 
+void	start_cycle(char **lines)
+{
+	int	i;
+
+	i = 0;
+	while (lines[i])
+	{
+		start_one_line(lines[i]);
+		i++;
+	}
+}
+
+void start(char *input)
+{
+	char		**commands;
+
+	if (!input)
+		exit(130);
+	if (!ft_strlen(input))
+	{
+		print_nothing(0);
+		return;
+	}
+	commands = parse_to_lines(input);
+	if (!commands[1])
+		start_one_line(commands[0]);
+	else
+		start_cycle(commands);
+
+}
 
 t_list	*parse_parentheses(t_list *quotes)
 {
@@ -47,15 +84,3 @@ t_list	*parse_parentheses(t_list *quotes)
 	split_by_pattern(&quotes, ")");
 	return (quotes);
 }
-
-// int	init_subshell(char *string)
-// {
-//
-// 	char	 **args;
-// 	args = parse_quotes();
-// 	char	**commands = divide_semicolon();
-// 	t_command *lol = create_links(commands[i]);
-// 	replace_dollar_and_star(lol);
-// 	divide_on_name_and_args();
-// 	execute_command();
-// }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_data.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:37:32 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/10 17:37:33 by kdancy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 void	ft_print_lst(t_list *elem)
@@ -5,7 +17,7 @@ void	ft_print_lst(t_list *elem)
 	while (elem)
 	{
 		ft_putstr_fd(elem->content, 1);
-		ft_putstr_fd(" <<<<<\n", 1);
+		ft_putstr_fd("<<<<<\n", 1);
 		elem = elem->next;
 	}
 }

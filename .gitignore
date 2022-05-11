@@ -50,7 +50,8 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-*a.out
+*out
+*.genius
 # Executable
 minishell
 
@@ -61,3 +62,5 @@ minishell
 # Deprecated
 libft_228
 .DS_Store
+CMakeLists.txt
+cmake-build-debug

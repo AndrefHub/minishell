@@ -1,41 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 17:36:53 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:36:54 by kdancy           ###   ########.fr       */
+/*   Created: 2022/05/11 12:12:18 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/11 13:15:20 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
-
-int echo(char **argv)
-{
-	int flag;
-
-	flag = 1;
-	if (find_at_first(argv[1], "-n"))
-	{
-		argv++;
-		flag = 0;
-	}
-	while (*++argv)
-	{
-		ft_printf("%s", *argv);
-		if (*(argv + 1))
-			ft_printf(" ");
-	}
-	if (flag)
-		printf("\n");
-	return (0);
-}
-
-int msh_exit(char **argv)
-{
-	(void)argv;
-	exit(0);
-
-}
+// int export(char **args)
+// {
+	
+// }

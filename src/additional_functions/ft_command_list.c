@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_command_list.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:37:43 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/11 14:27:37 by kdancy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 t_command	*ft_new_command(t_list *content, int code)
@@ -9,6 +21,8 @@ t_command	*ft_new_command(t_list *content, int code)
 		return (NULL);
 	command->content = content;
 	command->link_type = code;
+	command->infile = NULL;
+	command->outfile = NULL;
 	command->next = NULL;
 	return (command);
 }
@@ -51,7 +65,6 @@ t_list	*ft_lstat(t_list *lst, int n)
 
 t_list	*ft_lstnsplit(t_list **begin, int n)
 {
-	// t_list	*begin;
 	t_list	*old_begin;
 
 	old_begin = *begin;
@@ -64,15 +77,11 @@ t_list	*ft_lstnsplit(t_list **begin, int n)
 	}
 	else
 	{
-		// free(ft_lstat(old_begin, n - 1)->content);
-		// free(ft_lstat(old_begin, n - 1));
-		// return (ft_lstnew(NULL));
-		free(ft_lstat(old_begin, n - 1)->content);
-		ft_lstat(old_begin, n - 1)->content = ft_strdup("");
-		ft_lstat(old_begin, n - 1)->next = NULL;
+		free(old_begin->content);
+		old_begin->content = ft_strdup("");
+		old_begin->next = NULL;
 	}
 	return (old_begin);
-	// ft_lstat(old_begin, n - 1)->next = NULL;
 }
 
 void	do_nothing(void *nono)

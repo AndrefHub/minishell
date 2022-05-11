@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/12 00:32:29 by andref           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -31,9 +43,12 @@
 # include <readline/history.h>
 # include <errno.h>
 # include <sys/wait.h>
+# include <sys/ioctl.h>
 # include <dirent.h>
 # include <sys/types.h>
+# include <termios.h>
 # include <unistd.h>
+# include <signal.h>
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -45,71 +60,58 @@
 #  define COLOR_CYAN	"\033[1;36m"
 #  define COLOR_RESET	"\033[0m"
 
-# else
-
-#  define COLOR_RED		""
-#  define COLOR_GREEN	""
-#  define COLOR_YELLOW	""
-#  define COLOR_BLUE	""
-#  define COLOR_CYAN	""
-#  define COLOR_RESET	""
-
 # endif
 */
 
 # define SEMICOLON		0x0	// ;
 # define DOUBLE_AND		0x1	// &&
 # define DOUBLE_OR		0x2	// ||
-# define SINGLE_AND		0x3	// &
-# define PIPELINE		0x4	// |
-# define HEREDOC		0x5	// <<
+// # define SINGLE_AND		0x3	// &
+# define PIPELINE		0x3	// |
+# define HEREDOC		0x4	// <<
+# define REDIR_IN		0x5	// <
 # define REDIR_OUT_AP	0x6	// >>
-# define REDIR_IN		0x7	// <
-# define REDIR_OUT_TR	0x8	// >
-# define ENDING_TYPE	0x9	// 
+# define REDIR_OUT_TR	0x7	// >
+# define ENDING_TYPE	0x8	// 
 
-// # define SEMICOLON		0x001	// ;
-// # define DOUBLE_AND		0x002	// &&
-// # define DOUBLE_OR		0x004	// ||
-// # define HEREDOC		0x008	// <<
-// # define REDIR_OUT_AP	0x010	// >>
-// # define SINGLE_AND		0x020	// &
-// # define PIPELINE		0x040	// |
-// # define REDIR_IN		0x080	// <
-// # define REDIR_OUT_TR	0x100	// >
+# define MINISHELLNAME "\033[1;31mඞ\033[0mabobus\033[1;36mඞ\033[0m> "
 
-# define PARSER_SINGLE_Q_FLAG 1
-# define PARSER_DOUBLE_Q_FLAG 2
-
-typedef struct s_spop
+typedef struct s_pipe_fd
 {
-	char	*sp_operator;
-	int		code;
-}	t_spop;
+	int	fd_in;
+	int	fd_out;
+	int	pipe_fds[2];
+	int	stdin_res;
+	int	stdout_res;
+}	t_pipe_fd;
 
 typedef struct s_msh 
 {
     char	**envp;
 	int		err_code;
+	char	*err_text;
 	int		last_ex_code;
-	char	*curr_dir;
+	char	*pwd;
 	char	**sp_ops;
 }	t_msh;
+
+typedef	struct s_file
+{
+	char	*f_name;
+	int		fd;
+	int		mode;
+	// struct s_file	*next;
+}	t_file;
 
 typedef struct s_command
 {
 	t_list 				*content;
 	char				**name_args;
 	int					link_type;
+	t_file				*infile;
+	t_file				*outfile;
 	struct s_command	*next;
 }	t_command;
-
-typedef	struct s_file
-{
-	char	*f_name;
-	int		mode;
-	struct s_file *next;
-}	t_file;
 
 typedef struct s_input
 {
@@ -132,53 +134,68 @@ t_list		*parse_quotes(char *input);
 t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
 t_command	*parse_special_characters(t_list *lst);
-// t_command	*parse_special_characters(t_command *commands);
+t_command	*parse_redirects(t_command *commands);
 t_command	*set_variables(t_command *command);
 void		convert_commands_to_char_ptrs(t_command *cmd);
 
 t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
 void		split_by_pattern(t_list **lst, char *pattern);
+void		ft_com_rm_space(t_command *cmd);
+t_list		*ft_rm_space(t_list **lst);
 
 /* t_command structure tools */
 t_command	*ft_new_command(t_list *content, int code);
-void		ft_comadd_back(t_command **lst, t_command *new);
+void		ft_comadd_back(t_command **lst, t_command *);
 t_command	*ft_command_last(t_command *command);
 void		ft_comclear(t_command **com);
 
 /* t_list structure tools */
-t_list	*ft_lstnsplit(t_list **begin, int n);
-t_list	*ft_lstat(t_list *lst, int n);
+t_list		*ft_lstnsplit(t_list **begin, int n);
+t_list		*ft_lstat(t_list *lst, int n);
+t_list		*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst);
 
 /* ft_split tools */
-int		ft_isin(char c, char *charset);
-int		is_in(char c, char *set);
+//int		ft_isin(char c, char *charset);
+int     is_in(char c, const char *charset);
 size_t	command_words_count(char **args);
+
 t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
-char	**ft_split_space(char *s, char *set);
+char		**ft_split_space(char *s, char *set);
 
 /* string tools */
 char	*ft_strcat_delim(char *first, char delim, char *second);
 int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strndup(const char *s, size_t n);
+
 size_t	ft_strchr_num(const char *s, int c);
 int 	ft_arraylen(void **arr);
 
 /* working with path */
 t_list	*ft_list_files(char *name);
-char	**get_path(char **envp);
-char	*find_binary(char *command, char **envp);
-t_command	*parser(char *input);
-void 	pipex(char *input, char **envp);
+char	*find_binary(char *command);
+void	start(char *input);
+void setup_term(void);
 
 /* working with envp */
 int 	find_at_first(const char *string, char *pattern);
 char	*ft_find_envp(char *parameter, char **envp);
 
 /* builtins */
-int		executor(char **args);
+int		execute_commands(t_command *cmd);
+t_command	*pipeline(t_command *to_pipe);
 int     check_for_built_in(char **args);
 int     echo(char **argv);
 int		env(char **envp);
 int		msh_exit(char **argv);
+
+void	init_sig_handler(void (*handler) (int, siginfo_t *, void *));
+void	parent_sig_handler(int sigsum, siginfo_t *sig, void *context);
+void	child_sig_handler(int sigsum, siginfo_t *sig, void *context);
+
+void	print_nothing(int mode);
+void	clear_term_signal(void );
+
+int		is_file_open(t_file *file);
+void	open_files(t_command *command);
+int		execute(char **command);
 
 #endif
