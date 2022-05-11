@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 15:38:17 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 17:50:53 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,16 +157,16 @@ t_command	*ft_command_last(t_command *command);
 void		ft_comclear(t_command **com);
 
 /* t_list structure tools */
-t_list	*ft_lstnsplit(t_list **begin, int n);
-t_list	*ft_lstat(t_list *lst, int n);
-t_list	*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst);
+t_list		*ft_lstnsplit(t_list **begin, int n);
+t_list		*ft_lstat(t_list *lst, int n);
+t_list		*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst);
 
 /* ft_split tools */
-int		ft_isin(char c, char *charset);
-int		is_in(char c, char *set);
-size_t	command_words_count(char **args);
+int			ft_isin(char c, char *charset);
+int			is_in(char c, char *set);
+size_t		command_words_count(char **args);
 t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
-char	**ft_split_space(char *s, char *set);
+char		**ft_split_space(char *s, char *set);
 
 /* string tools */
 char	*ft_strcat_delim(char *first, char delim, char *second);
@@ -197,4 +197,6 @@ void	parent_sig_handler(int sigsum, siginfo_t *sig, void *context);
 
 void	print_nothing(void );
 void	clear_term_signal(void );
+
+void	open_files(t_command *command);
 #endif

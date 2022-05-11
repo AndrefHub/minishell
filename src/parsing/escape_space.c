@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:34:34 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 14:20:05 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 15:43:45 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@ t_list	*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst)
 {
 	t_list	*delete;
 
-	if (prev)
-		prev->next = elem->next;
-	else
-		*lst = (*lst)->next;
-	delete = elem;
-	elem = elem->next;
-	ft_lstdelone(delete, free);
+	if (elem)
+	{
+		if (prev)
+			prev->next = elem->next;
+		else if (lst && *lst)
+			*lst = (*lst)->next;
+		delete = elem;
+		elem = elem->next;
+		ft_lstdelone(delete, free);
+	}
 	return (elem);
 }
 

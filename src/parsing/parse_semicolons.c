@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:31 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 15:37:03 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/11 16:02:11 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,17 +111,20 @@ t_file	*ft_file_new(char *filename, int link_type)
 	return (file);
 }
 
+//	Add error signal for multiple in/outfiles
 void	set_file_in_command(t_command *command, int link_type, t_list *tmp)
 {
 	char	*filename;
 
 	if (!tmp || !tmp->next || !tmp->next->content)
-		filename = NULL;
+		filename = "";
 	else
 		filename = (char *) tmp->next->content;
-	if (link_type == HEREDOC || link_type == REDIR_IN)
+	if ((link_type == HEREDOC || link_type == REDIR_IN)
+		&& command->infile == NULL)
 		command->infile = ft_file_new(filename, link_type);
-	else
+	else if ((link_type == REDIR_OUT_AP || link_type == REDIR_OUT_TR)
+		&& command->outfile == NULL)
 		command->outfile = ft_file_new(filename, link_type);
 }
 
@@ -145,10 +148,12 @@ t_command	*parse_redirects_single_command(t_command *command, int link_type)
 			set_file_in_command(command, link_type, tmp);
 			tmp = ft_lst_delnext(prev, tmp, &begin);
 			tmp = ft_lst_delnext(prev, tmp, &begin);
-			break ;
 		}
-		prev = tmp;
-		tmp = tmp->next;
+		else
+		{
+			prev = tmp;
+			tmp = tmp->next;
+		}
 	}
 	command->content = begin;
 	return (command);
