@@ -12,7 +12,6 @@ int	execute(char **command)
 		perror(command[0]);
 		exit(errno);
 	}
-
 	return (pid_fork);
 }
 
@@ -68,6 +67,7 @@ t_command	*pipeline(t_command *to_pipe)
 		else
 			do_pipe(&fd_data);
 		dup2_and_close(fd_data.fd_out, 1);
+		init_sig_handler(child_sig_handler);
 		pid_fork = execute(to_pipe->name_args);
 		if (to_pipe->link_type != PIPELINE)
 			break ;
