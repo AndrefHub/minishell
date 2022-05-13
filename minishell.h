@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/12 00:32:29 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/13 16:49:03 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int 	ft_arraylen(void **arr);
 t_list	*ft_list_files(char *name);
 char	*find_binary(char *command);
 void	start(char *input);
-void setup_term(void);
+void	setup_term(void);
 
 /* working with envp */
 int 	find_at_first(const char *string, char *pattern);
@@ -196,6 +196,8 @@ void	clear_term_signal(void );
 
 int		is_file_open(t_file *file);
 void	open_files(t_command *command);
+void	ft_free_file(t_file *file);
+
 int		execute(char **command);
 
 #endif

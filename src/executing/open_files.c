@@ -6,90 +6,44 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:03:54 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/12 00:34:37 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/13 16:50:22 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-////	int fd = open(".heredoc_tmp", O_WRONLY | O_CREAT | O_APPEND, 0666);
+
 int	heredoc(char *delim)
 {
-	// char	*full_input;
 	char	*input;
-	// char	*tmp;
 	int		herepipe[2];
 
 	pipe(herepipe);
-	// close(herepipe[1]);
-	// full_input = ft_strdup("");
 	while (1)
 	{
 		input = readline("HEREDOC> ");
 		if (!input)
-			break ;//(full_input);
+			break ;
 		if (ft_strlen(input) != 0 && ft_strncmp(delim, input, ft_strlen(input)) == 0)
 		{
 			free(input);
-			break ;//(full_input);
+			break ;
 		}
-		// tmp = ft_strcat_delim(full_input, '\n', input);
 		ft_putstr_fd(input, herepipe[1]);
 		ft_putchar_fd('\n', herepipe[1]);
-		// free(full_input);
 		free(input);
-		// full_input = tmp;
 	}
 	close(herepipe[1]);
 	return herepipe[0];
-	// return (full_input);
 }
-
-// char	*heredoc(char *delim)
-// {
-// 	char	*input;
-// 	int fd = open(".heredoc_tmp", O_RDWR | O_CREAT | O_TRUNC, 0666);
-
-// 	// close(herepipe[1]);
-// 	// full_input = ft_strdup("");
-// 	while (1)
-// 	{
-// 		input = readline("HEREDOC> ");
-// 		if (!input)
-// 			break ;//(full_input);
-// 		if (ft_strlen(input) != 0 && ft_strncmp(delim, input, ft_strlen(input)) == 0)
-// 		{
-// 			free(input);
-// 			break ;//(full_input);
-// 		}
-// 		// tmp = ft_strcat_delim(full_input, '\n', input);
-// 		ft_putstr_fd(input, fd);
-// 		ft_putchar_fd('\n', fd);
-// 		// free(full_input);
-// 		free(input);
-// 		// full_input = tmp;
-// 	}
-// 	close(fd);
-// 	return ".heredoc_tmp";
-// 	// return (full_input);
-// }
 
 void	open_infile(t_file *file)
 {
-	// char	*heredoc_res;
-
 	if (file)
 	{
 		if (file->mode == REDIR_IN)
 			file->fd = open(file->f_name, O_RDONLY);
 		else if (file->mode == HEREDOC)
-		{
 			file->fd = heredoc(file->f_name);;
-			// file->f_name = heredoc(file->f_name);
-			// file->fd = open(file->f_name, O_RDONLY);
-			// heredoc_res = heredoc(file->f_name);
-			// free(file->f_name);
-			// file->f_name = heredoc_res;
-		}
 	}
 }
 
@@ -123,4 +77,13 @@ void	open_files(t_command *command)
 		open_outfile(command->outfile);
 		command = command->next;
 	}    
+}
+
+void ft_free_file(t_file *file)
+{
+	if (file)
+	{
+		free(file->f_name);
+		free(file);
+	}
 }

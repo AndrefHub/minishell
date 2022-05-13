@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:43 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 14:27:37 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/13 17:25:22 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,6 @@ t_list	*ft_lstnsplit(t_list **begin, int n)
 	return (old_begin);
 }
 
-void	do_nothing(void *nono)
-{
-	(void) nono;
-}
-
 void	ft_comclear(t_command **com)
 {
 	t_command	*elem;
@@ -99,9 +94,13 @@ void	ft_comclear(t_command **com)
 	{
 		elem = copy->next;
 		if (copy->content)
-			ft_lstclear(&(copy->content), do_nothing);
+			ft_lstclear(&(copy->content), free);
+		ft_free_file(copy->infile);
+		ft_free_file(copy->outfile);
+		free(copy->name_args);
 		free(copy);
 		copy = elem;
 	}
+	
 	*com = ((void *)0);
 }

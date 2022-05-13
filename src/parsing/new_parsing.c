@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 19:50:27 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/13 17:32:34 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char    **parse_to_lines(char *input)
 {
-    return (ft_split(input, '\n')); // for now. Need to add '\' functionality
+    return (ft_split_space(input, "\n")); // for now. Need to add '\' functionality
 }
 
 void	start_one_line(char *line)
@@ -44,7 +44,7 @@ void	start_one_line(char *line)
 	}
 	execute_commands(full_cmd);
 	// pipeline(full_cmd);
-
+	ft_comclear(&full_cmd);
 }
 
 void	start_cycle(char **lines)
@@ -59,9 +59,9 @@ void	start_cycle(char **lines)
 	}
 }
 
-void start(char *input)
+void	start(char *input)
 {
-	char		**commands;
+	char	**commands;
 
 	if (!input)
 		exit(130);
@@ -73,9 +73,10 @@ void start(char *input)
 	commands = parse_to_lines(input);
 	if (!commands[1])
 		start_one_line(commands[0]);
+	// start_one_line(input);
 	else
 		start_cycle(commands);
-
+	free(commands);
 }
 
 t_list	*parse_parentheses(t_list *quotes)
