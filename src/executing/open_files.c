@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:03:54 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 16:50:22 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/13 17:36:46 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	open_outfile(t_file *file)
 		if (file->mode == REDIR_OUT_AP)
 			file->fd = open(file->f_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else if (file->mode == REDIR_OUT_TR)
-			file->fd = open(file->f_name, O_WRONLY | O_CREAT | O_TRUNC, 0b110100100);
+			file->fd = open(file->f_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	}
 }
 

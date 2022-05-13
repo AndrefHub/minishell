@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 16:49:03 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/13 17:36:03 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@
 # define REDIR_IN		0x5	// <
 # define REDIR_OUT_AP	0x6	// >>
 # define REDIR_OUT_TR	0x7	// >
-# define ENDING_TYPE	0x8	// 
+# define ENDING_TYPE	0x8	//
 
 # define MINISHELLNAME "\033[1;31mඞ\033[0mabobus\033[1;36mඞ\033[0m> "
 
@@ -108,18 +108,22 @@ typedef struct s_command
 	t_list 				*content;
 	char				**name_args;
 	int					link_type;
+	int					bracket_r;
+	int					bracket_l;
 	t_file				*infile;
 	t_file				*outfile;
 	struct s_command	*next;
 }	t_command;
 
-typedef struct s_input
+typedef struct s_error
 {
-	char		*input;
-	char		**lines;
-	char		**quotes;
-	t_command	*brackets;
-}	t_input;
+	int		redir_l;
+	int		redir_r;
+	int		bracket_r;
+	int		bracket_l;
+	int		token;
+
+}	t_error;
 
 extern t_msh g_msh;
 
@@ -134,6 +138,7 @@ t_list		*parse_quotes(char *input);
 t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
 t_command	*parse_special_characters(t_list *lst);
+void		parse_brackets(t_command *cmd);
 t_command	*parse_redirects(t_command *commands);
 t_command	*set_variables(t_command *command);
 void		convert_commands_to_char_ptrs(t_command *cmd);
@@ -152,52 +157,54 @@ void		ft_comclear(t_command **com);
 /* t_list structure tools */
 t_list		*ft_lstnsplit(t_list **begin, int n);
 t_list		*ft_lstat(t_list *lst, int n);
-t_list		*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst);
 
 /* ft_split tools */
-//int		ft_isin(char c, char *charset);
-int     is_in(char c, const char *charset);
-size_t	command_words_count(char **args);
+int     	is_in(char c, const char *charset);
+size_t		command_words_count(char **args);
+t_list		*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst);
 
 t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
 char		**ft_split_space(char *s, char *set);
 
 /* string tools */
-char	*ft_strcat_delim(char *first, char delim, char *second);
-int		ft_strcmp(const char *s1, const char *s2);
+char		*ft_strcat_delim(char *first, char delim, char *second);
+int			ft_strcmp(const char *s1, const char *s2);
 
-size_t	ft_strchr_num(const char *s, int c);
-int 	ft_arraylen(void **arr);
+size_t		ft_strchr_num(const char *s, int c);
+int 		ft_arraylen(void **arr);
 
 /* working with path */
-t_list	*ft_list_files(char *name);
-char	*find_binary(char *command);
-void	start(char *input);
-void	setup_term(void);
+t_list		*ft_list_files(char *name);
+char		*find_binary(char *command);
+void		start(char *input);
+void 		setup_term(void);
 
 /* working with envp */
-int 	find_at_first(const char *string, char *pattern);
-char	*ft_find_envp(char *parameter, char **envp);
+int 		find_at_first(const char *string, char *pattern);
+char		*ft_find_envp(char *parameter, char **envp);
 
 /* builtins */
-int		execute_commands(t_command *cmd);
+int			execute_commands(t_command *cmd);
 t_command	*pipeline(t_command *to_pipe);
-int     check_for_built_in(char **args);
-int     echo(char **argv);
-int		env(char **envp);
-int		msh_exit(char **argv);
+int     	check_for_built_in(char **args);
+int     	echo(char **argv);
+int			env(char **envp);
+int			msh_exit(char **argv);
 
-void	init_sig_handler(void (*handler) (int, siginfo_t *, void *));
-void	parent_sig_handler(int sigsum, siginfo_t *sig, void *context);
-void	child_sig_handler(int sigsum, siginfo_t *sig, void *context);
+void		init_sig_handler(void (*handler) (int, siginfo_t *, void *));
+void		parent_sig_handler(int sigsum, siginfo_t *sig, void *context);
+void		child_sig_handler(int sigsum, siginfo_t *sig, void *context);
 
-void	print_nothing(int mode);
-void	clear_term_signal(void );
+void		print_nothing(int mode);
+void		clear_term_signal(void );
 
-int		is_file_open(t_file *file);
-void	open_files(t_command *command);
-void	ft_free_file(t_file *file);
+int			execute(char **command);
+int			is_file_open(t_file *file);
+void		open_files(t_command *command);
+void		ft_free_file(t_file *file);
 
-int		execute(char **command);
+int			check_syntax(void);
+int			build_error(t_error *error);
+int			fill_error(int code);
 
 #endif

@@ -38,6 +38,8 @@ int		ft_putchar(char c);
 char	ft_hex_digit(int v, char x);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 
+int		ft_max(int a, int b);
+int		ft_min(int a, int b);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 int		ft_isalnum(int c);

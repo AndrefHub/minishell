@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 17:32:34 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/13 17:37:06 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,21 @@ void	start_one_line(char *line)
 	free(line);
 	full_cmd = cmd;
 	init_sig_handler(child_sig_handler);
+	parse_brackets(cmd);
 	while (cmd)
 	{
-//		set_variables(cmd); // before start process
 		ft_com_rm_space(cmd);
+		if (!check_syntax()) {
+			return;
+		}
 		parse_redirects(cmd);
 		open_files(cmd);
-//		if (!check_syntax(cmd))
-//			return ;
-
-		// ft_print_lst(cmd->content);
-		// ft_putendl_fd(g_msh.sp_ops[cmd->link_type], 1);
+		ft_print_lst(cmd->content);
+		printf("(: %d\n", cmd->bracket_l);
+		printf("): %d\n", cmd->bracket_r);
 		cmd = cmd->next;
 	}
 	execute_commands(full_cmd);
-	// pipeline(full_cmd);
 	ft_comclear(&full_cmd);
 }
 
@@ -73,15 +73,8 @@ void	start(char *input)
 	commands = parse_to_lines(input);
 	if (!commands[1])
 		start_one_line(commands[0]);
-	// start_one_line(input);
 	else
 		start_cycle(commands);
 	free(commands);
 }
 
-t_list	*parse_parentheses(t_list *quotes)
-{
-	split_by_pattern(&quotes, "(");
-	split_by_pattern(&quotes, ")");
-	return (quotes);
-}

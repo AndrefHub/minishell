@@ -7,6 +7,8 @@ SRCS		:= ft_isalnum.c\
 				ft_isdigit.c\
 				ft_isprint.c\
 				ft_strchr.c\
+				ft_max.c\
+				ft_min.c\
 				ft_strlen.c\
 				ft_tolower.c\
 				ft_toupper.c\
