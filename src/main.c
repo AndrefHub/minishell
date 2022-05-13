@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:42 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 17:18:04 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/13 23:40:28 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,27 @@ void	set_g_msh(char **envp)
 	g_msh.pwd = ft_find_envp("PWD", g_msh.envp);
 }
 
+void	reset_errors(void)
+{
+	g_msh.err_code = 0;
+//	free(g_msh.err_text);
+	g_msh.err_text = NULL;
+}
+
+int	ft_is_empty(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	char		*input;
@@ -58,9 +79,10 @@ int main(int argc, char **argv, char **envp)
 	setup_term();
 	while (1)
 	{
+		reset_errors();
 		init_sig_handler(parent_sig_handler);
 		input = readline(MINISHELLNAME);
-		if (input && input[0])
+		if (input && input[0] && !ft_is_empty(input))
 			add_history(input);
 		start(input);
 		free(input);

@@ -6,15 +6,19 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/05/13 23:11:36 by andref           ###   ########.fr       */
+=======
+/*   Updated: 2022/05/13 23:27:46 by andref           ###   ########.fr       */
+>>>>>>> lsherry
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char    **parse_to_lines(char *input)
+char	**parse_to_lines(char *input)
 {
-    return (ft_split_space(input, "\n")); // for now. Need to add '\' functionality
+	return (ft_split(input, '\n'));
 }
 
 void	start_one_line(char *line)
@@ -33,12 +37,12 @@ void	start_one_line(char *line)
 	while (cmd)
 	{
 		ft_com_rm_space(cmd);
-		if (!check_syntax()) {
-			ft_comclear(&full_cmd, 0);
-			return ;
-		}
 		parse_redirects(cmd);
 		open_files(cmd);
+		if (!check_syntax())
+		{
+			return ;
+		}
 		// ft_print_lst(cmd->content);
 		// printf("(: %d\n", cmd->bracket_l);
 		// printf("): %d\n", cmd->bracket_r);
@@ -47,6 +51,12 @@ void	start_one_line(char *line)
 	execute_commands(full_cmd);
 	ft_comclear(&full_cmd, 0);
 }
+
+/*
+ * ft_print_lst(cmd->content);
+ * printf("(: %d\n", cmd->bracket_l);
+ * printf("): %d\n", cmd->bracket_r);
+ * */
 
 void	start_cycle(char **lines)
 {
@@ -69,7 +79,7 @@ void	start(char *input)
 	if (!ft_strlen(input))
 	{
 		print_nothing(0);
-		return;
+		return ;
 	}
 	commands = parse_to_lines(input);
 	if (!commands[1])
@@ -78,4 +88,3 @@ void	start(char *input)
 		start_cycle(commands);
 	free(commands);
 }
-
