@@ -12,9 +12,9 @@
 
 #include "../../minishell.h"
 
-char    **parse_to_lines(char *input)
+char	**parse_to_lines(char *input)
 {
-    return (ft_split(input, '\n')); // for now. Need to add '\' functionality
+	return (ft_split(input, '\n'));
 }
 
 void	start_one_line(char *line)
@@ -33,17 +33,23 @@ void	start_one_line(char *line)
 	while (cmd)
 	{
 		ft_com_rm_space(cmd);
-		if (!check_syntax())
-			return;
 		parse_redirects(cmd);
 		open_files(cmd);
-//		ft_print_lst(cmd->content);
-//		printf("(: %d\n", cmd->bracket_l);
-//		printf("): %d\n", cmd->bracket_r);
+		if (!check_syntax())
+			return ;
+		ft_print_lst(cmd->content);
+		printf("(: %d\n", cmd->bracket_l);
+		printf("): %d\n", cmd->bracket_r);
 		cmd = cmd->next;
 	}
 	execute_commands(full_cmd);
 }
+
+/*
+ * ft_print_lst(cmd->content);
+ * printf("(: %d\n", cmd->bracket_l);
+ * printf("): %d\n", cmd->bracket_r);
+ * */
 
 void	start_cycle(char **lines)
 {
@@ -57,22 +63,20 @@ void	start_cycle(char **lines)
 	}
 }
 
-void start(char *input)
+void	start(char *input)
 {
-	char		**commands;
+	char	**commands;
 
 	if (!input)
 		exit(130);
 	if (!ft_strlen(input))
 	{
 		print_nothing(0);
-		return;
+		return ;
 	}
 	commands = parse_to_lines(input);
 	if (!commands[1])
 		start_one_line(commands[0]);
 	else
 		start_cycle(commands);
-
 }
-

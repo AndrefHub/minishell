@@ -39,7 +39,7 @@ char	*find_binary(char *command)
 char	*substitute_envp(char *input, char **envp)
 {
 	int		i;
-	char    *subbed;
+	char	*subbed;
 
 	i = -1;
 	subbed = ft_strdup("");
@@ -48,7 +48,7 @@ char	*substitute_envp(char *input, char **envp)
 		if (input[i] == '$' && input[i + 1])
 		{
 			subbed = ft_strjoin_gnl(subbed, ft_find_envp(ft_strndup(input + i
-				+ 1, ft_strchr_num(input + i + 1, ' ')), envp));
+							+ 1, ft_strchr_num(input + i + 1, ' ')), envp));
 			while (input[i + 1] && !is_in(input[i + 1], FT_SPACE))
 				++i;
 		}
@@ -60,4 +60,3 @@ char	*substitute_envp(char *input, char **envp)
 	}
 	return (subbed);
 }
-
