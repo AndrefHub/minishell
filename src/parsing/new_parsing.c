@@ -33,14 +33,13 @@ void	start_one_line(char *line)
 	while (cmd)
 	{
 		ft_com_rm_space(cmd);
-		if (!check_syntax()) {
+		if (!check_syntax())
 			return;
-		}
 		parse_redirects(cmd);
 		open_files(cmd);
-		ft_print_lst(cmd->content);
-		printf("(: %d\n", cmd->bracket_l);
-		printf("): %d\n", cmd->bracket_r);
+//		ft_print_lst(cmd->content);
+//		printf("(: %d\n", cmd->bracket_l);
+//		printf("): %d\n", cmd->bracket_r);
 		cmd = cmd->next;
 	}
 	execute_commands(full_cmd);

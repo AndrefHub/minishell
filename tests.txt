@@ -9,6 +9,13 @@
 (echo -n one || echo two) || (((echo three && echo four) ; echo five ) ; echo six)
 >>one
 ========
+==good==
+echo one && echo two || (echo three || echo four) && echo five && (echo six || echo seven || echo eight)
+>>one
+>>two
+>>five
+>>six
+========
 ==bad===
 ()
 syntax

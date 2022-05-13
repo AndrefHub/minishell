@@ -45,6 +45,27 @@ void	set_g_msh(char **envp)
 	g_msh.last_ex_code = 0;
 }
 
+void	reset_errors(void)
+{
+	g_msh.err_code = 0;
+//	free(g_msh.err_text);
+	g_msh.err_text = NULL;
+}
+
+int	ft_is_empty(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int main(int argc, char **argv, char **envp)
 {
 	char		*input;
@@ -57,14 +78,14 @@ int main(int argc, char **argv, char **envp)
 	setup_term();
 	while (1)
 	{
+		reset_errors();
 		init_sig_handler(parent_sig_handler);
 		input = readline(MINISHELLNAME);
-		// if (input && input[0])
-		// {
+		if (input && input[0] && ft_is_empty(input))
 			add_history(input);
-			start(input);
-			free(input);
-		// }// ft_freesplit(args);
+		start(input);
+		free(input);
+	// ft_freesplit(args);
 	}
 	return 0;
 }
