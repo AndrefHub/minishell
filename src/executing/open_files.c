@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:03:54 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 17:36:46 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/13 22:39:27 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,12 @@ void	open_files(t_command *command)
 	}    
 }
 
-void ft_free_file(t_file *file)
+void ft_free_file(t_file *file, int err)
 {
 	if (file)
 	{
+		if (err)
+			close(file->fd);
 		free(file->f_name);
 		free(file);
 	}

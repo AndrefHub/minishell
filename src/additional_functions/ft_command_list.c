@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:43 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 17:25:22 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/13 22:38:25 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_list	*ft_lstnsplit(t_list **begin, int n)
 	return (old_begin);
 }
 
-void	ft_comclear(t_command **com)
+void	ft_comclear(t_command **com, int err)
 {
 	t_command	*elem;
 	t_command	*copy;
@@ -95,8 +95,8 @@ void	ft_comclear(t_command **com)
 		elem = copy->next;
 		if (copy->content)
 			ft_lstclear(&(copy->content), free);
-		ft_free_file(copy->infile);
-		ft_free_file(copy->outfile);
+		ft_free_file(copy->infile, err);
+		ft_free_file(copy->outfile, err);
 		free(copy->name_args);
 		free(copy);
 		copy = elem;

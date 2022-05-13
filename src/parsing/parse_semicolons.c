@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_semicolons.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:31 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 16:02:11 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/13 23:07:54 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,12 +120,20 @@ void	set_file_in_command(t_command *command, int link_type, t_list *tmp)
 		filename = "";
 	else
 		filename = (char *) tmp->next->content;
-	if ((link_type == HEREDOC || link_type == REDIR_IN)
-		&& command->infile == NULL)
-		command->infile = ft_file_new(filename, link_type);
-	else if ((link_type == REDIR_OUT_AP || link_type == REDIR_OUT_TR)
-		&& command->outfile == NULL)
-		command->outfile = ft_file_new(filename, link_type);
+	if ((link_type == HEREDOC || link_type == REDIR_IN))
+	{
+		if (command->infile == NULL)
+			command->infile = ft_file_new(filename, link_type);
+		else
+			fill_error(link_type);
+	}
+	else if ((link_type == REDIR_OUT_AP || link_type == REDIR_OUT_TR))
+	{
+		if (command->outfile == NULL)
+			command->outfile = ft_file_new(filename, link_type);
+		else
+			fill_error(link_type);
+	}
 }
 
 t_command	*parse_redirects_single_command(t_command *command, int link_type)

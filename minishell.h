@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 17:36:03 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/13 22:38:41 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct s_error
 extern t_msh g_msh;
 
 # define FT_SPACE "\t "
-# define FT_DELIM "|&<>"
+# define SPCHARS "|&<>;"
 
 void	ft_print_com(t_command *elem);
 void	ft_print_lst(t_list *elem);
@@ -152,7 +152,7 @@ t_list		*ft_rm_space(t_list **lst);
 t_command	*ft_new_command(t_list *content, int code);
 void		ft_comadd_back(t_command **lst, t_command *);
 t_command	*ft_command_last(t_command *command);
-void		ft_comclear(t_command **com);
+void		ft_comclear(t_command **com, int);
 
 /* t_list structure tools */
 t_list		*ft_lstnsplit(t_list **begin, int n);
@@ -201,7 +201,7 @@ void		clear_term_signal(void );
 int			execute(char **command);
 int			is_file_open(t_file *file);
 void		open_files(t_command *command);
-void		ft_free_file(t_file *file);
+void		ft_free_file(t_file *file, int);
 
 int			check_syntax(void);
 int			build_error(t_error *error);
