@@ -72,7 +72,7 @@
 # define REDIR_IN		0x5	// <
 # define REDIR_OUT_AP	0x6	// >>
 # define REDIR_OUT_TR	0x7	// >
-# define ENDING_TYPE	0x8	// 
+# define ENDING_TYPE	0x8	//
 
 # define MINISHELLNAME "\033[1;31mඞ\033[0mabobus\033[1;36mඞ\033[0m> "
 
@@ -108,18 +108,22 @@ typedef struct s_command
 	t_list 				*content;
 	char				**name_args;
 	int					link_type;
+	int					bracket_r;
+	int					bracket_l;
 	t_file				*infile;
 	t_file				*outfile;
 	struct s_command	*next;
 }	t_command;
 
-typedef struct s_input
+typedef struct s_error
 {
-	char		*input;
-	char		**lines;
-	char		**quotes;
-	t_command	*brackets;
-}	t_input;
+	int		redir_l;
+	int		redir_r;
+	int		bracket_r;
+	int		bracket_l;
+	int		token;
+
+}	t_error;
 
 extern t_msh g_msh;
 
@@ -134,6 +138,7 @@ t_list		*parse_quotes(char *input);
 t_list		*parse_parentheses(t_list *quotes);
 t_command   *parse_semicolon(t_list *parentheses);
 t_command	*parse_special_characters(t_list *lst);
+void		parse_brackets(t_command *cmd);
 t_command	*parse_redirects(t_command *commands);
 t_command	*set_variables(t_command *command);
 void		convert_commands_to_char_ptrs(t_command *cmd);
@@ -197,5 +202,9 @@ int			execute(char **command);
 int			is_file_open(t_file *file);
 void		open_files(t_command *command);
 int			execute(char **command);
+
+int			check_syntax(void);
+int			build_error(t_error *error);
+int			fill_error(int code);
 
 #endif

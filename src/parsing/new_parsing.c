@@ -29,22 +29,21 @@ void	start_one_line(char *line)
 	free(line);
 	full_cmd = cmd;
 	init_sig_handler(child_sig_handler);
+	parse_brackets(cmd);
 	while (cmd)
 	{
-//		set_variables(cmd); // before start process
 		ft_com_rm_space(cmd);
+		if (!check_syntax()) {
+			return;
+		}
 		parse_redirects(cmd);
 		open_files(cmd);
-//		if (!check_syntax(cmd))
-//			return ;
-
-		// ft_print_lst(cmd->content);
-		// ft_putendl_fd(g_msh.sp_ops[cmd->link_type], 1);
+		ft_print_lst(cmd->content);
+		printf("(: %d\n", cmd->bracket_l);
+		printf("): %d\n", cmd->bracket_r);
 		cmd = cmd->next;
 	}
 	execute_commands(full_cmd);
-	// pipeline(full_cmd);
-
 }
 
 void	start_cycle(char **lines)
@@ -78,9 +77,3 @@ void start(char *input)
 
 }
 
-t_list	*parse_parentheses(t_list *quotes)
-{
-	split_by_pattern(&quotes, "(");
-	split_by_pattern(&quotes, ")");
-	return (quotes);
-}

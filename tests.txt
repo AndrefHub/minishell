@@ -1,0 +1,15 @@
+==good==
+(echo -n one || echo two) && (((echo three && echo four) ; echo five ) ; echo six)
+>>onethree
+>>four
+>>five
+>>six
+========
+==good==
+(echo -n one || echo two) || (((echo three && echo four) ; echo five ) ; echo six)
+>>one
+========
+==bad===
+()
+syntax
+========
