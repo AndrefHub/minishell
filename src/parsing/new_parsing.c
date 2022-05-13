@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 19:50:27 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/13 23:27:46 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	start_one_line(char *line)
 		open_files(cmd);
 		if (!check_syntax())
 			return ;
-		ft_print_lst(cmd->content);
-		printf("(: %d\n", cmd->bracket_l);
-		printf("): %d\n", cmd->bracket_r);
+		// ft_print_lst(cmd->content);
+		// printf("(: %d\n", cmd->bracket_l);
+		// printf("): %d\n", cmd->bracket_r);
 		cmd = cmd->next;
 	}
 	execute_commands(full_cmd);

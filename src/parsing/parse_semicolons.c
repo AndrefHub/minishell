@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_semicolons.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:31 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 16:02:11 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/13 23:25:39 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,7 @@ t_command	*parse_redirects_single_command(t_command *command, int link_type)
 	t_list		*begin;
 	t_list		*prev;
 	t_list		*tmp;
-	int			counter;
 	
-	counter = 0;
 	split_by_pattern(&(command->content), g_msh.sp_ops[link_type]);
 	prev = NULL;
 	begin = command->content;
