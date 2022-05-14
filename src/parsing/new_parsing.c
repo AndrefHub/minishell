@@ -37,9 +37,9 @@ void	start_one_line(char *line)
 		open_files(cmd);
 		if (!check_syntax(cmd))
 			return ;
-		ft_print_lst(cmd->content);
-		printf("(: %d\n", cmd->bracket_l);
-		printf("): %d\n", cmd->bracket_r);
+//		ft_print_lst(cmd->content);
+//		printf("(: %d\n", cmd->bracket_l);
+//		printf("): %d\n", cmd->bracket_r);
 		cmd = cmd->next;
 	}
 	execute_commands(full_cmd);
