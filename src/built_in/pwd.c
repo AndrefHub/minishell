@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:53:05 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 19:55:39 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 21:02:56 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	pwd()
 {
-	ft_putendl_fd(g_msh.curr_dir, 1);
+	ft_putendl_fd(g_msh.pwd, 1);
 	return (1);
 }

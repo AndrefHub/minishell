@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:39 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 13:48:56 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 22:08:08 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,25 @@ char	*ft_find_envp(char *parameter)
 		envp = envp->next;
 	}
 	return (ft_strdup(""));
+}
+
+void	ft_increment_shlvl(void )
+{
+	t_list	*envp;
+	char	*shlvl;
+	int		lvl;
+
+	envp = g_msh.envp;
+	while (envp)
+	{
+		if (ft_strcmp(envp_get_key(envp), "SHLVL") == 0)
+		{
+			shlvl = envp_get_value(envp);
+			lvl = ft_atoi(shlvl);
+			free(shlvl);
+			((t_envp *)envp->content)->value = ft_itoa(++lvl);
+			return ;
+		}
+		envp = envp->next;
+	}
 }
