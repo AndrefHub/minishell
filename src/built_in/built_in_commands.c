@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in_commands.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:55 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 14:50:53 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 16:35:04 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int check_for_built_in(char **args)
 	else if (ft_strncmp(args[0], "export", ft_strlen(args[0])) == 0)
 		is_built_in += export(args);
 	else if (ft_strncmp(args[0], "exit", ft_strlen(args[0])) == 0)
-		exit(g_msh.err_code);
+		exit(g_msh.last_ex_code);
 	else if (ft_strncmp(args[0], "cd", ft_strlen(args[0])) == 0)
 		is_built_in += ft_chdir();
 	return is_built_in;

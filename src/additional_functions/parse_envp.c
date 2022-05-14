@@ -3,16 +3,20 @@
 t_envp	*make_envp_entry(char *arg)
 {
 	t_envp	*entry;
-	char	**splitted;
+	int		splitted;
 
 	entry = malloc(sizeof(*entry));
-    splitted = ft_split_space(arg, "=");
-	entry->key = ft_strdup(splitted[0]);
-    if (ft_arraylen((void *)splitted) == 1)
-        entry->value = NULL;
-    else
-        entry->value = ft_strdup(splitted[1]);
-	ft_freesplit(splitted);
+	splitted = ft_strchr_num(arg, '=');
+	if (splitted == -1)
+	{
+		entry->key = ft_strdup(arg);
+		entry->value = ft_strdup("");
+	}
+	else
+	{
+		entry->key = ft_strndup(arg, splitted);
+		entry->value = ft_strdup(arg + splitted + 1);
+	}
 	return (entry);
 }
 

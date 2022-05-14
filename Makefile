@@ -1,6 +1,6 @@
 NAME    = minishell
 CC      = gcc
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -g
 LFLAGS	= -lreadline -L/usr/local/opt/readline/lib -L./libft -lft
 SRCDIR	= src/
 READLINE_FLAGS = -I/usr/local/opt/readline/include

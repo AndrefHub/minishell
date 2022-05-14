@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:12:18 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 16:00:21 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 16:29:37 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	set_entry_envp(t_envp *entry)
 	{
 		if (ft_strcmp(envp_get_key(envp), ((t_envp *)entry)->key) == 0)
 		{
-			if (((t_envp *)entry)->value != NULL)
+			if (((t_envp *)entry)->value[0])
 			{
 				free_entry_envp(envp->content);
 				envp->content = entry;

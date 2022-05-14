@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:51 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 13:51:43 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 16:33:37 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,5 @@ int env()
 		ft_printf("%s=%s\n", envp_get_key(envp), envp_get_value(envp));
 		envp = envp->next;
 	}
-	return (0);
+	return (1);
 }
