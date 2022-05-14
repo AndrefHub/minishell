@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:42 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 14:13:26 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 15:59:13 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	**make_sp_ops(void )
 void	set_g_msh(char **envp)
 {
 	g_msh.envp = parse_envp(envp);
+	g_msh.cenvp = NULL;
 	update_cenvp();
 	g_msh.sp_ops = make_sp_ops();
 	g_msh.last_ex_code = 0;

@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:12:18 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 14:55:12 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 16:00:21 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	set_entry_envp(t_envp *entry)
 				free_entry_envp(envp->content);
 				envp->content = entry;
 			}
-			free_entry_envp(entry);
 			return ;
 		}
 		envp = envp->next;
