@@ -1,8 +1,9 @@
 NAME    = minishell
 CC      = gcc
-FLAGS	= -Wall -Wextra -Werror -ggdb -g 
-LFLAGS	= -lreadline -L./libft -lft
+FLAGS	= -Wall -Wextra -Werror
+LFLAGS	= -lreadline -L/usr/local/opt/readline/lib -L./libft -lft
 SRCDIR	= src/
+READLINE_FLAGS = -I/usr/local/opt/readline/include
 SRCFILE	=	additional_functions/ft_command_split.c\
 			additional_functions/ft_envparam.c\
 			additional_functions/ft_split.c\
@@ -24,7 +25,8 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			parsing/parsing.c\
 			parsing/parse_semicolons.c\
 			parsing/set_variables.c\
-			parsing/escape_space.c
+			parsing/escape_space.c\
+			parsing/parse_parentheses.c
 MAIN	= main.c
 BONUS	= main_bonus.c
 SRCS	= $(addprefix $(SRCDIR), $(SRCFILE))
@@ -45,7 +47,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.c $(HEADER)
 	@mkdir -p $(OBJDIR)built_in
 	@mkdir -p $(OBJDIR)executing
 	@mkdir -p $(OBJDIR)parsing
-	$(CC) $(FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(PIPHDR)
+	$(CC) $(FLAGS) $(READLINE_FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(PIPHDR)
 
 $(NAME): $(OBJS) $(OBJMAIN) $(HEADER)
 	@make -C libft
@@ -53,7 +55,7 @@ $(NAME): $(OBJS) $(OBJMAIN) $(HEADER)
 
 bonus: $(OBJS) $(OBJBNS) $(HEADER)
 	@make -C libft
-	$(CC) $(FLAGS) -g $(OBJS) $(OBJBNS)  -o $(NAME)
+	$(CC) $(FLAGS) $(OBJS) $(OBJBNS)  -o $(NAME)
 
 clean:
 	@$(RM) $(OBJDIR)

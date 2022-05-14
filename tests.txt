@@ -1,0 +1,34 @@
+==good==
+(echo -n one || echo two) && (((echo three && echo four) ; echo five ) ; echo six)
+>>onethree
+>>four
+>>five
+>>six
+========
+==good==
+(echo one || echo two) || (((echo three && echo four) ; echo five ) ; echo six)
+>>one
+========
+==good==
+echo one && echo two || (echo three || echo four) && echo five && (echo six || echo seven || echo eight)
+>>one
+>>two
+>>five
+>>six
+========
+==good==
+false && echo two && (((echo three || echo four); echo five)|| echo six) && echo seven
+>>
+========
+==good==
+echo one && echo two && (((echo three || echo four); echo five)|| echo six) && echo seven
+>>one
+>>two
+>>three
+>>five
+>>seven
+========
+==bad===
+()
+syntax
+========

@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:42 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 20:13:45 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 12:00:27 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,28 @@ void	set_g_msh(char **envp)
 	g_msh.envp = envp;
 	g_msh.sp_ops = make_sp_ops();
 	g_msh.last_ex_code = 0;
+	g_msh.pwd = ft_find_envp("PWD", g_msh.envp);
+}
+
+void	reset_errors(void)
+{
+	g_msh.err_code = 0;
+//	free(g_msh.err_text);
+	g_msh.err_text = NULL;
+}
+
+int	ft_is_empty(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int main(int argc, char **argv, char **envp)
@@ -57,13 +79,13 @@ int main(int argc, char **argv, char **envp)
 	setup_term();
 	while (1)
 	{
+		reset_errors();
 		init_sig_handler(parent_sig_handler);
 		input = readline(MINISHELLNAME);
-		if (input && input[0])
+		if (input && input[0] && !ft_is_empty(input))
 			add_history(input);
 		start(input);
 		free(input);
-		// }// ft_freesplit(args);
 	}
 	return 0;
 }

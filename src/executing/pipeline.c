@@ -48,7 +48,6 @@ t_command	*pipeline(t_command *to_pipe)
 	{
 		if (is_file_open(to_pipe->infile))
 		{
-			// close(fd_data.fd_in);
 			dup2(to_pipe->infile->fd, fd_data.fd_in);
 		}
 		dup2_and_close(fd_data.fd_in, 0);

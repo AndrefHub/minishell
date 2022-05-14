@@ -6,15 +6,15 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 19:55:06 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 12:00:16 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-char    **parse_to_lines(char *input)
+char	**parse_to_lines(char *input)
 {
-    return (ft_split(input, '\n')); // for now. Need to add '\' functionality
+	return (ft_split(input, '\n'));
 }
 
 void	start_one_line(char *line)
@@ -29,23 +29,30 @@ void	start_one_line(char *line)
 	free(line);
 	full_cmd = cmd;
 	init_sig_handler(child_sig_handler);
+	parse_brackets(cmd);
 	while (cmd)
 	{
-//		set_variables(cmd); // before start process
 		ft_com_rm_space(cmd);
 		parse_redirects(cmd);
 		open_files(cmd);
-//		if (!check_syntax(cmd))
-//			return ;
-
+		if (!check_syntax())
+		{
+			return ;
+		}
 		// ft_print_lst(cmd->content);
-		// ft_putendl_fd(g_msh.sp_ops[cmd->link_type], 1);
+		// printf("(: %d\n", cmd->bracket_l);
+		// printf("): %d\n", cmd->bracket_r);
 		cmd = cmd->next;
 	}
 	execute_commands(full_cmd);
-	// pipeline(full_cmd);
-
+	ft_comclear(&full_cmd, 0);
 }
+
+/*
+ * ft_print_lst(cmd->content);
+ * printf("(: %d\n", cmd->bracket_l);
+ * printf("): %d\n", cmd->bracket_r);
+ * */
 
 void	start_cycle(char **lines)
 {
@@ -59,28 +66,21 @@ void	start_cycle(char **lines)
 	}
 }
 
-void start(char *input)
+void	start(char *input)
 {
-	char		**commands;
+	char	**commands;
 
 	if (!input)
 		exit(130);
 	if (!ft_strlen(input))
 	{
 		print_nothing(0);
-		return;
+		return ;
 	}
 	commands = parse_to_lines(input);
 	if (!commands[1])
 		start_one_line(commands[0]);
 	else
 		start_cycle(commands);
-
-}
-
-t_list	*parse_parentheses(t_list *quotes)
-{
-	split_by_pattern(&quotes, "(");
-	split_by_pattern(&quotes, ")");
-	return (quotes);
+	free(commands);
 }
