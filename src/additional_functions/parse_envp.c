@@ -58,6 +58,6 @@ void	update_cenvp()
 		++counter;
 		envp = envp->next;
 	}
-	free(g_msh.cenvp);
+	ft_freesplit(g_msh.cenvp);
 	g_msh.cenvp = cenvp;
 }
