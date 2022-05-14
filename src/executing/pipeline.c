@@ -61,7 +61,7 @@ t_command	*pipeline(t_command *to_pipe)
 		init_sig_handler(child_sig_handler);
 		convert_commands_to_char_ptrs(to_pipe);
 		pid_fork = execute(to_pipe->name_args);
-		if (to_pipe->link_type != PIPELINE)
+		if (to_pipe->link_type != PIPELINE || !to_pipe->next || !to_pipe->next->content || !to_pipe->next->content->content)
 			break ;
 		to_pipe = to_pipe->next;
 	}

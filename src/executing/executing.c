@@ -71,6 +71,7 @@ int	execute_commands(t_command *cmd)
 	while (cmd)
 	{
 		set_variables(cmd);
+		set_wildcards(cmd);
 		cur_brackets += cmd->bracket_l;
 		if (cmd->bracket_l > 0 && ((prev_link_type == DOUBLE_AND && g_msh.last_ex_code != 0)
 		|| (prev_link_type == DOUBLE_OR && g_msh.last_ex_code == 0)))

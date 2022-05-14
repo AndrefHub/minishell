@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 12:43:36 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 12:47:16 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_msh
 	char	*err_text;
 	int		last_ex_code;
 	char	*pwd;
+	char	*curr_dir;
 	char	**sp_ops;
 }	t_msh;
 
@@ -157,6 +158,7 @@ void		ft_comclear(t_command **com, int);
 /* t_list structure tools */
 t_list		*ft_lstnsplit(t_list **begin, int n);
 t_list		*ft_lstat(t_list *lst, int n);
+void	ft_lstadd_middle(t_list **lst, t_list *add_next, t_list *to_add);
 
 /* ft_split tools */
 int     	is_in(char c, const char *charset);
@@ -204,8 +206,10 @@ int			is_file_open(t_file *file);
 void		open_files(t_command *command);
 void		ft_free_file(t_file *file, int);
 
-int			check_syntax(void);
+int			check_syntax(t_command *command);
 int			build_error(t_error *error);
 int			fill_error(int code);
+
+void	set_wildcards(t_command *command);
 
 #endif

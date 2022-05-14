@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 23:43:01 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 12:47:36 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	start_one_line(char *line)
 		ft_com_rm_space(cmd);
 		parse_redirects(cmd);
 		open_files(cmd);
-		if (!check_syntax())
+		if (!check_syntax(cmd))
 		{
 			return ;
 		}
