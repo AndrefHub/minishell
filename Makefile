@@ -15,6 +15,7 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			built_in/built_in_commands.c\
 			built_in/echo.c\
 			built_in/env.c\
+			built_in/chdir.c\
 			executing/check_syntax.c\
 			executing/executing.c\
 			executing/pipeline.c\

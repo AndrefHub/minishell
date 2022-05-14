@@ -35,6 +35,8 @@ void	set_error_code(int wpid_ret)
 	g_msh.last_ex_code = code;
 }
 
+
+
 t_command	*pipeline(t_command *to_pipe)
 {
 	int			ret_code;
@@ -47,9 +49,7 @@ t_command	*pipeline(t_command *to_pipe)
 	while (1)
 	{
 		if (is_file_open(to_pipe->infile))
-		{
 			dup2(to_pipe->infile->fd, fd_data.fd_in);
-		}
 		dup2_and_close(fd_data.fd_in, 0);
 		if (is_file_open(to_pipe->outfile))
 			fd_data.fd_out = to_pipe->outfile->fd;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 22:38:41 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 12:43:36 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ t_command	*pipeline(t_command *to_pipe);
 int     	check_for_built_in(char **args);
 int     	echo(char **argv);
 int			env(char **envp);
+int			ft_chdir(char **args);
 int			msh_exit(char **argv);
 
 void		init_sig_handler(void (*handler) (int, siginfo_t *, void *));
