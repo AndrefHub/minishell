@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:55 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 12:41:08 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 14:50:53 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ int check_for_built_in(char **args)
 
 	is_built_in = 0;
 	if (ft_strncmp(args[0], "echo", ft_strlen(args[0])) == 0)
-		is_built_in += ft_start_builtin(echo, args);
+		is_built_in += echo(args);
 	else if (ft_strncmp(args[0], "env", ft_strlen(args[0])) == 0)
-		is_built_in += ft_start_builtin(env, g_msh.envp);
+		is_built_in += env();
+	else if (ft_strncmp(args[0], "export", ft_strlen(args[0])) == 0)
+		is_built_in += export(args);
 	else if (ft_strncmp(args[0], "exit", ft_strlen(args[0])) == 0)
-		exit(0);
+		exit(g_msh.err_code);
 	else if (ft_strncmp(args[0], "cd", ft_strlen(args[0])) == 0)
-		is_built_in += ft_start_builtin(ft_chdir, g_msh.envp);
+		is_built_in += ft_chdir();
 	return is_built_in;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:42 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 23:40:28 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 14:13:26 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ char	**make_sp_ops(void )
 
 void	set_g_msh(char **envp)
 {
-	g_msh.envp = envp;
+	g_msh.envp = parse_envp(envp);
+	update_cenvp();
 	g_msh.sp_ops = make_sp_ops();
 	g_msh.last_ex_code = 0;
-	g_msh.pwd = ft_find_envp("PWD", g_msh.envp);
+	g_msh.pwd = ft_find_envp("PWD");
 }
 
 void	reset_errors(void)

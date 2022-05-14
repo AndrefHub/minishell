@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:46 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 11:52:17 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 14:02:09 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	execute(char **command)
 			// print_nothing(0);
 			exit(0);
 		}
-		execve(binary, command, g_msh.envp);
+		execve(binary, command, g_msh.cenvp);
 		perror(binary);
 		exit(errno);
 	}

@@ -12,10 +12,12 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			additional_functions/ft_command_list.c\
 			additional_functions/ft_split_str_in_lst.c\
 			additional_functions/ft_list_to_char.c\
+			additional_functions/parse_envp.c\
 			built_in/built_in_commands.c\
 			built_in/echo.c\
 			built_in/env.c\
 			built_in/chdir.c\
+			built_in/export.c\
 			executing/check_syntax.c\
 			executing/executing.c\
 			executing/pipeline.c\
@@ -38,25 +40,21 @@ OBJBNS	= $(addprefix $(OBJDIR), $(BONUS:.c=.o))
 OBJS	= $(addprefix $(OBJDIR), $(OBJFILE))
 RM      = rm -rf
 LIBHDR  = libft/libft.h
-PIPHDR  = minishell.h
+MSHHDR  = minishell.h
 
 all: $(NAME)
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(HEADER)
+$(OBJDIR)%.o: $(SRCDIR)%.c $(MSHHDR)
 	@mkdir -p $(OBJDIR)
 	@mkdir -p $(OBJDIR)additional_functions
 	@mkdir -p $(OBJDIR)built_in
 	@mkdir -p $(OBJDIR)executing
 	@mkdir -p $(OBJDIR)parsing
-	$(CC) $(FLAGS) $(READLINE_FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(PIPHDR)
+	$(CC) $(FLAGS) $(READLINE_FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(MSHHDR)
 
-$(NAME): $(OBJS) $(OBJMAIN) $(HEADER)
+$(NAME): $(OBJS) $(OBJMAIN) $(MSHHDR)
 	@make -C libft
 	$(CC) $(FLAGS) $(OBJS) $(OBJMAIN) $(LFLAGS) -o $(NAME)
-
-bonus: $(OBJS) $(OBJBNS) $(HEADER)
-	@make -C libft
-	$(CC) $(FLAGS) $(OBJS) $(OBJBNS)  -o $(NAME)
 
 clean:
 	@$(RM) $(OBJDIR)

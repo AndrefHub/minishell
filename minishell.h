@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 12:47:16 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 14:51:52 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@
 
 # define MINISHELLNAME "\033[1;31mඞ\033[0mabobus\033[1;36mඞ\033[0m> "
 
+typedef struct s_envp
+{
+	char	*key;
+	char	*value;
+}	t_envp;
+
 typedef struct s_pipe_fd
 {
 	int	fd_in;
@@ -87,7 +93,8 @@ typedef struct s_pipe_fd
 
 typedef struct s_msh 
 {
-    char	**envp;
+    t_list	*envp;
+	char	**cenvp;
 	int		err_code;
 	char	*err_text;
 	int		last_ex_code;
@@ -158,7 +165,7 @@ void		ft_comclear(t_command **com, int);
 /* t_list structure tools */
 t_list		*ft_lstnsplit(t_list **begin, int n);
 t_list		*ft_lstat(t_list *lst, int n);
-void	ft_lstadd_middle(t_list **lst, t_list *add_next, t_list *to_add);
+void		ft_lstadd_middle(t_list **lst, t_list *add_next, t_list *to_add);
 
 /* ft_split tools */
 int     	is_in(char c, const char *charset);
@@ -182,16 +189,22 @@ void		start(char *input);
 void 		setup_term(void);
 
 /* working with envp */
+t_list		*parse_envp(char **arr);
+char		*envp_get_key(t_list *env);
+char		*envp_get_value(t_list *env);
+t_envp		*make_envp_entry(char *arg);
+void		update_cenvp();
 int 		find_at_first(const char *string, char *pattern);
-char		*ft_find_envp(char *parameter, char **envp);
+char		*ft_find_envp(char *parameter);
 
 /* builtins */
 int			execute_commands(t_command *cmd);
 t_command	*pipeline(t_command *to_pipe);
 int     	check_for_built_in(char **args);
 int     	echo(char **argv);
-int			env(char **envp);
-int			ft_chdir(char **args);
+int			env();
+int			export(char **args);
+int			ft_chdir();
 int			msh_exit(char **argv);
 
 void		init_sig_handler(void (*handler) (int, siginfo_t *, void *));
@@ -210,6 +223,6 @@ int			check_syntax(t_command *command);
 int			build_error(t_error *error);
 int			fill_error(int code);
 
-void	set_wildcards(t_command *command);
+void		set_wildcards(t_command *command);
 
 #endif

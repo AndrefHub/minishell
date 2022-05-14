@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:53 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:36:54 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 14:56:09 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int echo(char **argv)
 	}
 	if (flag)
 		printf("\n");
-	return (0);
+	return (1);
 }
 
 int msh_exit(char **argv)
