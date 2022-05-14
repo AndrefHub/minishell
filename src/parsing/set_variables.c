@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:36 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 19:17:56 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:41:59 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
 		while (wilds)
 		{
 			ft_lstadd_back(&out, recursive_wild_path(ft_strdup(&wildcard
-					[ft_strlen(path) + 1]), ft_strjoin_gnl(pwd, wilds->content),
+					[ft_strlen(path) + 1]), ft_strjoin(pwd, wilds->content),
 					ft_strjoin(wilds->content, "/")));
 			wilds = wilds->next;
 		}
