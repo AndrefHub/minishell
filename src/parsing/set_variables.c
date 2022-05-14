@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:36 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 18:15:19 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:17:56 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ t_command	*set_variables(t_command *command)
 			else if (ft_strchr(lst->next->content, '$'))
 				lst->content = ft_strdup(ft_itoa(getpid()));
 			else
-				lst->content = ft_strdup(ft_find_envp(lst->next->content,
-							g_msh.envp));
+				lst->content = ft_strdup(ft_find_envp(lst->next->content));
 			delete = lst->next;
 			lst->next = delete->next;
 			ft_lstdelone(delete, free);
@@ -87,4 +86,45 @@ t_list	*ft_list_files(char *name)
 		closedir(d);
 	}
 	return (file_list);
+}
+
+int	ft_add_wildlist(t_list *elem, t_list *prev)
+{
+	t_list	*wildcard;
+	t_list	*tmp;
+	char	*pwd;
+	char	*m;
+
+	m = ft_strnew(0);
+	pwd = ft_strdup(g_msh.pwd);
+	wildcard = NULL;
+	wildcard = recursive_wild_path(ft_strdup(elem->content), pwd, m);
+	if (!wildcard)
+		return (0);
+	tmp = elem->next;
+	ft_lstdelone(elem, free);
+	prev->next = wildcard;
+	ft_lstlast(wildcard)->next = tmp;
+	return (1);
+}
+
+void	set_wildcards(t_command *command)
+{
+	t_list	*elem;
+	t_list	*prev;
+
+	while (command)
+	{
+		prev = command->content;
+		elem = command->content->next;
+		while (elem)
+		{
+			if (elem->content && (ft_strchr(elem->content, '*') || ft_strchr
+					(elem->content, '?')) && ft_add_wildlist(elem, prev))
+				break ;
+			prev = elem;
+			elem = elem->next;
+		}
+		command = command->next;
+	}
 }

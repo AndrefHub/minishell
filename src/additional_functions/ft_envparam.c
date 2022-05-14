@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:39 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:37:40 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 13:48:56 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	find_at_first(const char *string, char *pattern)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	if (!pattern || !string)
@@ -32,20 +32,20 @@ int	find_at_first(const char *string, char *pattern)
 	return (0);
 }
 
-char	*ft_find_envp(char *parameter, char **envp)
+char	*ft_find_envp(char *parameter)
 {
-	int		i;
 	char	*out;
+	t_list	*envp;
 
-	i = 0;
-	while (envp[i])
+	envp = g_msh.envp;
+	while (envp)
 	{
-		if (find_at_first(envp[i], parameter))
+		if (ft_strcmp(envp_get_key(envp), parameter) == 0)
 		{
-			out = ft_strdup(envp[i] + ft_strlen(parameter) + 1);
+			out = ft_strdup(envp_get_value(envp));
 			return (out);
 		}
-		i++;
+		envp = envp->next;
 	}
 	return (ft_strdup(""));
 }

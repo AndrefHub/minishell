@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_data.c                                    :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 17:37:32 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:37:33 by kdancy           ###   ########.fr       */
+/*   Created: 2022/05/14 17:14:44 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/14 18:58:06 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_print_lst(t_list *elem)
+int	unset_one(char *arg)
 {
-	while (elem)
+	t_list	*envp;
+	t_list	*prev;
+
+	prev = NULL;
+	envp = g_msh.envp;
+	while (envp)
 	{
-		ft_putstr_fd(elem->content, 1);
-		ft_putstr_fd("<<<<<\n", 1);
-		elem = elem->next;
+		if (ft_strcmp(envp_get_key(envp), arg) == 0)
+		{
+			ft_lst_delnext(prev, envp, &g_msh.envp, free_envp_entry);
+			return (0);
+		}
+		prev = envp;
+		envp = envp->next;
 	}
+	return (1);
 }
 
-void	ft_print_com(t_command *elem)
+int	unset(char **args)
 {
-	while (elem)
+	while (*(++args))
 	{
-		ft_putendl_fd("command:", 1);
-		ft_print_lst(elem->content);
-		ft_putstr_fd("Link type: ", 1);
-		ft_putendl_fd(g_msh.sp_ops[elem->link_type], 1);
-		elem = elem->next;
+		unset_one(*args);
 	}
+	update_cenvp();
+	return (1);
 }

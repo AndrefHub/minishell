@@ -6,15 +6,15 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:42 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 12:00:27 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 21:01:06 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_msh g_msh;
+t_msh	g_msh;
 
-void	very_important_function(int argc, char **argv, char **envp)
+void	ft_args_usage(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
@@ -40,22 +40,17 @@ char	**make_sp_ops(void )
 
 void	set_g_msh(char **envp)
 {
-	g_msh.envp = envp;
+	g_msh.envp = parse_envp(envp);
+	g_msh.cenvp = NULL;
+	update_cenvp();
 	g_msh.sp_ops = make_sp_ops();
 	g_msh.last_ex_code = 0;
-	g_msh.pwd = ft_find_envp("PWD", g_msh.envp);
-}
-
-void	reset_errors(void)
-{
-	g_msh.err_code = 0;
-//	free(g_msh.err_text);
-	g_msh.err_text = NULL;
+	g_msh.pwd = ft_find_envp("PWD");
 }
 
 int	ft_is_empty(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -67,14 +62,11 @@ int	ft_is_empty(char *line)
 	return (1);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
-	// t_command	*commands;
-	// char	**args;
-	// int		code;
 
-	very_important_function(argc, argv, envp);
+	ft_args_usage(argc, argv, envp);
 	set_g_msh(envp);
 	setup_term();
 	while (1)
@@ -87,5 +79,5 @@ int main(int argc, char **argv, char **envp)
 		start(input);
 		free(input);
 	}
-	return 0;
+	return (0);
 }

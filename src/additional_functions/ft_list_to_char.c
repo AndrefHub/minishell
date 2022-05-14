@@ -12,6 +12,22 @@
 
 #include "../../minishell.h"
 
+void	ft_lstadd_middle(t_list **lst, t_list *add_next, t_list *to_add)
+{
+	t_list	*tmp;
+
+	if (!add_next || !to_add)
+		return ;
+	if (add_next->next)
+	{
+		tmp = add_next->next;
+		add_next->next = to_add;
+		to_add->next = tmp;
+	}
+	else
+		ft_lstadd_back(lst, to_add);
+}
+
 void	ft_list_to_char_ptr(t_command *cmd)
 {
 	int		counter;

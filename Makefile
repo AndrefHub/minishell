@@ -1,6 +1,6 @@
 NAME    = minishell
 CC      = gcc
-FLAGS	= -Wall -Wextra -Werror
+FLAGS	= -Wall -Wextra -Werror -g
 LFLAGS	= -lreadline -L/usr/local/opt/readline/lib -L./libft -lft
 SRCDIR	= src/
 READLINE_FLAGS = -I/usr/local/opt/readline/include
@@ -12,15 +12,24 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			additional_functions/ft_command_list.c\
 			additional_functions/ft_split_str_in_lst.c\
 			additional_functions/ft_list_to_char.c\
+			additional_functions/parse_envp.c\
 			built_in/built_in_commands.c\
 			built_in/echo.c\
 			built_in/env.c\
+			built_in/chdir.c\
+			built_in/export.c\
+			built_in/unset.c\
+			built_in/pwd.c\
 			executing/check_syntax.c\
+			executing/errors.c\
+			executing/heredoc.c\
 			executing/executing.c\
+			executing/file.c\
 			executing/pipeline.c\
 			executing/open_files.c\
-			executing/signals.c\
-			parsing/new_parsing.c\
+			signals/sig_handler.c\
+			signals/term_printing.c\
+			parsing/ft_wildcards.c\
 			parsing/parse_quotes.c\
 			parsing/parsing.c\
 			parsing/parse_semicolons.c\
@@ -37,25 +46,22 @@ OBJBNS	= $(addprefix $(OBJDIR), $(BONUS:.c=.o))
 OBJS	= $(addprefix $(OBJDIR), $(OBJFILE))
 RM      = rm -rf
 LIBHDR  = libft/libft.h
-PIPHDR  = minishell.h
+MSHHDR  = minishell.h
 
 all: $(NAME)
 
-$(OBJDIR)%.o: $(SRCDIR)%.c $(HEADER)
+$(OBJDIR)%.o: $(SRCDIR)%.c $(MSHHDR)
 	@mkdir -p $(OBJDIR)
 	@mkdir -p $(OBJDIR)additional_functions
 	@mkdir -p $(OBJDIR)built_in
 	@mkdir -p $(OBJDIR)executing
 	@mkdir -p $(OBJDIR)parsing
-	$(CC) $(FLAGS) $(READLINE_FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(PIPHDR)
+	@mkdir -p $(OBJDIR)signals
+	$(CC) $(FLAGS) $(READLINE_FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(MSHHDR)
 
-$(NAME): $(OBJS) $(OBJMAIN) $(HEADER)
+$(NAME): $(OBJS) $(OBJMAIN) $(MSHHDR)
 	@make -C libft
 	$(CC) $(FLAGS) $(OBJS) $(OBJMAIN) $(LFLAGS) -o $(NAME)
-
-bonus: $(OBJS) $(OBJBNS) $(HEADER)
-	@make -C libft
-	$(CC) $(FLAGS) $(OBJS) $(OBJBNS)  -o $(NAME)
 
 clean:
 	@$(RM) $(OBJDIR)

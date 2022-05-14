@@ -12,30 +12,6 @@
 
 #include "../../minishell.h"
 
-int	heredoc(char *delim)
-{
-	char	*input;
-	int		herepipe[2];
-
-	pipe(herepipe);
-	while (1)
-	{
-		input = readline("HEREDOC> ");
-		if (!input)
-			break ;
-		if (ft_strlen(input) != 0 && ft_strncmp(delim, input, ft_strlen(input)) == 0)
-		{
-			free(input);
-			break ;
-		}
-		ft_putstr_fd(input, herepipe[1]);
-		ft_putchar_fd('\n', herepipe[1]);
-		free(input);
-	}
-	close(herepipe[1]);
-	return herepipe[0];
-}
-
 void	open_infile(t_file *file)
 {
 	if (file)
@@ -43,7 +19,7 @@ void	open_infile(t_file *file)
 		if (file->mode == REDIR_IN)
 			file->fd = open(file->f_name, O_RDONLY);
 		else if (file->mode == HEREDOC)
-			file->fd = heredoc(file->f_name);;
+			file->fd = heredoc(file->f_name);
 	}
 }
 
@@ -76,10 +52,10 @@ void	open_files(t_command *command)
 		open_infile(command->infile);
 		open_outfile(command->outfile);
 		command = command->next;
-	}    
+	}
 }
 
-void ft_free_file(t_file *file, int err)
+void	ft_free_file(t_file *file, int err)
 {
 	if (file)
 	{

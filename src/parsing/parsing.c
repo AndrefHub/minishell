@@ -1,16 +1,86 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   new_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 17:36:33 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:56:41 by kdancy           ###   ########.fr       */
+/*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/14 19:07:24 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	**parse_to_lines(char *input)
+{
+	return (ft_split(input, '\n'));
+}
+
+void	start_one_line(char *line)
+{
+	t_command	*full_cmd;
+	t_command	*cmd;
+	t_list		*lst;
+
+	lst = parse_quotes(line);
+	lst = parse_parentheses(lst);
+	cmd = parse_special_characters(lst);
+	free(line);
+	full_cmd = cmd;
+	if (!full_cmd)
+		return ;
+	init_sig_handler(child_sig_handler);
+	parse_brackets(cmd);
+	while (cmd)
+	{
+		ft_com_rm_space(cmd);
+		parse_redirects(cmd);
+		open_files(cmd);
+		if (!check_syntax(cmd))
+			return ;
+		cmd = cmd->next;
+	}
+	execute_commands(full_cmd);
+	ft_comclear(&full_cmd, 0);
+}
+
+/*
+ * ft_print_lst(cmd->content);
+ * printf("(: %d\n", cmd->bracket_l);
+ * printf("): %d\n", cmd->bracket_r);
+ * */
+
+void	start_cycle(char **lines)
+{
+	int	i;
+
+	i = 0;
+	while (lines[i])
+	{
+		start_one_line(lines[i]);
+		i++;
+	}
+}
+
+void	start(char *input)
+{
+	char	**commands;
+
+	if (!input)
+		exit(130);
+	if (!ft_strlen(input))
+	{
+		print_nothing(0);
+		return ;
+	}
+	commands = parse_to_lines(input);
+	if (!commands[1])
+		start_one_line(commands[0]);
+	else
+		start_cycle(commands);
+	free(commands);
+}
 
 char	*find_binary(char *command)
 {
@@ -21,7 +91,7 @@ char	*find_binary(char *command)
 	counter = -1;
 	if (!command || !command[0] || ft_strchr(command, '/'))
 		return (command);
-	path = ft_split(ft_find_envp("PATH", g_msh.envp), ':');
+	path = ft_split(ft_find_envp("PATH"), ':');
 	while (path[++counter])
 	{
 		binary = ft_strcat_delim(path[counter], '/', command);
@@ -34,29 +104,4 @@ char	*find_binary(char *command)
 	}
 	ft_freesplit(path);
 	return (ft_strdup(command));
-}
-
-char	*substitute_envp(char *input, char **envp)
-{
-	int		i;
-	char	*subbed;
-
-	i = -1;
-	subbed = ft_strdup("");
-	while (input[++i])
-	{
-		if (input[i] == '$' && input[i + 1])
-		{
-			subbed = ft_strjoin_gnl(subbed, ft_find_envp(ft_strndup(input + i
-							+ 1, ft_strchr_num(input + i + 1, ' ')), envp));
-			while (input[i + 1] && !is_in(input[i + 1], FT_SPACE))
-				++i;
-		}
-		else if (((i > 0 && is_in(input[i - 1], FT_SPACE)) || i == 0)
-			&& input[i] == '~')
-			subbed = ft_strjoin_gnl(subbed, ft_find_envp("HOME", envp));
-		else
-			subbed = ft_strcat_delim(subbed, input[i], "");
-	}
-	return (subbed);
 }
