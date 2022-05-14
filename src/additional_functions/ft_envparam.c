@@ -14,8 +14,8 @@
 
 int	find_at_first(const char *string, char *pattern)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	if (!pattern || !string)

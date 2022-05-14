@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:12:18 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 20:40:18 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 20:57:27 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	set_envp_entry(t_envp *entry)
 	ft_lstadd_back(&(g_msh.envp), ft_lstnew(entry));
 }
 
-int export(char **args)
+int	export(char **args)
 {
 	t_envp	*entry;
-	
+
 	if (args[1])
 	{
 		while (*(++args))

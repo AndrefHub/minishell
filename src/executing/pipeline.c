@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipeline.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lsherry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/14 20:14:06 by lsherry           #+#    #+#             */
+/*   Updated: 2022/05/14 20:14:07 by lsherry          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 void	dup2_and_close(int from, int to)
@@ -27,16 +39,6 @@ void	do_pipe(t_pipe_fd *fd_data)
 	fd_data->fd_out = fd_data->pipe_fds[1];
 }
 
-void	set_error_code(int wpid_ret)
-{
-	int	code;
-	
-	code = wpid_ret >> 8 & 0xff;
-	g_msh.last_ex_code = code;
-}
-
-
-
 t_command	*pipeline(t_command *to_pipe)
 {
 	int			ret_code;
@@ -61,7 +63,8 @@ t_command	*pipeline(t_command *to_pipe)
 		init_sig_handler(child_sig_handler);
 		convert_commands_to_char_ptrs(to_pipe);
 		pid_fork = execute(to_pipe->name_args);
-		if (to_pipe->link_type != PIPELINE || !to_pipe->next || !to_pipe->next->content || !to_pipe->next->content->content)
+		if (to_pipe->link_type != PIPELINE || !to_pipe->next
+			|| !to_pipe->next->content || !to_pipe->next->content->content)
 			break ;
 		to_pipe = to_pipe->next;
 	}
@@ -70,8 +73,3 @@ t_command	*pipeline(t_command *to_pipe)
 	set_error_code(ret_code);
 	return (to_pipe);
 }
-
-// t_command	*single_command_execute(t_command *to_pipe)
-// {
-// 	if (!)
-// }

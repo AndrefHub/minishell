@@ -6,19 +6,19 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:55 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 20:19:23 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 20:58:16 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int     ft_start_builtin(int (*f)(char **), char **argv)
+int	ft_start_builtin(int (*f)(char **), char **argv)
 {
 	f(argv);
-	return 1;
+	return (1);
 }
 
-int check_for_built_in(char **args)
+int	check_for_built_in(char **args)
 {
 	if (ft_strncmp(args[0], "exit", ft_strlen(args[0])) == 0)
 		return (msh_exit(args));

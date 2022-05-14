@@ -32,7 +32,7 @@ int	unset_one(char *arg)
 	return (1);
 }
 
-int unset(char **args)
+int	unset(char **args)
 {
 	while (*(++args))
 	{
