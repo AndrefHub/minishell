@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 14:51:52 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:57:10 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,7 +222,9 @@ void		ft_free_file(t_file *file, int);
 int			check_syntax(t_command *command);
 int			build_error(t_error *error);
 int			fill_error(int code);
-
-void		set_wildcards(t_command *command);
+/* Wildcards */
+void	set_wildcards(t_command *command);
+int	is_in_wildcard_templ(char *string, char *template);
+t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir);
 
 #endif
