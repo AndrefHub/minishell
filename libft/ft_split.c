@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 20:53:59 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/02 11:27:13 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 18:08:32 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	*ft_freesplit(char **words)
 	size_t	i;
 
 	i = -1;
-	while (words[++i])
+	while (words && words[++i])
 		free(words[i]);
 	free(words);
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 18:04:34 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 18:06:28 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ int     	check_for_built_in(char **args);
 int     	echo(char **argv);
 int			env();
 int			export(char **args);
+int			unset(char **args);
 int			ft_chdir();
 int			msh_exit(char **argv);
 

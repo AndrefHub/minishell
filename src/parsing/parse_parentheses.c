@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_parentheses.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsherry <lsherry@student.21-school.ru>     +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 22:41:03 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/13 22:41:06 by lsherry          ###   ########.fr       */
+/*   Updated: 2022/05/14 18:07:18 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ static void	parse_bracket_tool(t_command *command, t_list *elem, int *br_l,
 		if (ft_strchr("(", ((char *)elem->content)[0]))
 		{
 			br_r += ++command->bracket_l;
-			elem = ft_lst_delnext(prev, elem, &command->content);
+			elem = ft_lst_delnext(prev, elem, &command->content, free);
 			if (elem && ft_strchr(")", ((char *)elem->content)[0]))
 				fill_error(9);
 		}
 		else if (ft_strchr(")", ((char *)elem->content)[0]))
 		{
 			br_l += ++command->bracket_r;
-			elem = ft_lst_delnext(prev, elem, &command->content);
+			elem = ft_lst_delnext(prev, elem, &command->content, free);
 			if (elem && ft_strchr("(", ((char *)elem->content)[0]))
 				fill_error(9);
 		}
