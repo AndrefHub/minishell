@@ -98,7 +98,6 @@ t_list	*passed_wildcard_files(char *wildcard, char *pwd)
 	file_list = ft_list_files(pwd);
 	passed = NULL;
 	elem = file_list;
-	(void ) wildcard;
 	while (elem)
 	{
 		if (is_in_wildcard_templ(elem->content, wildcard))
@@ -120,6 +119,17 @@ void	ft_add_path(t_list *out, char *path)
 		out->content = str;
 		out = out->next;
 	}
+	free(path);
+}
+
+static void	wild_free_tool(t_list *wilds, char *pwd, char *path, char *wildcard)
+{
+	if (wilds)
+		ft_lstclear(&wilds, free);
+	if (pwd != g_msh.pwd)
+		free(pwd);
+	free(path);
+	free(wildcard);
 }
 
 t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
@@ -128,6 +138,9 @@ t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
 	t_list	*wilds;
 	t_list	*tmp;
 	t_list	*out;
+	char	*next_dir;
+	char	*next_prev_dir;
+	char	*next_wild;
 
 	out = NULL;
 	path = ft_strndup(wildcard, ft_find_substr(wildcard, "/"));
@@ -138,13 +151,13 @@ t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
 		pwd = ft_strjoin_gnl(pwd, "/");
 		while (wilds)
 		{
-			ft_lstadd_back(&out, recursive_wild_path(ft_strdup(&wildcard[ft_strlen(path) + 1]), ft_strjoin(pwd, wilds->content),
-													 ft_strjoin(wilds->content, "/")));
+			next_dir = ft_strjoin(pwd, wilds->content);
+			next_prev_dir = ft_strjoin(wilds->content, "/");
+			next_wild = ft_strdup(&wildcard[ft_strlen(path) + 1]);
+			ft_lstadd_back(&out, recursive_wild_path(next_wild, next_dir, next_prev_dir));
 			wilds = wilds->next;
 		}
-		ft_lstclear(&wilds, free);
-		if (pwd != g_msh.pwd)
-			free(pwd);
+		wild_free_tool(wilds, pwd, path, wildcard);
 	}
 	else
 		ft_lstadd_back(&out, tmp);
@@ -156,17 +169,13 @@ int	ft_add_wildlist(t_list *elem, t_list *prev)
 {
 	t_list	*wildcard;
 	t_list	*tmp;
+	char	*pwd;
+	char	*m;
 
+	m = ft_strnew(0);
+	pwd = ft_strdup(g_msh.pwd);
 	wildcard = NULL;
-//	patterns = ft_split(elem->content, '/');
-//	wildcard = passed_wildcard_files(elem->content, g_msh.pwd);
-	wildcard = recursive_wild_path(elem->content, g_msh.pwd, "");
-//	tmp = wildcard;
-//	while (tmp)
-//	{
-//		ft_putendl_fd(tmp->content, 1);
-//		tmp = tmp->next;
-//	}
+	wildcard = recursive_wild_path(ft_strdup(elem->content), pwd, m);
 	if (!wildcard)
 		return (0);
 	tmp = elem->next;

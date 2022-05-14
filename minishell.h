@@ -208,7 +208,9 @@ int			execute(char **command);
 int	check_syntax(t_command *command);
 int			build_error(t_error *error);
 int			fill_error(int code);
-
+/* Wildcards */
 void	set_wildcards(t_command *command);
+int	is_in_wildcard_templ(char *string, char *template);
+t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir);
 
 #endif
