@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:53 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 14:56:09 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:14:34 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,22 @@ int echo(char **argv)
 
 int msh_exit(char **argv)
 {
-	(void)argv;
-	exit(0);
+	int counter;
 
+	ft_putendl_fd("exit", 2);
+	if (argv && argv[1])
+	{
+		counter = -1;
+		while (argv[1][++counter])
+			if (!ft_isdigit(argv[1][counter]))
+			{
+				ft_putstr_fd("msh: ", 2);
+				ft_putstr_fd("exit: ", 2);
+				ft_putstr_fd(argv[1], 2);
+				ft_putendl_fd(": numeric argument required", 2);
+				exit(255);
+			}
+		exit(ft_atoi(argv[1]));
+	}
+	exit(g_msh.last_ex_code);
 }

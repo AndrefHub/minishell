@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 17:57:45 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 18:04:22 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,10 @@ void	start_one_line(char *line)
 		parse_redirects(cmd);
 		open_files(cmd);
 		if (!check_syntax(cmd))
-		{
 			return ;
-		}
-		// ft_print_lst(cmd->content);
-		// printf("(: %d\n", cmd->bracket_l);
-		// printf("): %d\n", cmd->bracket_r);
+//		ft_print_lst(cmd->content);
+//		printf("(: %d\n", cmd->bracket_l);
+//		printf("): %d\n", cmd->bracket_r);
 		cmd = cmd->next;
 	}
 	execute_commands(full_cmd);

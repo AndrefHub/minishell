@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 17:57:10 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 18:04:34 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,8 @@ void		ft_lstadd_middle(t_list **lst, t_list *add_next, t_list *to_add);
 /* ft_split tools */
 int     	is_in(char c, const char *charset);
 size_t		command_words_count(char **args);
-t_list		*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst);
+t_list		*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst,
+	void (*del)(void *));
 
 t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
 char		**ft_split_space(char *s, char *set);
@@ -223,8 +224,8 @@ int			check_syntax(t_command *command);
 int			build_error(t_error *error);
 int			fill_error(int code);
 /* Wildcards */
-void	set_wildcards(t_command *command);
-int	is_in_wildcard_templ(char *string, char *template);
-t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir);
+void		set_wildcards(t_command *command);
+int			is_in_wildcard_templ(char *string, char *template);
+t_list		*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir);
 
 #endif

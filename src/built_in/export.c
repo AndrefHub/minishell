@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:12:18 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 16:29:37 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:20:05 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,16 @@ int export(char **args)
 {
 	t_envp	*entry;
 	
-	while (*(++args))
+	if (args[1])
 	{
-		entry = make_envp_entry(*args);
-		set_entry_envp(entry);
+		while (*(++args))
+		{
+			entry = make_envp_entry(*args);
+			set_entry_envp(entry);
+		}
+		update_cenvp();
 	}
-	update_cenvp();
+	else
+		env();
 	return (1);
 }
