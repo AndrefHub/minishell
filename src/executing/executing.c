@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:46 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 14:02:09 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:09:24 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	execute_commands(t_command *cmd)
 	cur_brackets = 0;
 	prev_brackets = 0;
 	prev_link_type = SEMICOLON;
+	flag = -1;
 	while (cmd)
 	{
 		set_variables(cmd);
