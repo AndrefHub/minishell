@@ -26,9 +26,9 @@ int	fill_error(int code)
 	if (code == 3)
 		g_msh.err_text = ft_strdup("syntax error near unexpected token '|'");
 	if (code == 4 || code == 5)
-		g_msh.err_text = ft_strdup("syntax error near unexpected token '>>' or '>'");
-	if (code == 6 || code == 7)
 		g_msh.err_text = ft_strdup("syntax error near unexpected token '<<' or '<'");
+	if (code == 6 || code == 7)
+		g_msh.err_text = ft_strdup("syntax error near unexpected token '>>' or '>'");
 	if (code == 9)
 		g_msh.err_text = ft_strdup("syntax error near unexpected token '(' or ')'");;
 	g_msh.err_code = 258;
