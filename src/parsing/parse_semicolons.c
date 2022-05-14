@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:31 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 23:40:42 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 18:07:02 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,8 @@ t_command	*parse_redirects_single_command(t_command *command, int link_type)
 			ft_strlen(g_msh.sp_ops[link_type])) == 0)
 		{
 			set_file_in_command(command, link_type, tmp);
-			tmp = ft_lst_delnext(prev, tmp, &begin);
-			tmp = ft_lst_delnext(prev, tmp, &begin);
+			tmp = ft_lst_delnext(prev, tmp, &begin, free);
+			tmp = ft_lst_delnext(prev, tmp, &begin, free);
 		}
 		else
 		{

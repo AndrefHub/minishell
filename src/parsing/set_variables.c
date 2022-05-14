@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:36 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 13:37:53 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:56:52 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,11 +156,12 @@ t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
 			ft_lstadd_back(&out, recursive_wild_path(next_wild, next_dir, next_prev_dir));
 			wilds = wilds->next;
 		}
-		wild_free_tool(wilds, pwd, path, wildcard);
+		ft_lstclear(&tmp, free);
 	}
 	else
 		ft_lstadd_back(&out, tmp);
 	ft_add_path(out, prev_dir);
+	wild_free_tool(tmp, pwd, path, wildcard);
 	return (out);
 }
 
