@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 19:47:04 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:43:15 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@
 # include <readline/history.h>
 # include <errno.h>
 # include <sys/wait.h>
-#include <sys/ioctl.h>
+# include <sys/ioctl.h>
 # include <dirent.h>
 # include <sys/types.h>
-#include <termios.h>
+# include <termios.h>
 # include <unistd.h>
-#include <signal.h>
+# include <signal.h>
 # include "libft/libft.h"
 /*
 # ifdef COLORED_TEXT
@@ -76,6 +76,12 @@
 
 # define MINISHELLNAME "\033[1;31mඞ\033[0mabobus\033[1;36mඞ\033[0m> "
 
+typedef struct s_envp
+{
+	char	*key;
+	char	*value;
+}	t_envp;
+
 typedef struct s_pipe_fd
 {
 	int	fd_in;
@@ -87,7 +93,8 @@ typedef struct s_pipe_fd
 
 typedef struct s_msh 
 {
-    char	**envp;
+    t_list	*envp;
+	char	**cenvp;
 	int		err_code;
 	char	*err_text;
 	int		last_ex_code;
@@ -129,7 +136,7 @@ typedef struct s_error
 extern t_msh g_msh;
 
 # define FT_SPACE "\t "
-# define FT_DELIM "|&<>"
+# define SPCHARS "|&<>;"
 
 void	ft_print_com(t_command *elem);
 void	ft_print_lst(t_list *elem);
@@ -151,19 +158,20 @@ t_list		*ft_rm_space(t_list **lst);
 
 /* t_command structure tools */
 t_command	*ft_new_command(t_list *content, int code);
-void		ft_comadd_back(t_command **lst, t_command *new);
+void		ft_comadd_back(t_command **lst, t_command *);
 t_command	*ft_command_last(t_command *command);
-void		ft_comclear(t_command **com);
+void		ft_comclear(t_command **com, int);
 
 /* t_list structure tools */
 t_list		*ft_lstnsplit(t_list **begin, int n);
 t_list		*ft_lstat(t_list *lst, int n);
-void	ft_lstadd_middle(t_list **lst, t_list *add_next, t_list *to_add);
+void		ft_lstadd_middle(t_list **lst, t_list *add_next, t_list *to_add);
 
 /* ft_split tools */
 int     	is_in(char c, const char *charset);
 size_t		command_words_count(char **args);
-t_list		*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst);
+t_list		*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst,
+	void (*del)(void *));
 
 t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type);
 char		**ft_split_space(char *s, char *set);
@@ -182,15 +190,22 @@ void		start(char *input);
 void 		setup_term(void);
 
 /* working with envp */
+t_list		*parse_envp(char **arr);
+char		*envp_get_key(t_list *env);
+char		*envp_get_value(t_list *env);
+t_envp		*make_envp_entry(char *arg);
+void		update_cenvp();
 int 		find_at_first(const char *string, char *pattern);
-char		*ft_find_envp(char *parameter, char **envp);
+char		*ft_find_envp(char *parameter);
 
 /* builtins */
 int			execute_commands(t_command *cmd);
 t_command	*pipeline(t_command *to_pipe);
 int     	check_for_built_in(char **args);
 int     	echo(char **argv);
-int			env(char **envp);
+int			env();
+int			export(char **args);
+int			ft_chdir();
 int			msh_exit(char **argv);
 
 void		init_sig_handler(void (*handler) (int, siginfo_t *, void *));
@@ -203,14 +218,14 @@ void		clear_term_signal(void );
 int			execute(char **command);
 int			is_file_open(t_file *file);
 void		open_files(t_command *command);
-int			execute(char **command);
+void		ft_free_file(t_file *file, int);
 
-int	check_syntax(t_command *command);
+int			check_syntax(t_command *command);
 int			build_error(t_error *error);
 int			fill_error(int code);
 /* Wildcards */
-void	set_wildcards(t_command *command);
-int	is_in_wildcard_templ(char *string, char *template);
-t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir);
+void		set_wildcards(t_command *command);
+int			is_in_wildcard_templ(char *string, char *template);
+t_list		*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir);
 
 #endif

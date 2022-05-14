@@ -6,13 +6,14 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:34:34 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 15:43:45 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 17:40:17 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_list	*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst)
+t_list	*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst,
+	void (*del)(void *))
 {
 	t_list	*delete;
 
@@ -24,7 +25,7 @@ t_list	*ft_lst_delnext(t_list *prev, t_list *elem, t_list **lst)
 			*lst = (*lst)->next;
 		delete = elem;
 		elem = elem->next;
-		ft_lstdelone(delete, free);
+		ft_lstdelone(delete, del);
 	}
 	return (elem);
 }
@@ -43,7 +44,7 @@ t_list	*ft_rm_space(t_list **lst)
 	{
 		str = elem->content;
 		if (!str || !ft_strlen(str) || ft_strchr(" \t", str[0]))
-			elem = ft_lst_delnext(prev, elem, lst);
+			elem = ft_lst_delnext(prev, elem, lst, free);
 		else
 		{
 			prev = elem;

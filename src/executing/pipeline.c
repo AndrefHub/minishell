@@ -35,6 +35,8 @@ void	set_error_code(int wpid_ret)
 	g_msh.last_ex_code = code;
 }
 
+
+
 t_command	*pipeline(t_command *to_pipe)
 {
 	int			ret_code;

@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:36 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 18:15:19 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 13:37:53 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ t_command	*set_variables(t_command *command)
 			else if (ft_strchr(lst->next->content, '$'))
 				lst->content = ft_strdup(ft_itoa(getpid()));
 			else
-				lst->content = ft_strdup(ft_find_envp(lst->next->content,
-							g_msh.envp));
+				lst->content = ft_strdup(ft_find_envp(lst->next->content));
 			delete = lst->next;
 			lst->next = delete->next;
 			ft_lstdelone(delete, free);

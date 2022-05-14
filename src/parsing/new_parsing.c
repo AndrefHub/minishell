@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/11 19:50:27 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 16:56:36 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	start_one_line(char *line)
 		cmd = cmd->next;
 	}
 	execute_commands(full_cmd);
+	ft_comclear(&full_cmd, 0);
 }
 
 /*
@@ -79,4 +80,5 @@ void	start(char *input)
 		start_one_line(commands[0]);
 	else
 		start_cycle(commands);
+	free(commands);
 }
