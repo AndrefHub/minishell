@@ -107,14 +107,13 @@ t_list	*passed_wildcard_files(char *wildcard, char *pwd)
 	return (passed);
 }
 
-static void	wild_free_tool(char *path, char *wildcard, char *pwd)
+static void	wild_free_tool(char *path, char *wildcard)
 {
-	free(pwd);
 	free(path);
 	free(wildcard);
 }
 
-static void	ft_add_path(t_list *out, char *prev_dir, char *wildcard, char *path, char *pwd)
+static void	ft_add_path(t_list *out, char *prev_dir, char *wildcard, char *path)
 {
 	char	*str;
 
@@ -126,7 +125,13 @@ static void	ft_add_path(t_list *out, char *prev_dir, char *wildcard, char *path,
 		out = out->next;
 	}
 	free(prev_dir);
-	wild_free_tool(path, wildcard, pwd);
+	wild_free_tool(path, wildcard);
+}
+
+static void	wild_tool(t_list *tmp, char *pwd)
+{
+	free(pwd);
+	ft_lstclear(&tmp, free);
 }
 
 t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
@@ -150,11 +155,11 @@ t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
 					ft_strjoin(wilds->content, "/")));
 			wilds = wilds->next;
 		}
-		ft_lstclear(&tmp, free);
+		wild_tool(tmp, pwd);
 	}
 	else
 		ft_lstadd_back(&out, tmp);
-	ft_add_path(out, prev_dir, wildcard, path, pwd);
+	ft_add_path(out, prev_dir, wildcard, path);
 	return (out);
 }
 
