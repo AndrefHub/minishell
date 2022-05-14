@@ -43,6 +43,7 @@ void	set_g_msh(char **envp)
 	g_msh.envp = envp;
 	g_msh.sp_ops = make_sp_ops();
 	g_msh.last_ex_code = 0;
+	g_msh.pwd = ft_find_envp("PWD", g_msh.envp);
 }
 
 void	reset_errors(void)
