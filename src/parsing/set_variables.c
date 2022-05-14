@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:36 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 17:56:52 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:17:56 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,10 @@ void	ft_add_path(t_list *out, char *path)
 	free(path);
 }
 
-static void	wild_free_tool(t_list *wilds, char *pwd, char *path, char *wildcard)
+static void	wild_free_tool(char *pwd, char *path, char *wildcard)
 {
-	if (wilds)
-		ft_lstclear(&wilds, free);
+	// if (wilds)
+	// 	ft_lstclear(&wilds, free);
 	if (pwd != g_msh.pwd)
 		free(pwd);
 	free(path);
@@ -161,7 +161,7 @@ t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
 	else
 		ft_lstadd_back(&out, tmp);
 	ft_add_path(out, prev_dir);
-	wild_free_tool(tmp, pwd, path, wildcard);
+	wild_free_tool(pwd, path, wildcard);
 	return (out);
 }
 
