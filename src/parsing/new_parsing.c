@@ -35,7 +35,7 @@ void	start_one_line(char *line)
 		ft_com_rm_space(cmd);
 		parse_redirects(cmd);
 		open_files(cmd);
-		if (!check_syntax())
+		if (!check_syntax(cmd))
 			return ;
 		ft_print_lst(cmd->content);
 		printf("(: %d\n", cmd->bracket_l);

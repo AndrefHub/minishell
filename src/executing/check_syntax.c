@@ -35,8 +35,10 @@ int	fill_error(int code)
 	return (0);
 }
 
-int	check_syntax(void)
+int	check_syntax(t_command *command)
 {
+	if (!command->content || !command->content->content)
+		fill_error(command->link_type);
 	if (g_msh.err_code != 0 || g_msh.err_text != NULL)
 	{
 		ft_putendl_fd(g_msh.err_text, 2);

@@ -91,6 +91,7 @@ typedef struct s_msh
 	int		err_code;
 	char	*err_text;
 	int		last_ex_code;
+	char	*pwd;
 	char	*curr_dir;
 	char	**sp_ops;
 }	t_msh;
@@ -157,6 +158,7 @@ void		ft_comclear(t_command **com);
 /* t_list structure tools */
 t_list		*ft_lstnsplit(t_list **begin, int n);
 t_list		*ft_lstat(t_list *lst, int n);
+void	ft_lstadd_middle(t_list **lst, t_list *add_next, t_list *to_add);
 
 /* ft_split tools */
 int     	is_in(char c, const char *charset);
@@ -203,8 +205,10 @@ int			is_file_open(t_file *file);
 void		open_files(t_command *command);
 int			execute(char **command);
 
-int			check_syntax(void);
+int	check_syntax(t_command *command);
 int			build_error(t_error *error);
 int			fill_error(int code);
+
+void	set_wildcards(t_command *command);
 
 #endif

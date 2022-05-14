@@ -47,10 +47,7 @@ t_command	*pipeline(t_command *to_pipe)
 	while (1)
 	{
 		if (is_file_open(to_pipe->infile))
-		{
-			// close(fd_data.fd_in);
 			dup2(to_pipe->infile->fd, fd_data.fd_in);
-		}
 		dup2_and_close(fd_data.fd_in, 0);
 		if (is_file_open(to_pipe->outfile))
 			fd_data.fd_out = to_pipe->outfile->fd;
@@ -62,7 +59,7 @@ t_command	*pipeline(t_command *to_pipe)
 		init_sig_handler(child_sig_handler);
 		convert_commands_to_char_ptrs(to_pipe);
 		pid_fork = execute(to_pipe->name_args);
-		if (to_pipe->link_type != PIPELINE)
+		if (to_pipe->link_type != PIPELINE || !to_pipe->next || !to_pipe->next->content || !to_pipe->next->content->content)
 			break ;
 		to_pipe = to_pipe->next;
 	}

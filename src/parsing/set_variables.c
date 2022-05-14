@@ -88,3 +88,55 @@ t_list	*ft_list_files(char *name)
 	}
 	return (file_list);
 }
+
+t_list	*passed_wildcard_files(char *wildcard, char *pwd)
+{
+	t_list	*file_list;
+	t_list	*passed;
+	t_list	*elem;
+
+	file_list = ft_list_files(pwd);
+	passed = NULL;
+	elem = file_list;
+	(void ) wildcard;
+	while (elem)
+	{
+		if (is_in_wildcard_templ(elem->content, wildcard))
+			ft_lstadd_back(&passed, ft_lstnew(ft_strdup(elem->content)));
+		elem = elem->next;
+	}
+	ft_lstclear(&file_list, free);
+	return (passed);
+}
+
+void	set_wildcards(t_command *command)
+{
+//	(void ) command;
+	t_list	*elem;
+	t_list	*prev;
+	t_list	*wildcard;
+	t_list	*tmp;
+
+	while (command)
+	{
+		prev = command->content;
+		wildcard = NULL;
+		elem = command->content->next;
+		while (elem)
+		{
+			if (elem->content && (ft_strchr(elem->content, '*') || ft_strchr(elem->content, '?')))
+			{
+				wildcard = passed_wildcard_files(elem->content, g_msh.pwd);
+				if (!wildcard)
+					break;
+				tmp = elem->next;
+				ft_lstdelone(elem, free);
+				prev->next = wildcard;
+				ft_lstlast(wildcard)->next = tmp;
+			}
+			prev = elem;
+			elem = elem->next;
+		}
+		command = command->next;
+	}
+}
