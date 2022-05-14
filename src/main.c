@@ -12,9 +12,9 @@
 
 #include "../minishell.h"
 
-t_msh g_msh;
+t_msh	g_msh;
 
-void	very_important_function(int argc, char **argv, char **envp)
+void	ft_args_usage(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
@@ -48,16 +48,9 @@ void	set_g_msh(char **envp)
 	g_msh.pwd = ft_find_envp("PWD");
 }
 
-void	reset_errors(void)
-{
-	g_msh.err_code = 0;
-//	free(g_msh.err_text);
-	g_msh.err_text = NULL;
-}
-
 int	ft_is_empty(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i])
@@ -69,14 +62,11 @@ int	ft_is_empty(char *line)
 	return (1);
 }
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
-	// t_command	*commands;
-	// char	**args;
-	// int		code;
 
-	very_important_function(argc, argv, envp);
+	ft_args_usage(argc, argv, envp);
 	set_g_msh(envp);
 	setup_term();
 	while (1)
@@ -89,5 +79,5 @@ int main(int argc, char **argv, char **envp)
 		start(input);
 		free(input);
 	}
-	return 0;
+	return (0);
 }

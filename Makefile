@@ -19,12 +19,15 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			built_in/chdir.c\
 			built_in/export.c\
 			built_in/unset.c\
-			executing/check_syntax.c\
+			executing/errors.c\
+			executing/heredoc.c\
 			executing/executing.c\
+			executing/file.c\
 			executing/pipeline.c\
 			executing/open_files.c\
-			executing/signals.c\
-			parsing/new_parsing.c\
+			signals/sig_handler.c\
+			signals/term_printing.c\
+			parsing/ft_wildcards.c\
 			parsing/parse_quotes.c\
 			parsing/parsing.c\
 			parsing/parse_semicolons.c\
@@ -51,6 +54,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.c $(MSHHDR)
 	@mkdir -p $(OBJDIR)built_in
 	@mkdir -p $(OBJDIR)executing
 	@mkdir -p $(OBJDIR)parsing
+	@mkdir -p $(OBJDIR)signals
 	$(CC) $(FLAGS) $(READLINE_FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(MSHHDR)
 
 $(NAME): $(OBJS) $(OBJMAIN) $(MSHHDR)

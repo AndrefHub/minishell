@@ -12,15 +12,15 @@
 
 #include "../../minishell.h"
 
-int     ft_start_builtin(int (*f)(char **), char **argv)
+int	ft_start_builtin(int (*f)(char **), char **argv)
 {
 	f(argv);
-	return 1;
+	return (1);
 }
 
-int check_for_built_in(char **args)
+int	check_for_built_in(char **args)
 {
-	int is_built_in;
+	int	is_built_in;
 
 	is_built_in = 0;
 	if (ft_strncmp(args[0], "echo", ft_strlen(args[0])) == 0)
@@ -35,5 +35,5 @@ int check_for_built_in(char **args)
 		msh_exit(args);
 	else if (ft_strncmp(args[0], "cd", ft_strlen(args[0])) == 0)
 		is_built_in += ft_chdir();
-	return is_built_in;
+	return (is_built_in);
 }

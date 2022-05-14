@@ -51,18 +51,6 @@ t_command	*ft_command_last(t_command *command)
 	return (command);
 }
 
-t_list	*ft_lstat(t_list *lst, int n)
-{
-	int	counter;
-
-	counter = -1;
-	while (++counter < n && lst)
-	{
-		lst = lst->next;
-	}
-	return (lst);
-}
-
 t_list	*ft_lstnsplit(t_list **begin, int n)
 {
 	t_list	*old_begin;
@@ -101,6 +89,5 @@ void	ft_comclear(t_command **com, int err)
 		free(copy);
 		copy = elem;
 	}
-	
 	*com = ((void *)0);
 }

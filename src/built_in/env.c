@@ -12,7 +12,7 @@
 
 #include "../../minishell.h"
 
-int env()
+int	env(void )
 {
 	t_list	*envp;
 

@@ -12,9 +12,9 @@
 
 #include "../../minishell.h"
 
-int echo(char **argv)
+int	echo(char **argv)
 {
-	int flag;
+	int	flag;
 
 	flag = 1;
 	if (find_at_first(argv[1], "-n"))
@@ -33,15 +33,16 @@ int echo(char **argv)
 	return (1);
 }
 
-int msh_exit(char **argv)
+int	msh_exit(char **argv)
 {
-	int counter;
+	int	counter;
 
 	ft_putendl_fd("exit", 2);
 	if (argv && argv[1])
 	{
 		counter = -1;
 		while (argv[1][++counter])
+		{
 			if (!ft_isdigit(argv[1][counter]))
 			{
 				ft_putstr_fd("msh: ", 2);
@@ -50,6 +51,7 @@ int msh_exit(char **argv)
 				ft_putendl_fd(": numeric argument required", 2);
 				exit(255);
 			}
+		}
 		exit(ft_atoi(argv[1]));
 	}
 	exit(g_msh.last_ex_code);

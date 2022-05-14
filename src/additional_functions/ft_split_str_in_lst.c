@@ -14,7 +14,7 @@
 
 static int	ft_split_tools(char *str, int i, char *pattern, t_list *elem)
 {
-	int len;
+	int	len;
 
 	len = ft_find_substr(&str[i], pattern);
 	if (len != -1)
@@ -37,9 +37,9 @@ static int	ft_split_tools(char *str, int i, char *pattern, t_list *elem)
 
 static int	ft_is_true_pattern(char *str, int len, char *pattern)
 {
-	return (!str || str[0] == '"' || str[0] == '\'' || str[ft_strlen(str)] == '"'
-			|| str[ft_strlen(str)] == '\'' || len == -1
-			|| (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
+	return (!str || str[0] == '"' || str[0] == '\'' || str
+		[ft_strlen(str)] == '"' || str[ft_strlen(str)] == '\'' || len == -1
+		|| (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
 }
 
 void	ft_split_first_iter(int len, t_list *elem, char *pattern, char *str)

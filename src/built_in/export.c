@@ -12,11 +12,6 @@
 
 #include "../../minishell.h"
 
-// int update_env(char *arg)
-// {
-	
-// }
-
 void	free_entry_envp(t_envp *entry)
 {
 	free(((t_envp *)entry)->key);
@@ -45,10 +40,10 @@ void	set_entry_envp(t_envp *entry)
 	ft_lstadd_back(&(g_msh.envp), ft_lstnew(entry));
 }
 
-int export(char **args)
+int	export(char **args)
 {
 	t_envp	*entry;
-	
+
 	if (args[1])
 	{
 		while (*(++args))
