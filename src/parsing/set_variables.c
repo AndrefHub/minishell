@@ -107,28 +107,25 @@ t_list	*passed_wildcard_files(char *wildcard, char *pwd)
 	return (passed);
 }
 
-void	ft_add_path(t_list *out, char *path)
+static void	wild_free_tool(char *path, char *wildcard)
 {
-	char *str;
+	free(path);
+	free(wildcard);
+}
+
+static void	ft_add_path(t_list *out, char *prev_dir, char *wildcard, char *path)
+{
+	char	*str;
 
 	while (out)
 	{
-		str = ft_strjoin(path, out->content);
+		str = ft_strjoin(prev_dir, out->content);
 		free(out->content);
 		out->content = str;
 		out = out->next;
 	}
-	free(path);
-}
-
-static void	wild_free_tool(char *pwd, char *path, char *wildcard)
-{
-	// if (wilds)
-	// 	ft_lstclear(&wilds, free);
-	if (pwd != g_msh.pwd)
-		free(pwd);
-	free(path);
-	free(wildcard);
+	free(prev_dir);
+	wild_free_tool(path, wildcard);
 }
 
 t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
@@ -137,9 +134,6 @@ t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
 	t_list	*wilds;
 	t_list	*tmp;
 	t_list	*out;
-	char	*next_dir;
-	char	*next_prev_dir;
-	char	*next_wild;
 
 	out = NULL;
 	path = ft_strndup(wildcard, ft_find_substr(wildcard, "/"));
@@ -150,18 +144,16 @@ t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
 		pwd = ft_strjoin_gnl(pwd, "/");
 		while (wilds)
 		{
-			next_dir = ft_strjoin(pwd, wilds->content);
-			next_prev_dir = ft_strjoin(wilds->content, "/");
-			next_wild = ft_strdup(&wildcard[ft_strlen(path) + 1]);
-			ft_lstadd_back(&out, recursive_wild_path(next_wild, next_dir, next_prev_dir));
+			ft_lstadd_back(&out, recursive_wild_path(ft_strdup(&wildcard
+					[ft_strlen(path) + 1]), ft_strjoin_gnl(pwd, wilds->content),
+					ft_strjoin(wilds->content, "/")));
 			wilds = wilds->next;
 		}
 		ft_lstclear(&tmp, free);
 	}
 	else
 		ft_lstadd_back(&out, tmp);
-	ft_add_path(out, prev_dir);
-	wild_free_tool(pwd, path, wildcard);
+	ft_add_path(out, prev_dir, wildcard, path);
 	return (out);
 }
 
@@ -196,9 +188,9 @@ void	set_wildcards(t_command *command)
 		elem = command->content->next;
 		while (elem)
 		{
-			if (elem->content && (ft_strchr(elem->content, '*')
-			|| ft_strchr(elem->content, '?')) && ft_add_wildlist(elem, prev))
-				break;
+			if (elem->content && (ft_strchr(elem->content, '*') || ft_strchr
+					(elem->content, '?')) && ft_add_wildlist(elem, prev))
+				break ;
 			prev = elem;
 			elem = elem->next;
 		}
