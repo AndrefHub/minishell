@@ -138,7 +138,7 @@ char		*envp_get_value(t_list *env);
 t_envp		*make_envp_entry(char *arg);
 void		set_envp_entry(t_envp *entry);
 void		free_envp_entry(void *entry);
-void		update_cenvp();
+void		update_cenvp(void );
 int 		find_at_first(const char *string, char *pattern);
 char		*ft_find_envp(char *parameter);
 /* builtins */
@@ -150,7 +150,7 @@ int			env(void );
 int			export(char **args);
 int			unset(char **args);
 int			pwd(void );
-int			ft_chdir(void );
+int			ft_chdir(char *pwd);
 int			msh_exit(char **argv);
 /* Signals */
 void		init_sig_handler(void (*handler) (int, siginfo_t *, void *));
