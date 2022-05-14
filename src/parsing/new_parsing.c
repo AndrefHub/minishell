@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 18:04:22 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 19:07:24 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	start_one_line(char *line)
 	cmd = parse_special_characters(lst);
 	free(line);
 	full_cmd = cmd;
+	if (!full_cmd)
+		return;
 	init_sig_handler(child_sig_handler);
 	parse_brackets(cmd);
 	while (cmd)
