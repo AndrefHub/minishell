@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:53 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 17:14:34 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 20:01:54 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,5 @@ int msh_exit(char **argv)
 		exit(ft_atoi(argv[1]));
 	}
 	exit(g_msh.last_ex_code);
+	return (1);
 }

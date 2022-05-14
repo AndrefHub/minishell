@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 18:06:28 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 20:40:24 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,8 @@ t_list		*parse_envp(char **arr);
 char		*envp_get_key(t_list *env);
 char		*envp_get_value(t_list *env);
 t_envp		*make_envp_entry(char *arg);
+void		set_envp_entry(t_envp *entry);
+void		free_envp_entry(void *entry);
 void		update_cenvp();
 int 		find_at_first(const char *string, char *pattern);
 char		*ft_find_envp(char *parameter);
@@ -206,6 +208,7 @@ int     	echo(char **argv);
 int			env();
 int			export(char **args);
 int			unset(char **args);
+int			pwd();
 int			ft_chdir();
 int			msh_exit(char **argv);
 
