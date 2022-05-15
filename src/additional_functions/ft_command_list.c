@@ -83,7 +83,11 @@ void	ft_comclear(t_command **com, int err)
 		elem = copy->next;
 		if (copy->content)
 			ft_lstclear(&(copy->content), free);
-		free(copy->name_args);
+		if (!copy->name_args)
+		{
+			free(copy->name_args);
+			copy->name_args = NULL;
+		}
 		ft_free_file(copy->infile, err);
 		ft_free_file(copy->outfile, err);
 		free(copy);

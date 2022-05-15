@@ -52,6 +52,7 @@ int	echo(char **argv)
 int	exit_too_many_args(void )
 {
 	ft_putstr_fd("exit: too many arguments\n", 2);
+	g_msh.last_ex_code = 1;
 	return (1);
 }
 
