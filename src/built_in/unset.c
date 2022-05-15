@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 17:14:44 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 18:58:06 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 16:09:24 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int	unset(char **args)
 		unset_one(*args);
 	}
 	update_cenvp();
+	g_msh.last_ex_code = 0;
 	return (1);
 }

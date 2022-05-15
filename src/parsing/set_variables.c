@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_variables.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:36 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 19:41:59 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 16:09:40 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ t_command	*set_variables(t_command *command)
 		if (strchr(lst->content, '$') && lst->next && ft_strchr
 			(lst->next->content, ' ') == NULL)
 		{
+			free(lst->content);
 			if (ft_strchr(lst->next->content, '?'))
-				lst->content = ft_strdup(ft_itoa(g_msh.last_ex_code));
+				lst->content = ft_itoa(g_msh.last_ex_code);
 			else if (ft_strchr(lst->next->content, '$'))
-				lst->content = ft_strdup(ft_itoa(getpid()));
+				lst->content = ft_itoa(getpid());
 			else
-				lst->content = ft_strdup(ft_find_envp(lst->next->content));
+				lst->content = ft_find_envp(lst->next->content);
 			delete = lst->next;
 			lst->next = delete->next;
 			ft_lstdelone(delete, free);
@@ -121,7 +122,7 @@ void	set_wildcards(t_command *command)
 				(elem->content, '?')))
 		{
 			if (!ft_add_wildlist(elem, prev))
-				break;
+				break ;
 		}
 		prev = elem;
 		elem = elem->next;

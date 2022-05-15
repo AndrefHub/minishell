@@ -6,66 +6,11 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 15:01:24 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 16:13:34 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-char	**parse_to_lines(char *input)
-{
-	return (ft_split(input, '\n'));
-}
-
-void	start_one_line(char *line)
-{
-	t_command	*full_cmd;
-	t_command	*cmd;
-	t_list		*lst;
-
-	lst = parse_quotes(line);
-	lst = parse_parentheses(lst);
-	cmd = parse_special_characters(lst);
-	free(line);
-	full_cmd = cmd;
-	if (!full_cmd)
-		return ;
-	init_sig_handler(child_sig_handler);
-	parse_brackets(cmd);
-	while (cmd)
-	{
-		ft_com_rm_space(cmd);
-		parse_redirects(cmd);
-		open_files(cmd);
-		if (!check_syntax(cmd))
-			return ;
-		cmd = cmd->next;
-	}
-	execute_commands(full_cmd);
-	ft_comclear(&full_cmd, 0);
-}
-
-void	check_end_and_start_one_line(char *line)
-{
-	int counter;
-
-	counter = ft_strlen(line);
-	while (line[--counter])
-	{
-		if (!ft_strchr("\t ", line[counter]))
-		{
-			if (ft_strchr("><|&;", line[counter]))
-			{
-				// fill_error(choose_code());
-				free(line);
-				return ;
-			}
-			else
-				break ;
-		}
-	}
-	start_one_line(line);
-}
 
 /*
  * ft_print_lst(cmd->content);

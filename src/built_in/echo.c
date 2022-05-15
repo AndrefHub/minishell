@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:53 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 14:15:36 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 16:08:41 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_first(char *arg)
 {
-	int counter;
+	int	counter;
 
 	counter = 0;
 	if (arg[counter] == '-')
@@ -46,6 +46,7 @@ int	echo(char **argv)
 	}
 	if (flag)
 		printf("\n");
+	g_msh.last_ex_code = 0;
 	return (1);
 }
 

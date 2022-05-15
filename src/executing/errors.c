@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 20:20:17 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/15 11:41:01 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 15:45:43 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	reset_errors(void)
 {
 	g_msh.err_code = 0;
+	free(g_msh.err_text);
 	g_msh.err_text = NULL;
 }
 
