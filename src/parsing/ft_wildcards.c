@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wildcards.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsherry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:56:19 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/14 19:56:20 by lsherry          ###   ########.fr       */
+/*   Updated: 2022/05/15 17:32:17 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,32 +78,31 @@ static void	wild_tool(t_list *tmp, char *pwd)
 	}
 }
 
-t_list	*recursive_wild_path(char *wildcard, char *pwd, char *prev_dir)
+t_list	*recursive_wild_path(char *wc, char *d, char *prev_dir)
 {
-	char	*path;
-	t_list	*wilds;
+	char	*p;
+	t_list	*w;
 	t_list	*tmp;
 	t_list	*out;
 
 	out = NULL;
-	path = ft_strndup(wildcard, ft_find_substr(wildcard, "/"));
-	wilds = passed_wildcard_files(path, pwd);
-	tmp = wilds;
-	if (ft_strlen(path) != ft_strlen(wildcard))
+	p = ft_strndup(wc, ft_find_substr(wc, "/"));
+	w = passed_wildcard_files(p, d);
+	tmp = w;
+	if (ft_strlen(p) != ft_strlen(wc))
 	{
-		pwd = ft_strjoin_gnl(pwd, "/");
-		while (wilds)
+		d = ft_strjoin_gnl(d, "/");
+		while (w)
 		{
-			ft_lstadd_back(&out, recursive_wild_path(ft_strdup(&wildcard
-					[ft_strlen(path) + 1]), ft_strjoin(pwd, wilds->content),
-					ft_strjoin(wilds->content, "/")));
-			wilds = wilds->next;
+			ft_lstadd_back(&out, recursive_wild_path(ft_strdup(wc + ft_strlen(p)
+						+ 1), ftsj(d, w->content), ftsj(w->content, "/")));
+			w = w->next;
 		}
 		wild_tool(tmp, NULL);
 	}
 	else
 		ft_lstadd_back(&out, tmp);
-	ft_add_path(out, prev_dir, wildcard, path);
-	free(pwd);
+	ft_add_path(out, prev_dir, wc, p);
+	free(d);
 	return (out);
 }

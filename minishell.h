@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 16:12:04 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 17:32:05 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,6 @@ void		set_file_in_command(t_command *command, int link_type, t_list *tmp);
 t_file		*ft_file_new(char *filename, int link_type);
 int			is_file_open(t_file *file);
 
-
-void	ft_com_rm_quotes(t_command *cmd, char *quote);
+void		ft_com_rm_quotes(t_command *cmd, char *quote);
+char		*ftsj(const char *s1, const char *s2);
 #endif

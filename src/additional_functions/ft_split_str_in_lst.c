@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:30 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:37:31 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 17:03:49 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static int	ft_is_true_pattern(char *str, int len, char *pattern, int mode)
 		return (!str || str[0] == '\'' || str[ft_strlen(str)] == '\''
 			|| len == -1 || (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
 	else
-		return (!str || len == -1 || (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
+		return (!str || len == -1 || (len == 0 && ft_strlen(str)
+				== ft_strlen(pattern)));
 }
 
 void	ft_split_first_iter(int len, t_list *elem, char *pattern, char *str)
