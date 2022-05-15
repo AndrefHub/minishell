@@ -178,4 +178,6 @@ void		set_file_in_command(t_command *command, int link_type, t_list *tmp);
 t_file		*ft_file_new(char *filename, int link_type);
 int			is_file_open(t_file *file);
 
+
+void	ft_com_rm_quotes(t_command *cmd, char *quote);
 #endif

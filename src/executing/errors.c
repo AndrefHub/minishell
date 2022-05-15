@@ -15,6 +15,8 @@
 void	reset_errors(void)
 {
 	g_msh.err_code = 0;
+	if (g_msh.err_text != NULL)
+		free(g_msh.err_text);
 	g_msh.err_text = NULL;
 }
 

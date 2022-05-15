@@ -37,13 +37,15 @@ static int	ft_split_tools(char *str, int i, char *pattern, t_list *elem)
 
 static int	ft_is_true_pattern(char *str, int len, char *pattern, int mode)
 {
-	if (mode)
+	if (mode == 1)
 		return (!str || str[0] == '"' || str[0] == '\'' || str
 			[ft_strlen(str)] == '"' || str[ft_strlen(str)] == '\'' || len == -1
 			|| (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
-	else
+	if (mode == 0)
 		return (!str || str[0] == '\'' || str[ft_strlen(str)] == '\''
 			|| len == -1 || (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
+	else
+		return (!str || len == -1 || (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
 }
 
 void	ft_split_first_iter(int len, t_list *elem, char *pattern, char *str)

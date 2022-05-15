@@ -62,8 +62,28 @@ void	ft_com_rm_space(t_command *command)
 	command->content = ft_rm_space(&lst);
 	command = command->next;
 }
-//
-//ft_com_rm_quotes(t_command *cmd)
-//{
-//
-//}
+
+void	ft_com_rm_quotes(t_command *cmd, char *quote)
+{
+	char	*str;
+	t_list	*prev;
+	t_list	*elem;
+	t_list	*lst;
+
+	lst = cmd->content;
+	prev = NULL;
+	elem = lst;
+	split_by_pattern(&elem, quote, -1);
+	while (elem)
+	{
+		str = elem->content;
+		if (!str || !ft_strlen(str) || ft_strchr(quote, str[0]))
+			elem = ft_lst_delnext(prev, elem, &lst, free);
+		else
+		{
+			prev = elem;
+			elem = elem->next;
+		}
+	}
+	cmd->content = lst;
+}

@@ -59,12 +59,13 @@ int	execute_commands(t_command *cmd)
 	flag = -1;
 	while (cmd)
 	{
-		set_variables(cmd);
 		ft_com_rm_space(cmd);
+		ft_com_rm_quotes(cmd, "\"");
+		ft_com_rm_quotes(cmd, "\'");
+		set_variables(cmd);
 		parse_redirects(cmd);
 		open_files(cmd);
 		set_wildcards(cmd);
-//		ft_com_rm_quotes(cmd);
 		if (!check_syntax(cmd))
 			return (1);
 		cur_brackets += cmd->bracket_l;
