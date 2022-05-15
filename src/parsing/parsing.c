@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 10:25:03 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 14:52:08 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,27 @@ void	start_one_line(char *line)
 	init_sig_handler(parent_sig_handler);
 }
 
+void	check_end_and_start_one_line(char *line)
+{
+	int counter;
+
+	counter = ft_strlen(line);
+	while (line[--counter])
+	{
+		if (!ft_strchr("\t ", line[counter]))
+		{
+			if (ft_strchr("><|&;", line[counter]))
+			{
+				free(line);
+				return ;
+			}
+			else
+				break ;
+		}
+	}
+	start_one_line(line);
+}
+
 /*
  * ft_print_lst(cmd->content);
  * printf("(: %d\n", cmd->bracket_l);
@@ -59,7 +80,7 @@ void	start_cycle(char **lines)
 	i = 0;
 	while (lines[i])
 	{
-		start_one_line(lines[i]);
+		check_end_and_start_one_line(lines[i]);
 		i++;
 	}
 }
@@ -80,7 +101,7 @@ void	start(char *input)
 	}
 	commands = parse_to_lines(input);
 	if (!commands[1])
-		start_one_line(commands[0]);
+		check_end_and_start_one_line(commands[0]);
 	else
 		start_cycle(commands);
 	free(commands);

@@ -6,20 +6,36 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:53 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 12:50:08 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 14:15:36 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	check_first(char *arg)
+{
+	int counter;
+
+	counter = 0;
+	if (arg[counter] == '-')
+	{
+		while (arg[++counter])
+			if (arg[counter] != 'n')
+				return (0);
+		return (1);
+	}
+	else
+		return (0);
+}
 
 int	echo(char **argv)
 {
 	int	flag;
 
 	flag = 1;
-	if (find_at_first(argv[1], "-n"))
+	if (check_first(argv[1]))
 	{
-		argv++;
+		++argv;
 		flag = 0;
 	}
 	while (*++argv)
