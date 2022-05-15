@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 16:24:02 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 17:18:09 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	start(char *input)
 	if (!input)
 	{
 		write(2, "exit\n", 5);
-		exit(130);
+		exit(g_msh.last_ex_code);
 	}
 	else if (!ft_strlen(input))
 	{

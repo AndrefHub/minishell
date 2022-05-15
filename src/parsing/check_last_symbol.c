@@ -6,11 +6,16 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 16:10:28 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 16:13:54 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 17:31:52 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+char	*ftsj(const char *s1, const char *s2)
+{
+	return (ft_strjoin(s1, s2));
+}
 
 char	**parse_to_lines(char *input)
 {
