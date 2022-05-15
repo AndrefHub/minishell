@@ -91,7 +91,7 @@ typedef struct s_list
 typedef struct s_vector
 {
 	int	x;
-	int y;
+	int	y;
 }	t_vector;
 
 t_list	*ft_lstnew(void *content);
