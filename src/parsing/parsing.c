@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 14:52:08 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 15:01:24 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	check_end_and_start_one_line(char *line)
 		{
 			if (ft_strchr("><|&;", line[counter]))
 			{
+				// fill_error(choose_code());
 				free(line);
 				return ;
 			}
