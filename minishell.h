@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 17:32:05 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 19:08:15 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int			unset(char **args);
 int			pwd(void );
 int			ft_chdir(char *dir);
 int			msh_exit(char **argv);
+int			is_dollar(t_list *lst);
 /* Signals */
 void		init_sig_handler(void (*handler) (int, siginfo_t *, void *));
 void		parent_sig_handler(int sigsum, siginfo_t *sig, void *context);

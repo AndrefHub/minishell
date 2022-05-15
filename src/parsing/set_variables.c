@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:36 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 16:41:33 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 19:06:40 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ t_command	*set_variables(t_command *command)
 	split_by_pattern(&lst, "$", 1);
 	while (lst)
 	{
-		if (strchr(lst->content, '$') && lst->next && ft_strchr
-			(lst->next->content, ' ') == NULL)
+		if (is_dollar(lst))
 		{
 			if (lst->next->content != NULL)
 				free(lst->content);
