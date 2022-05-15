@@ -32,15 +32,11 @@ void	start_one_line(char *line)
 		return ;
 	init_sig_handler(child_sig_handler);
 	parse_brackets(cmd);
-	while (cmd)
-	{
-		ft_com_rm_space(cmd);
-		parse_redirects(cmd);
-		open_files(cmd);
-		if (!check_syntax(cmd))
-			return ;
-		cmd = cmd->next;
-	}
+//	while (cmd)
+//	{
+//
+//		cmd = cmd->next;
+//	}
 	execute_commands(full_cmd);
 	ft_comclear(&full_cmd, 0);
 }

@@ -100,8 +100,8 @@ t_command	*parse_redirects(t_command *commands);
 t_command	*set_variables(t_command *command);
 void		ft_list_to_char_ptr(t_command *cmd);
 void		convert_commands_to_char_ptrs(t_command *cmd);
-t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
-void		split_by_pattern(t_list **lst, char *pattern);
+t_list		*ft_split_str_in_lst(char *pattern, t_list *elem, int mode);
+void		split_by_pattern(t_list **lst, char *pattern, int mode);
 void		ft_com_rm_space(t_command *cmd);
 t_list		*ft_rm_space(t_list **lst);
 /* t_command structure tools */

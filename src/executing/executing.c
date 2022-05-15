@@ -60,7 +60,13 @@ int	execute_commands(t_command *cmd)
 	while (cmd)
 	{
 		set_variables(cmd);
+		ft_com_rm_space(cmd);
+		parse_redirects(cmd);
+		open_files(cmd);
 		set_wildcards(cmd);
+//		ft_com_rm_quotes(cmd);
+		if (!check_syntax(cmd))
+			return (1);
 		cur_brackets += cmd->bracket_l;
 		if (cmd->bracket_l > 0 && ((prev_link_type == DOUBLE_AND
 					&& g_msh.last_ex_code != 0)

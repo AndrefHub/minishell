@@ -14,8 +14,8 @@
 
 t_list	*parse_parentheses(t_list *quotes)
 {
-	split_by_pattern(&quotes, "(");
-	split_by_pattern(&quotes, ")");
+	split_by_pattern(&quotes, "(", 1);
+	split_by_pattern(&quotes, ")", 1);
 	return (quotes);
 }
 

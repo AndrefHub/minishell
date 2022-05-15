@@ -45,7 +45,7 @@ t_command	*ft_command_split(t_command **prev, t_command *to_split,
 	int			counter;
 
 	counter = 0;
-	split_by_pattern(&(to_split->content), g_msh.sp_ops[link_type]);
+	split_by_pattern(&(to_split->content), g_msh.sp_ops[link_type], 1);
 	new_begin = to_split->content;
 	commands = ft_command_split_while(&new_begin, &counter, link_type);
 	if (counter)
@@ -94,7 +94,7 @@ t_command	*parse_redirects_single_command(t_command *command, int link_type)
 	t_list		*prev;
 	t_list		*tmp;
 
-	split_by_pattern(&(command->content), g_msh.sp_ops[link_type]);
+	split_by_pattern(&(command->content), g_msh.sp_ops[link_type], 1);
 	prev = NULL;
 	begin = command->content;
 	tmp = command->content;

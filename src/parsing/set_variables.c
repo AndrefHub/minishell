@@ -18,7 +18,8 @@ t_command	*set_variables(t_command *command)
 	t_list		*delete;
 
 	lst = command->content;
-	split_by_pattern(&lst, "$");
+	split_by_pattern(&lst, "\"", 0);
+	split_by_pattern(&lst, "$", 0);
 	while (lst)
 	{
 		if (strchr(lst->content, '$') && lst->next && ft_strchr
