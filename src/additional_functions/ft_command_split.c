@@ -25,14 +25,14 @@ int	is_in(char c, const char *set)
 	return (0);
 }
 
-void	split_by_pattern(t_list **lst, char *pattern)
+void	split_by_pattern(t_list **lst, char *pattern, int mode)
 {
 	t_list	*tmp;
 
 	tmp = *lst;
 	while (tmp)
 	{
-		ft_split_str_in_lst(pattern, tmp);
+		ft_split_str_in_lst(pattern, tmp, mode);
 		tmp = tmp->next;
 	}
 }

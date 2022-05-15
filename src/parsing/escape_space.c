@@ -38,8 +38,8 @@ t_list	*ft_rm_space(t_list **lst)
 
 	prev = NULL;
 	elem = *lst;
-	split_by_pattern(&elem, " ");
-	split_by_pattern(&elem, "\t");
+	split_by_pattern(&elem, " ", 1);
+	split_by_pattern(&elem, "\t", 1);
 	while (elem)
 	{
 		str = elem->content;
@@ -54,16 +54,36 @@ t_list	*ft_rm_space(t_list **lst)
 	return (*lst);
 }
 
-void	ft_com_rm_space(t_command *cmd)
+void	ft_com_rm_space(t_command *command)
 {
 	t_list		*lst;
-	t_command	*command;
 
-	command = cmd;
-	while (command)
+	lst = command->content;
+	command->content = ft_rm_space(&lst);
+	command = command->next;
+}
+
+void	ft_com_rm_quotes(t_command *cmd, char *quote)
+{
+	char	*str;
+	t_list	*prev;
+	t_list	*elem;
+	t_list	*lst;
+
+	lst = cmd->content;
+	prev = NULL;
+	elem = lst;
+	split_by_pattern(&elem, quote, -1);
+	while (elem)
 	{
-		lst = command->content;
-		command->content = ft_rm_space(&lst);
-		command = command->next;
+		str = elem->content;
+		if (!str || !ft_strlen(str) || ft_strchr(quote, str[0]))
+			elem = ft_lst_delnext(prev, elem, &lst, free);
+		else
+		{
+			prev = elem;
+			elem = elem->next;
+		}
 	}
+	cmd->content = lst;
 }

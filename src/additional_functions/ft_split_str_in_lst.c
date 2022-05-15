@@ -35,11 +35,17 @@ static int	ft_split_tools(char *str, int i, char *pattern, t_list *elem)
 	}
 }
 
-static int	ft_is_true_pattern(char *str, int len, char *pattern)
+static int	ft_is_true_pattern(char *str, int len, char *pattern, int mode)
 {
-	return (!str || str[0] == '"' || str[0] == '\'' || str
-		[ft_strlen(str)] == '"' || str[ft_strlen(str)] == '\'' || len == -1
-		|| (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
+	if (mode == 1)
+		return (!str || str[0] == '"' || str[0] == '\'' || str
+			[ft_strlen(str)] == '"' || str[ft_strlen(str)] == '\'' || len == -1
+			|| (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
+	if (mode == 0)
+		return (!str || str[0] == '\'' || str[ft_strlen(str)] == '\''
+			|| len == -1 || (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
+	else
+		return (!str || len == -1 || (len == 0 && ft_strlen(str) == ft_strlen(pattern)));
 }
 
 void	ft_split_first_iter(int len, t_list *elem, char *pattern, char *str)
@@ -53,7 +59,7 @@ void	ft_split_first_iter(int len, t_list *elem, char *pattern, char *str)
 	}
 }
 
-t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)
+t_list	*ft_split_str_in_lst(char *pattern, t_list *elem, int mode)
 {
 	t_list	*next;
 	int		len;
@@ -64,7 +70,7 @@ t_list	*ft_split_str_in_lst(char *pattern, t_list *elem)
 		return (NULL);
 	str = elem->content;
 	len = ft_find_substr(str, pattern);
-	if (ft_is_true_pattern(str, len, pattern))
+	if (ft_is_true_pattern(str, len, pattern, mode))
 		return (elem);
 	next = elem->next;
 	elem->next = NULL;
