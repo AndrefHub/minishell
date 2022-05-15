@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 14:42:04 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 15:16:39 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	start_one_line(char *line)
 	full_cmd = cmd;
 	if (!full_cmd)
 		return ;
+	init_sig_handler(child_sig_handler);
 	parse_brackets(cmd);
 	while (cmd)
 	{
@@ -40,10 +41,30 @@ void	start_one_line(char *line)
 			return ;
 		cmd = cmd->next;
 	}
-	init_sig_handler(child_sig_handler);
 	execute_commands(full_cmd);
 	ft_comclear(&full_cmd, 0);
-	init_sig_handler(parent_sig_handler);
+}
+
+void	check_end_and_start_one_line(char *line)
+{
+	int counter;
+
+	counter = ft_strlen(line);
+	while (line[--counter])
+	{
+		if (!ft_strchr("\t ", line[counter]))
+		{
+			if (ft_strchr("><|&;", line[counter]))
+			{
+				// fill_error(choose_code());
+				free(line);
+				return ;
+			}
+			else
+				break ;
+		}
+	}
+	start_one_line(line);
 }
 
 /*
@@ -59,7 +80,7 @@ void	start_cycle(char **lines)
 	i = 0;
 	while (lines[i])
 	{
-		start_one_line(lines[i]);
+		check_end_and_start_one_line(lines[i]);
 		i++;
 	}
 }
@@ -80,7 +101,7 @@ void	start(char *input)
 	}
 	commands = parse_to_lines(input);
 	if (!commands[1])
-		start_one_line(commands[0]);
+		check_end_and_start_one_line(commands[0]);
 	else
 		start_cycle(commands);
 	free(commands);
