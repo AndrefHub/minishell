@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_syntax.c                                     :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsherry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 20:20:17 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/14 20:20:18 by lsherry          ###   ########.fr       */
+/*   Updated: 2022/05/15 11:41:01 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,18 @@ int	fill_error(int code)
 
 int	check_syntax(t_command *command)
 {
-	if (!command->content || !command->content->content)
-		fill_error(command->link_type);
+	t_command	*copy;
+
+	copy = command;
+	while (copy)
+	{
+		if (!copy->content || !copy->content->content)
+		{
+			fill_error(copy->link_type);
+			break ;
+		}
+		copy = copy->next;
+	}
 	if (g_msh.err_code != 0 || g_msh.err_text != NULL)
 	{
 		ft_putendl_fd(g_msh.err_text, 2);

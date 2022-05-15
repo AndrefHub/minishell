@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 20:14:06 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/15 10:19:01 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 11:46:35 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,10 @@ t_command	*pipeline(t_command *to_pipe)
 		if (is_file_open(to_pipe->infile))
 			dup2(to_pipe->infile->fd, fd_data.fd_in);
 		dup2_and_close(fd_data.fd_in, 0);
-		// choose_output(to_pipe, &fd_data);
-		if (is_file_open(to_pipe->outfile))
-			fd_data.fd_out = to_pipe->outfile->fd;
-		else if (to_pipe->link_type != PIPELINE)
-			fd_data.fd_out = fd_data.stdout_res;
-		else
-			do_pipe(&fd_data);
+		choose_output(to_pipe, &fd_data);
 		dup2_and_close(fd_data.fd_out, 1);
 		init_sig_handler(child_sig_handler);
-		convert_commands_to_char_ptrs(to_pipe);
+		ft_list_to_char_ptr(to_pipe);
 		pid_fork = execute(to_pipe->name_args);
 		if (one_line_saver(to_pipe))
 			break ;

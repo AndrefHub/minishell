@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executing.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:46 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 11:00:31 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 11:36:27 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ int	execute(char **command)
 	char	*binary;
 
 	if (check_for_built_in(command))
-	{
-		// write(1, "built-in\n", 9);
 		return (0);
-	}
 	pid_fork = fork();
 	if (!pid_fork)
 	{

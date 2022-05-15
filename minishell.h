@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 09:39:59 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 11:35:29 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_command	*parse_special_characters(t_list *lst);
 void		parse_brackets(t_command *cmd);
 t_command	*parse_redirects(t_command *commands);
 t_command	*set_variables(t_command *command);
+void		ft_list_to_char_ptr(t_command *cmd);
 void		convert_commands_to_char_ptrs(t_command *cmd);
 t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
 void		split_by_pattern(t_list **lst, char *pattern);
