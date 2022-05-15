@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 20:14:06 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/15 11:46:35 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 15:03:41 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	one_line_saver(t_command *to_pipe)
 
 t_command	*pipeline(t_command *to_pipe)
 {
-	int			ret_code;
+	int			ret_code = 0;
 	pid_t		pid_fork;
 	t_pipe_fd	fd_data;
 
