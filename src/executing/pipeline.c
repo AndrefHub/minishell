@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipeline.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsherry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 20:14:06 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/14 20:14:07 by lsherry          ###   ########.fr       */
+/*   Updated: 2022/05/15 09:38:47 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,22 @@ void	do_pipe(t_pipe_fd *fd_data)
 	fd_data->fd_out = fd_data->pipe_fds[1];
 }
 
+void	choose_output(t_command *to_pipe, t_pipe_fd *fd_data)
+{
+	if (is_file_open(to_pipe->outfile))
+		fd_data->fd_out = to_pipe->outfile->fd;
+	else if (to_pipe->link_type != PIPELINE)
+		fd_data->fd_out = fd_data->stdout_res;
+	else
+		do_pipe(fd_data);
+}
+
+int	one_line_saver(t_command *to_pipe)
+{
+	return (to_pipe->link_type != PIPELINE || !to_pipe->next
+		|| !to_pipe->next->content || !to_pipe->next->content->content);
+}
+
 t_command	*pipeline(t_command *to_pipe)
 {
 	int			ret_code;
@@ -53,18 +69,12 @@ t_command	*pipeline(t_command *to_pipe)
 		if (is_file_open(to_pipe->infile))
 			dup2(to_pipe->infile->fd, fd_data.fd_in);
 		dup2_and_close(fd_data.fd_in, 0);
-		if (is_file_open(to_pipe->outfile))
-			fd_data.fd_out = to_pipe->outfile->fd;
-		else if (to_pipe->link_type != PIPELINE)
-			fd_data.fd_out = fd_data.stdout_res;
-		else
-			do_pipe(&fd_data);
+		choose_output(to_pipe, &fd_data);
 		dup2_and_close(fd_data.fd_out, 1);
 		init_sig_handler(child_sig_handler);
 		convert_commands_to_char_ptrs(to_pipe);
 		pid_fork = execute(to_pipe->name_args);
-		if (to_pipe->link_type != PIPELINE || !to_pipe->next
-			|| !to_pipe->next->content || !to_pipe->next->content->content)
+		if (one_line_saver(to_pipe))
 			break ;
 		to_pipe = to_pipe->next;
 	}

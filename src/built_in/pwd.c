@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:53:05 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 21:02:56 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 09:25:31 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	pwd()
+int	pwd(void )
 {
 	ft_putendl_fd(g_msh.pwd, 1);
 	return (1);

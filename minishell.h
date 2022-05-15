@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 09:21:20 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 09:39:59 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,8 @@ t_envp		*make_envp_entry(char *arg);
 void		set_envp_entry(t_envp *entry);
 void		free_envp_entry(void *entry);
 void		ft_increment_shlvl(void );
-void		update_cenvp();
-int 		find_at_first(const char *string, char *pattern);
+void		update_cenvp(void );
+int			find_at_first(const char *string, char *pattern);
 char		*ft_find_envp(char *parameter);
 /* builtins */
 int			execute_commands(t_command *cmd);

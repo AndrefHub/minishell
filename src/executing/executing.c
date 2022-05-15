@@ -6,11 +6,20 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:46 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 19:09:24 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 09:53:00 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	command_not_found(char *binary)
+{
+	g_msh.last_ex_code = 127;
+	ft_putstr_fd(binary, 2);
+	free(binary);
+	ft_putendl_fd(": command not found", 2);
+	return (g_msh.last_ex_code);
+}
 
 int	execute(char **command)
 {
@@ -28,8 +37,11 @@ int	execute(char **command)
 		binary = find_binary(command[0]);
 		if (!binary || !ft_strlen(binary))
 			exit(0);
+		if (!ft_strchr(binary, '/'))
+			exit(command_not_found(binary));
 		execve(binary, command, g_msh.cenvp);
 		perror(binary);
+		free(binary);
 		exit(errno);
 	}
 	return (pid_fork);

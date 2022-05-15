@@ -1,21 +1,5 @@
 #include "../../minishell.h"
 
-// char	*choose_dir(char *dir)
-// {
-// 	char	*path;
-
-// 	if (dir)
-// 	{
-// 		if (dir[0] == '/')
-// 			path = ft_strdup(dir);
-// 		else	
-// 			path = ft_strcat_delim(ft_find_envp("PWD"), '/', dir);
-// 	}
-// 	else
-// 		path = ft_find_envp("HOME");
-// 	return (path);
-// }
-
 t_envp	*make_pwd(char *key, char *value)
 {
 	t_envp	*pwd;

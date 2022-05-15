@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_envp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 19:58:36 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/14 21:59:23 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 09:24:37 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_list	*parse_envp(char **arr)
 	counter = -1;
 	while (arr[++counter])
 		ft_lstadd_back(&envp, ft_lstnew(make_envp_entry(arr[counter])));
-	
 	return (envp);
 }
 
