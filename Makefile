@@ -1,7 +1,7 @@
 NAME    = minishell
 CC      = gcc
 FLAGS	= -Wall -Wextra -Werror -g
-LFLAGS	= -lreadline -L/usr/local/opt/readline/lib -L./libft -lft
+LFLAGS	= -lreadline -L./libft -lft
 SRCDIR	= src/
 READLINE_FLAGS = -I/usr/local/opt/readline/include
 SRCFILE	=	additional_functions/ft_command_split.c\
@@ -56,18 +56,24 @@ $(OBJDIR)%.o: $(SRCDIR)%.c $(MSHHDR)
 	@mkdir -p $(OBJDIR)executing
 	@mkdir -p $(OBJDIR)parsing
 	@mkdir -p $(OBJDIR)signals
-	$(CC) $(FLAGS) $(READLINE_FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(MSHHDR)
+	@$(CC) $(FLAGS) $(READLINE_FLAGS) -c $< -o $@  -include $(LIBHDR) -include $(MSHHDR)
+	@printf "\033[1;36m/\033[0m"
 
 $(NAME): $(OBJS) $(OBJMAIN) $(MSHHDR)
+	@echo
+	@echo "\033[1;33m"$(NAME) "objs is up to date."'\033[0m'
 	@make -C libft
-	$(CC) $(FLAGS) $(OBJS) $(OBJMAIN) $(LFLAGS) -o $(NAME)
+	@$(CC) $(FLAGS) $(OBJS) $(OBJMAIN) $(LFLAGS) -o $(NAME)
+	@echo "\033[1;33m"$(NAME) "is up to date."'\033[0m'
 
 clean:
 	@$(RM) $(OBJDIR)
+	@echo '\033[1;31m'$(NAME) "objs deleted."'\033[0m'
 
 fclean: clean
 	@make -C libft fclean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
+	@echo '\033[1;31m'$(NAME) "deleted."'\033[0m'
 
 re: fclean all
 

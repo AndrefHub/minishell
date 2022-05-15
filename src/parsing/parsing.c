@@ -30,7 +30,6 @@ void	start_one_line(char *line)
 	full_cmd = cmd;
 	if (!full_cmd)
 		return ;
-	init_sig_handler(child_sig_handler);
 	parse_brackets(cmd);
 	while (cmd)
 	{
@@ -41,8 +40,10 @@ void	start_one_line(char *line)
 			return ;
 		cmd = cmd->next;
 	}
+	init_sig_handler(child_sig_handler);
 	execute_commands(full_cmd);
 	ft_comclear(&full_cmd, 0);
+	init_sig_handler(parent_sig_handler);
 }
 
 /*
@@ -68,8 +69,11 @@ void	start(char *input)
 	char	**commands;
 
 	if (!input)
+	{
+		write(2, "exit\n", 5);
 		exit(130);
-	if (!ft_strlen(input))
+	}
+	else if (!ft_strlen(input))
 	{
 		print_nothing(0);
 		return ;

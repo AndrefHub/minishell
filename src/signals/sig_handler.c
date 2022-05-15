@@ -34,12 +34,23 @@ void	parent_sig_handler(int sigsum, siginfo_t *sig, void *context)
 	(void ) context;
 }
 
+void	clear_child_input(void)
+{
+	int		exit_status;
+	pid_t	pid;
+
+	pid = waitpid(-1, &exit_status, 0);
+	while (pid != -1)
+		pid = waitpid(-1, &exit_status, 0);
+	write(2, "\n", 1);
+}
+
 void	child_sig_handler(int sigsum, siginfo_t *sig, void *context)
 {
 	if (sigsum == SIGINT)
-		write(1, "\n", 1);
+		clear_child_input();
 	if (sigsum == SIGQUIT)
-		write(1, "Quit: 3\n", 8);
+		write(2, "Quit: 3\n", 8);
 	(void ) sig;
 	(void ) context;
 }
