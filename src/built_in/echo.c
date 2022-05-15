@@ -17,7 +17,7 @@ int	check_first(char *arg)
 	int	counter;
 
 	counter = 0;
-	if (arg[counter] == '-')
+	if (arg && arg[counter] == '-')
 	{
 		while (arg[++counter])
 			if (arg[counter] != 'n')

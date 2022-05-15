@@ -56,7 +56,7 @@ int	ft_is_empty(char *line)
 
 	i = 0;
 	if (!line)
-		return(0);
+		return (0);
 	while (line[i])
 	{
 		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')

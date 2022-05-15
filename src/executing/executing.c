@@ -50,8 +50,6 @@ static int	exe_tool(t_command *cmd)
 	parse_redirects(cmd);
 	set_variables(cmd);
 	open_files(cmd);
-	ft_com_rm_quotes(cmd, "\"");
-	ft_com_rm_quotes(cmd, "\'");
 	set_wildcards(cmd);
 	if (!check_syntax(cmd))
 		return (0);

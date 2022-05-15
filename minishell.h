@@ -96,6 +96,7 @@ t_list		*parse_parentheses(t_list *quotes);
 t_command	*parse_semicolon(t_list *parentheses);
 t_command	*parse_special_characters(t_list *lst);
 void		parse_brackets(t_command *cmd);
+void		check_begin_and_start_one_line(char *line);
 t_command	*parse_redirects(t_command *commands);
 t_command	*set_variables(t_command *command);
 void		ft_list_to_char_ptr(t_command *cmd);
@@ -104,6 +105,7 @@ t_list		*ft_split_str_in_lst(char *pattern, t_list *elem, int mode);
 void		split_by_pattern(t_list **lst, char *pattern, int mode);
 void		ft_com_rm_space(t_command *cmd);
 t_list		*ft_rm_space(t_list **lst);
+t_list		*set_var(t_list *command);
 /* t_command structure tools */
 t_command	*ft_new_command(t_list *content, int code);
 void		ft_comadd_back(t_command **lst, t_command *elem);
@@ -111,7 +113,10 @@ t_command	*ft_command_last(t_command *command);
 void		ft_comclear(t_command **com, int ind);
 /* t_list structure tools */
 t_list		*ft_lstnsplit(t_list **begin, int n);
+void		delete_first_and_last(t_list **note);
+char		*ft_lst_to_char(t_list *lst);
 t_list		*ft_lstat(t_list *lst, int n);
+char		*ret_lst_cont(t_list *lst);
 void		ft_lstadd_middle(t_list **lst, t_list *add_next, t_list *to_add);
 /* ft_split tools */
 int			is_in(char c, const char *charset);

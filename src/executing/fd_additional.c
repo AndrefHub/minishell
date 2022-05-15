@@ -35,5 +35,6 @@ void	reset_t_pipe_fd(t_pipe_fd *fd_data)
 int	is_dollar(t_list *lst)
 {
 	return (ft_strchr(lst->content, '$') && lst->next && ft_strchr
-		(lst->next->content, ' ') == NULL && ft_strchr(&((char *)lst->content)[0],'\'') == NULL);
+		(lst->next->content, ' ') == NULL
+		&& ft_strchr(&((char *)lst->content)[0], '\'') == NULL);
 }

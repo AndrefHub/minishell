@@ -15,32 +15,27 @@
 t_command	*set_variables(t_command *command)
 {
 	t_list		*lst;
-	t_list		*delete;
-	int			flag;
+	t_list		*note;
+	char		*str;
 
-	flag = 1;
 	lst = command->content;
-	split_by_pattern(&lst, "\"", 0);
-	split_by_pattern(&lst, "\'", 0);
-	split_by_pattern(&lst, "$", 0);
+	lst = set_var(lst);
 	while (lst)
 	{
-		if (ft_strchr(&((char *)lst->content)[0], '\''))
-			flag = (flag + 1) % 2;
-		if (is_dollar(lst) && flag == 1)
+		if (lst->content != NULL && ft_strchr
+			("\'", ((char *)lst->content)[0]) != NULL)
 		{
-			if (lst->next->content != NULL)
-				free(lst->content);
-			if (ft_strchr(lst->next->content, '?'))
-				lst->content = ft_itoa(g_msh.last_ex_code);
-			else if (ft_strchr(lst->next->content, '$'))
-				lst->content = ft_strdup("Command forbidden");
-			else
-				lst->content = ft_find_envp(lst->next->content);
-			delete = lst->next;
-			lst->next = delete->next;
-			ft_lstdelone(delete, free);
+			str = lst->content;
+			note = ft_lstnew(ft_strdup(lst->content));
+			split_by_pattern(&note, "\'", -1);
+			delete_first_and_last(&note);
+			lst->content = ft_lst_to_char(note);
+			ft_lstclear(&note, free);
+			free(str);
 		}
+		else if (lst->content != NULL
+			&& ft_strchr("\"", ((char *)lst->content)[0]) != NULL)
+			lst->content = ret_lst_cont(lst);
 		lst = lst->next;
 	}
 	return (command);
