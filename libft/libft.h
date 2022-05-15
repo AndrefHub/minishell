@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 00:04:13 by lsherry           #+#    #+#             */
-/*   Updated: 2022/05/02 11:25:57 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 19:07:44 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_list
 typedef struct s_vector
 {
 	int	x;
-	int y;
+	int	y;
 }	t_vector;
 
 t_list	*ft_lstnew(void *content);
