@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:03:54 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 19:54:33 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 22:24:16 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,12 @@ int	is_file_open(t_file *file)
 
 void	open_files(t_command *command)
 {
-	open_infile(command->infile);
-	open_outfile(command->outfile);
+	while (command)
+	{
+		open_infile(command->infile);
+		open_outfile(command->outfile);
+		command = command->next;
+	}
 }
 
 void	ft_free_file(t_file *file, int err)

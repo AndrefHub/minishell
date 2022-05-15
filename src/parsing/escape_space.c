@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:34:34 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 20:44:34 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 22:20:19 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,12 @@ void	ft_com_rm_space(t_command *command)
 {
 	t_list		*lst;
 
-	lst = command->content;
-	command->content = ft_rm_space(&lst);
-	command = command->next;
+	while (command)
+	{
+		lst = command->content;
+		command->content = ft_rm_space(&lst);
+		command = command->next;
+	}
 }
 
 void	ft_com_rm_quotes(t_command *cmd, char *quote)
