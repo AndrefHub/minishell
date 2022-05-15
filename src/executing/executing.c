@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:46 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 16:43:27 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 20:50:00 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,8 @@ int	execute(char **command)
 static int	exe_tool(t_command *cmd)
 {
 	ft_com_rm_space(cmd);
-	set_variables(cmd);
-	ft_com_rm_quotes(cmd, "\"");
-	ft_com_rm_quotes(cmd, "\'");
 	parse_redirects(cmd);
+	set_variables(cmd);
 	open_files(cmd);
 	set_wildcards(cmd);
 	if (!check_syntax(cmd))
@@ -59,7 +57,7 @@ static int	exe_tool(t_command *cmd)
 }
 
 static int	is_start(t_command *cmd, int prev_link_type, t_vector *br,
-				t_vector *flag)
+	t_vector *flag)
 {
 	if (cmd->bracket_l > 0 && ((prev_link_type == DOUBLE_AND
 				&& g_msh.last_ex_code != 0)

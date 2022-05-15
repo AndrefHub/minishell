@@ -6,24 +6,36 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:36 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 16:41:33 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 20:49:51 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-t_command	*set_variables(t_command *command)
+char	*ft_lst_to_char(t_list *lst)
+{
+	char	*str;
+
+	str = malloc(1);
+	str[0] = '\0';
+	while (lst)
+	{
+		str = ft_strjoin_gnl(str, (char *)lst->content);
+		lst = lst->next;
+	}
+	return (str);
+}
+
+t_list	*set_var(t_list *command)
 {
 	t_list		*lst;
 	t_list		*delete;
 
-	lst = command->content;
-	split_by_pattern(&lst, "\"", 0);
+	lst = command;
 	split_by_pattern(&lst, "$", 1);
 	while (lst)
 	{
-		if (strchr(lst->content, '$') && lst->next && ft_strchr
-			(lst->next->content, ' ') == NULL)
+		if (is_dollar(lst))
 		{
 			if (lst->next->content != NULL)
 				free(lst->content);
@@ -36,6 +48,61 @@ t_command	*set_variables(t_command *command)
 			delete = lst->next;
 			lst->next = delete->next;
 			ft_lstdelone(delete, free);
+		}
+		lst = lst->next;
+	}
+	return (command);
+}
+
+void	delete_first_and_last(t_list **note)
+{
+	t_list	*new_begin;
+
+	if (!*note || !(*note)->next || !(*note)->next->next)
+	{
+		ft_lstclear(note, free);
+		return ;
+	}
+	new_begin = (*note)->next;
+	ft_lstdelone(*note, free);
+	*note = new_begin;
+	while (new_begin && new_begin->next && new_begin->next->next)
+		new_begin = new_begin->next;
+	ft_lstdelone(new_begin->next, free);
+	new_begin->next = NULL;
+}
+
+t_command	*set_variables(t_command *command)
+{
+	t_list		*lst;
+	t_list		*note;
+	char		*str;
+
+	lst = command->content;
+	lst = set_var(lst);
+	while (lst)
+	{
+		if (lst->content != NULL && ft_strchr("\'", ((char *)lst->content)[0]) != NULL)
+		{
+			str = lst->content;
+			note = ft_lstnew(ft_strdup(lst->content));
+			split_by_pattern(&note, "\'", -1);
+			delete_first_and_last(&note);
+			lst->content = ft_lst_to_char(note);
+			ft_lstclear(&note, free);
+			free(str);
+		}
+		else if (lst->content != NULL && ft_strchr("\"", ((char *)lst->content)[0]) != NULL)
+		{
+			str = lst->content;
+			note = ft_lstnew(ft_strdup(lst->content));
+			split_by_pattern(&note, "\"", -1);
+			split_by_pattern(&note, "\'", -1);
+			note = set_var(note);
+			delete_first_and_last(&note);
+			lst->content = ft_lst_to_char(note);
+			ft_lstclear(&note, free);
+			free(str);
 		}
 		lst = lst->next;
 	}
