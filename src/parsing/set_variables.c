@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:36 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 16:09:40 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 16:41:33 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,17 @@ t_command	*set_variables(t_command *command)
 	t_list		*delete;
 
 	lst = command->content;
-//	split_by_pattern(&lst, "\"", 0);
+	split_by_pattern(&lst, "\"", 0);
 	split_by_pattern(&lst, "$", 1);
 	while (lst)
 	{
 		if (strchr(lst->content, '$') && lst->next && ft_strchr
 			(lst->next->content, ' ') == NULL)
 		{
-			free(lst->content);
+			if (lst->next->content != NULL)
+				free(lst->content);
 			if (ft_strchr(lst->next->content, '?'))
 				lst->content = ft_itoa(g_msh.last_ex_code);
-			else if (ft_strchr(lst->next->content, '$'))
-				lst->content = ft_itoa(getpid());
 			else
 				lst->content = ft_find_envp(lst->next->content);
 			delete = lst->next;

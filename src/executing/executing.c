@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:46 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 11:36:27 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 16:43:27 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ int	execute_commands(t_command *cmd)
 	while (cmd)
 	{
 		ft_com_rm_space(cmd);
+		set_variables(cmd);
 		ft_com_rm_quotes(cmd, "\"");
 		ft_com_rm_quotes(cmd, "\'");
-		set_variables(cmd);
 		parse_redirects(cmd);
 		open_files(cmd);
 		set_wildcards(cmd);
