@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 16:10:28 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 17:31:52 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 20:10:29 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,33 +37,46 @@ void	start_one_line(char *line)
 		return ;
 	init_sig_handler(child_sig_handler);
 	parse_brackets(cmd);
-	while (cmd)
-	{
-		ft_com_rm_space(cmd);
-		parse_redirects(cmd);
-		open_files(cmd);
-		if (!check_syntax(cmd))
-			return ;
-		cmd = cmd->next;
-	}
 	execute_commands(full_cmd);
 	ft_comclear(&full_cmd, 0);
 }
 
-int	choose_code(char *spop)
+int	choose_code(char *spop, int mode)
 {
-	if (spop[1] == ';')
+	if (spop[1 - mode] == ';')
 		return (SEMICOLON);
-	if (spop[1] == '>')
+	if (spop[1 - mode] == '>')
 		return (REDIR_OUT_AP);
-	if (spop[1] == '<')
+	if (spop[1 - mode] == '<')
 		return (REDIR_IN);
-	if (spop[1] == '&')
+	if (spop[1 - mode] == '&')
 		return (DOUBLE_AND);
-	if (spop[1] == '|')
-		if (spop[0] == '|')
-			return (DOUBLE_OR);
+	if (spop[1 - mode] == '|' && spop[0 + mode] == '|')
+		return (DOUBLE_OR);
 	return (PIPELINE);
+}
+
+void	check_begin_and_start_one_line(char *line)
+{
+	int	counter;
+
+	counter = -1;
+	while (line[++counter])
+	{
+		if (!ft_strchr("\t ", line[counter]))
+		{
+			if (ft_strchr("><|&;", line[counter]))
+			{
+				fill_error(choose_code(line + counter, 1));
+				free(line);
+				check_syntax(NULL);
+				return ;
+			}
+			else
+				break ;
+		}
+	}
+	start_one_line(line);
 }
 
 void	check_end_and_start_one_line(char *line)
@@ -77,7 +90,7 @@ void	check_end_and_start_one_line(char *line)
 		{
 			if (ft_strchr("><|&;", line[counter]))
 			{
-				fill_error(choose_code(line + counter - 1));
+				fill_error(choose_code(line + counter - 1, 0));
 				free(line);
 				check_syntax(NULL);
 				return ;
@@ -86,5 +99,5 @@ void	check_end_and_start_one_line(char *line)
 				break ;
 		}
 	}
-	start_one_line(line);
+	check_begin_and_start_one_line(line);
 }

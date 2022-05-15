@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:46 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 19:05:22 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 20:50:00 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ int	execute(char **command)
 static int	exe_tool(t_command *cmd)
 {
 	ft_com_rm_space(cmd);
+	parse_redirects(cmd);
 	set_variables(cmd);
+	open_files(cmd);
 	ft_com_rm_quotes(cmd, "\"");
 	ft_com_rm_quotes(cmd, "\'");
-	parse_redirects(cmd);
-	open_files(cmd);
 	set_wildcards(cmd);
 	if (!check_syntax(cmd))
 		return (0);

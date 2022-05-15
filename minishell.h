@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 19:08:15 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 20:07:28 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void		clear_term_signal(void );
 void		print_nothing(int mode);
 /* Start executing */
 void		start_one_line(char *line);
-int			choose_code(char *spop);
+int			choose_code(char *spop, int mode);
 void		check_end_and_start_one_line(char *line);
 int			execute(char **command);
 int			heredoc(char *delim);

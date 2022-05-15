@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 15:54:44 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 19:07:30 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 20:41:43 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,5 @@ void	reset_t_pipe_fd(t_pipe_fd *fd_data)
 int	is_dollar(t_list *lst)
 {
 	return (ft_strchr(lst->content, '$') && lst->next && ft_strchr
-		(lst->next->content, ' ') == NULL);
+		(lst->next->content, ' ') == NULL && ft_strchr(&((char *)lst->content)[0],'\'') == NULL);
 }
