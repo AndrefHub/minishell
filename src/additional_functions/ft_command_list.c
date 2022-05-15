@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_command_list.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:43 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 10:15:52 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 15:07:44 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_command	*ft_new_command(t_list *content, int code)
 	command->link_type = code;
 	command->infile = NULL;
 	command->outfile = NULL;
+	command->name_args = NULL;
 	command->next = NULL;
 	return (command);
 }
@@ -83,7 +84,7 @@ void	ft_comclear(t_command **com, int err)
 		elem = copy->next;
 		if (copy->content)
 			ft_lstclear(&(copy->content), free);
-		if (!copy->name_args)
+		if (copy->name_args != NULL)
 		{
 			free(copy->name_args);
 			copy->name_args = NULL;
