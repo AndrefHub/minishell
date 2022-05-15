@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:46 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 10:27:05 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 11:00:31 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	execute(char **command)
 		binary = find_binary(command[0]);
 		if (!binary || !ft_strlen(binary))
 			exit(0);
-		// if (!ft_strchr(binary, '/'))
-		// 	exit(command_not_found(binary));
+		if (!ft_strchr(binary, '/'))
+			exit(command_not_found(binary));
 		execve(binary, command, g_msh.cenvp);
 		perror(binary);
 		free(binary);

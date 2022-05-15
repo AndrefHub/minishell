@@ -6,7 +6,7 @@
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:37 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 10:28:27 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 10:59:32 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ void	convert_commands_to_char_ptrs(t_command *cmd)
 	t_command	*local_copy;
 
 	local_copy = cmd;
-	while (local_copy)
-	{
-		ft_list_to_char_ptr(local_copy);
-		local_copy = local_copy->next;
-	}
+	// while (local_copy)
+	// {
+	ft_list_to_char_ptr(local_copy);
+	// 	local_copy = local_copy->next;
+	// }
 }
