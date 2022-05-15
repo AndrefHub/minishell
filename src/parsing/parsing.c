@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_parsing.c                                      :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 19:07:24 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 10:25:03 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,14 @@ char	*find_binary(char *command)
 	char	**path;
 	char	*binary;
 	int		counter;
+	char	*envpath;
 
 	counter = -1;
 	if (!command || !command[0] || ft_strchr(command, '/'))
 		return (command);
-	path = ft_split(ft_find_envp("PATH"), ':');
+	envpath = ft_find_envp("PATH");
+	path = ft_split(envpath, ':');
+	free(envpath);
 	while (path[++counter])
 	{
 		binary = ft_strcat_delim(path[counter], '/', command);

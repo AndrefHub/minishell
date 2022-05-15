@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_to_char.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:37 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/10 17:37:38 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 10:28:27 by andref           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,19 @@ void	ft_list_to_char_ptr(t_command *cmd)
 	int		counter;
 	int		arrsize;
 	t_list	*local_copy;
+	char	**name_args;
 
 	local_copy = cmd->content;
 	arrsize = ft_lstsize(local_copy);
-	cmd->name_args = malloc(sizeof(*(cmd->name_args)) * (arrsize + 1));
+	name_args = malloc(sizeof(*(name_args)) * (arrsize + 1));
 	counter = -1;
 	while (++counter < arrsize)
 	{
-		cmd->name_args[counter] = (char *)(local_copy->content);
+		name_args[counter] = (char *)(local_copy->content);
 		local_copy = local_copy->next;
 	}
-	cmd->name_args[counter] = NULL;
+	name_args[counter] = NULL;
+	cmd->name_args = name_args;
 }
 
 void	convert_commands_to_char_ptrs(t_command *cmd)
