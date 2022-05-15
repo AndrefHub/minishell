@@ -29,6 +29,7 @@ int	ft_chdir(char *dir)
 		ft_putstr_fd(strerror(2), 2);
 		ft_putstr_fd(": ", 2);
 		ft_putendl_fd(dir, 2);
+		g_msh.last_ex_code = 2;
 	}
 	free(dir);
 	update_cenvp();

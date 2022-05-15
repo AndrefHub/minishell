@@ -113,18 +113,17 @@ void	set_wildcards(t_command *command)
 	t_list	*elem;
 	t_list	*prev;
 
-	while (command)
+	prev = command->content;
+	elem = prev->next;
+	while (elem)
 	{
-		prev = command->content;
-		elem = command->content->next;
-		while (elem)
+		if (elem->content && (ft_strchr(elem->content, '*') || ft_strchr
+				(elem->content, '?')))
 		{
-			if (elem->content && (ft_strchr(elem->content, '*') || ft_strchr
-					(elem->content, '?')) && ft_add_wildlist(elem, prev))
-				break ;
-			prev = elem;
-			elem = elem->next;
+			if (!ft_add_wildlist(elem, prev))
+				break;
 		}
-		command = command->next;
+		prev = elem;
+		elem = elem->next;
 	}
 }

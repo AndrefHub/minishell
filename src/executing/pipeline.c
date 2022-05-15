@@ -61,6 +61,7 @@ t_command	*pipeline(t_command *to_pipe)
 	pid_t		pid_fork;
 	t_pipe_fd	fd_data;
 
+	ret_code = 0;
 	if (!to_pipe || !to_pipe->content)
 		return (to_pipe);
 	init_t_pipe_fd(&fd_data);
@@ -79,7 +80,8 @@ t_command	*pipeline(t_command *to_pipe)
 		to_pipe = to_pipe->next;
 	}
 	reset_t_pipe_fd(&fd_data);
-	waitpid(pid_fork, &ret_code, 0);
+	if (pid_fork != 0)
+		waitpid(pid_fork, &ret_code, 0);
 	set_error_code(ret_code);
 	return (to_pipe);
 }
