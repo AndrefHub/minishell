@@ -29,6 +29,8 @@ t_command	*set_variables(t_command *command)
 				free(lst->content);
 			if (ft_strchr(lst->next->content, '?'))
 				lst->content = ft_itoa(g_msh.last_ex_code);
+			else if (ft_strchr(lst->next->content, '$'))
+				lst->content = ft_strdup("Command forbidden");
 			else
 				lst->content = ft_find_envp(lst->next->content);
 			delete = lst->next;

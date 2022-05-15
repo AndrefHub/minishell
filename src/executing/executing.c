@@ -44,46 +44,62 @@ int	execute(char **command)
 	return (pid_fork);
 }
 
+static int exe_tool(t_command *cmd)
+{
+	ft_com_rm_space(cmd);
+	set_variables(cmd);
+	ft_com_rm_quotes(cmd, "\"");
+	ft_com_rm_quotes(cmd, "\'");
+	parse_redirects(cmd);
+	open_files(cmd);
+	set_wildcards(cmd);
+	if (!check_syntax(cmd))
+		return (0);
+	return (1);
+}
+
+static int	is_start(t_command *cmd, int prev_link_type, t_vector *br, t_vector *flag)
+{
+	if (cmd->bracket_l > 0 && ((prev_link_type == DOUBLE_AND
+								&& g_msh.last_ex_code != 0)
+							   || (prev_link_type == DOUBLE_OR && g_msh.last_ex_code == 0)))
+	{
+		flag->x = br->x;
+		flag->y = 0;
+	}
+	else if (br->y == flag->x)
+		flag->y = 1;
+	return (0);
+}
+
+//br.x = prev_brackets;
+//br.y = cur_brackets;
+//flag.x = flag
+//flag.y = start
+
 int	execute_commands(t_command *cmd)
 {
 	int			prev_link_type;
-	int			prev_brackets;
-	int			cur_brackets;
-	int			flag;
-	int			start;
+	t_vector	br;
+	t_vector	flag;
 
-	start = 1;
-	cur_brackets = 0;
-	prev_brackets = 0;
+	flag.y = 1;
+	br.y = 0;
+	br.x = 0;
 	prev_link_type = SEMICOLON;
-	flag = -1;
+	flag.x = -1;
 	while (cmd)
 	{
-		ft_com_rm_space(cmd);
-		set_variables(cmd);
-		ft_com_rm_quotes(cmd, "\"");
-		ft_com_rm_quotes(cmd, "\'");
-		parse_redirects(cmd);
-		open_files(cmd);
-		set_wildcards(cmd);
-		if (!check_syntax(cmd))
+		if (!exe_tool(cmd))
 			return (1);
-		cur_brackets += cmd->bracket_l;
-		if (cmd->bracket_l > 0 && ((prev_link_type == DOUBLE_AND
-					&& g_msh.last_ex_code != 0)
-				|| (prev_link_type == DOUBLE_OR && g_msh.last_ex_code == 0)))
-		{
-			flag = prev_brackets;
-			start = 0;
-		}
-		else if (cur_brackets == flag)
-			start = 1;
-		if (start && ((prev_link_type == DOUBLE_AND && g_msh.last_ex_code == 0)
+		br.y += cmd->bracket_l;
+		is_start(cmd, prev_link_type, &br, &flag);
+		if (flag.y && ((prev_link_type == DOUBLE_AND && g_msh.last_ex_code == 0)
 				|| (prev_link_type == DOUBLE_OR && g_msh.last_ex_code != 0)
 				|| prev_link_type == SEMICOLON))
 			cmd = pipeline(cmd);
-		cur_brackets -= cmd->bracket_r;
-		prev_brackets = cur_brackets;
+		br.y -= cmd->bracket_r;
+		br.x = br.y;
 		prev_link_type = cmd->link_type;
 		cmd = cmd->next;
 	}
