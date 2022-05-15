@@ -31,6 +31,7 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			signals/term_printing.c\
 			parsing/ft_wildcards.c\
 			parsing/parse_quotes.c\
+			parsing/dollar.c\
 			parsing/parsing.c\
 			parsing/parse_semicolons.c\
 			parsing/set_variables.c\
