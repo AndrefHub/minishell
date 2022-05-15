@@ -61,8 +61,8 @@ static int exe_tool(t_command *cmd)
 static int	is_start(t_command *cmd, int prev_link_type, t_vector *br, t_vector *flag)
 {
 	if (cmd->bracket_l > 0 && ((prev_link_type == DOUBLE_AND
-								&& g_msh.last_ex_code != 0)
-							   || (prev_link_type == DOUBLE_OR && g_msh.last_ex_code == 0)))
+		&& g_msh.last_ex_code != 0)
+		|| (prev_link_type == DOUBLE_OR && g_msh.last_ex_code == 0)))
 	{
 		flag->x = br->x;
 		flag->y = 0;
@@ -76,7 +76,6 @@ static int	is_start(t_command *cmd, int prev_link_type, t_vector *br, t_vector *
 //br.y = cur_brackets;
 //flag.x = flag
 //flag.y = start
-
 int	execute_commands(t_command *cmd)
 {
 	int			prev_link_type;
