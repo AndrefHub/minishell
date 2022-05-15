@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_envp.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/14 19:58:36 by lsherry           #+#    #+#             */
+/*   Updated: 2022/05/14 21:59:23 by kdancy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 t_envp	*make_envp_entry(char *arg)
@@ -29,6 +41,7 @@ t_list	*parse_envp(char **arr)
 	counter = -1;
 	while (arr[++counter])
 		ft_lstadd_back(&envp, ft_lstnew(make_envp_entry(arr[counter])));
+	
 	return (envp);
 }
 
@@ -42,7 +55,7 @@ char	*envp_get_value(t_list *env)
 	return (((t_envp *)env->content)->value);
 }
 
-void	update_cenvp()
+void	update_cenvp(void )
 {
 	char	**cenvp;
 	t_list	*envp;
@@ -54,7 +67,7 @@ void	update_cenvp()
 	while (envp)
 	{
 		cenvp[counter] = ft_strcat_delim(envp_get_key(envp), '=',
-			envp_get_value(envp));
+				envp_get_value(envp));
 		++counter;
 		envp = envp->next;
 	}

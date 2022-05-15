@@ -6,25 +6,20 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 12:12:18 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 17:20:05 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/14 20:57:27 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-// int update_env(char *arg)
-// {
-	
-// }
-
-void	free_entry_envp(t_envp *entry)
+void	free_envp_entry(void *entry)
 {
 	free(((t_envp *)entry)->key);
 	free(((t_envp *)entry)->value);
 	free(entry);
 }
 
-void	set_entry_envp(t_envp *entry)
+void	set_envp_entry(t_envp *entry)
 {
 	t_list	*envp;
 
@@ -35,7 +30,7 @@ void	set_entry_envp(t_envp *entry)
 		{
 			if (((t_envp *)entry)->value[0])
 			{
-				free_entry_envp(envp->content);
+				free_envp_entry(envp->content);
 				envp->content = entry;
 			}
 			return ;
@@ -45,16 +40,16 @@ void	set_entry_envp(t_envp *entry)
 	ft_lstadd_back(&(g_msh.envp), ft_lstnew(entry));
 }
 
-int export(char **args)
+int	export(char **args)
 {
 	t_envp	*entry;
-	
+
 	if (args[1])
 	{
 		while (*(++args))
 		{
 			entry = make_envp_entry(*args);
-			set_entry_envp(entry);
+			set_envp_entry(entry);
 		}
 		update_cenvp();
 	}

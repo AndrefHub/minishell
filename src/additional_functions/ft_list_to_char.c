@@ -17,8 +17,9 @@ void	ft_lstadd_middle(t_list **lst, t_list *add_next, t_list *to_add)
 	t_list	*tmp;
 
 	if (!add_next || !to_add)
-		return;
-	if (add_next->next) {
+		return ;
+	if (add_next->next)
+	{
 		tmp = add_next->next;
 		add_next->next = to_add;
 		to_add->next = tmp;

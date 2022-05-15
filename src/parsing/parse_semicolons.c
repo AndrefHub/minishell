@@ -3,28 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse_semicolons.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:31 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 18:07:02 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 20:58:53 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	split_by_pattern(t_list **lst, char *pattern)
-{
-	t_list	*tmp;
-
-	tmp = *lst;
-	while (tmp)
-	{
-		ft_split_str_in_lst(pattern, tmp);
-		tmp = tmp->next;
-	}
-}
-
-t_command	*ft_command_split_while(t_list **new_begin, int *counter, int link_type)
+t_command	*ft_command_split_while(t_list **new_begin, int *counter,
+							int link_type)
 {
 	t_command	*commands;
 	t_list		*tmp;
@@ -35,11 +24,11 @@ t_command	*ft_command_split_while(t_list **new_begin, int *counter, int link_typ
 	{
 		++(*counter);
 		if (ft_strncmp(((char *) tmp->content), g_msh.sp_ops[link_type],
-			ft_strlen(g_msh.sp_ops[link_type])) == 0)
+				ft_strlen(g_msh.sp_ops[link_type])) == 0)
 		{
 			tmp = tmp->next;
 			ft_comadd_back(&commands, ft_new_command(ft_lstnsplit(new_begin,
-				*counter), link_type));
+						*counter), link_type));
 			(*counter) = 0;
 		}
 		else
@@ -48,12 +37,13 @@ t_command	*ft_command_split_while(t_list **new_begin, int *counter, int link_typ
 	return (commands);
 }
 
-t_command	*ft_command_split(t_command **prev, t_command *to_split, int link_type)
+t_command	*ft_command_split(t_command **prev, t_command *to_split,
+					int link_type)
 {
 	t_command	*commands;
 	t_list		*new_begin;
 	int			counter;
-	
+
 	counter = 0;
 	split_by_pattern(&(to_split->content), g_msh.sp_ops[link_type]);
 	new_begin = to_split->content;
@@ -87,7 +77,7 @@ t_command	*parse_special_characters(t_list *lst)
 		while (commands)
 		{
 			if (commands == buffer)
-				new_begin =	ft_command_split(&prev, commands, counter);
+				new_begin = ft_command_split(&prev, commands, counter);
 			else
 				ft_command_split(&prev, commands, counter);
 			prev = commands;
@@ -98,50 +88,12 @@ t_command	*parse_special_characters(t_list *lst)
 	return (new_begin);
 }
 
-t_file	*ft_file_new(char *filename, int link_type)
-{
-	t_file	*file;
-
-	file = malloc(sizeof(*file));
-	if (!file)
-		return (NULL);
-	file->f_name = ft_strdup(filename);
-	file->fd = -1;
-	file->mode = link_type;
-	return (file);
-}
-
-//	Add error signal for multiple in/outfiles
-void	set_file_in_command(t_command *command, int link_type, t_list *tmp)
-{
-	char	*filename;
-
-	if (!tmp || !tmp->next || !tmp->next->content)
-		filename = "";
-	else
-		filename = (char *) tmp->next->content;
-	if ((link_type == HEREDOC || link_type == REDIR_IN))
-	{
-		if (command->infile == NULL)
-			command->infile = ft_file_new(filename, link_type);
-		else
-			fill_error(link_type);
-	}
-	else if ((link_type == REDIR_OUT_AP || link_type == REDIR_OUT_TR))
-	{
-		if (command->outfile == NULL)
-			command->outfile = ft_file_new(filename, link_type);
-		else
-			fill_error(link_type);
-	}
-}
-
 t_command	*parse_redirects_single_command(t_command *command, int link_type)
 {
 	t_list		*begin;
 	t_list		*prev;
 	t_list		*tmp;
-	
+
 	split_by_pattern(&(command->content), g_msh.sp_ops[link_type]);
 	prev = NULL;
 	begin = command->content;
@@ -149,7 +101,7 @@ t_command	*parse_redirects_single_command(t_command *command, int link_type)
 	while (tmp)
 	{
 		if (ft_strncmp(((char *) tmp->content), g_msh.sp_ops[link_type],
-			ft_strlen(g_msh.sp_ops[link_type])) == 0)
+				ft_strlen(g_msh.sp_ops[link_type])) == 0)
 		{
 			set_file_in_command(command, link_type, tmp);
 			tmp = ft_lst_delnext(prev, tmp, &begin, free);
@@ -169,7 +121,7 @@ t_command	*parse_redirects(t_command *commands)
 {
 	t_command	*tmp;
 	int			counter;
-	
+
 	counter = HEREDOC - 1;
 	while (++counter < ENDING_TYPE)
 	{

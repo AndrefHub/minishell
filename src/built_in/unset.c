@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 17:14:44 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 18:06:16 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 18:58:06 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	unset_one(char *arg)
 	{
 		if (ft_strcmp(envp_get_key(envp), arg) == 0)
 		{
-			ft_lst_delnext(prev, envp, &g_msh.envp, free);
+			ft_lst_delnext(prev, envp, &g_msh.envp, free_envp_entry);
 			return (0);
 		}
 		prev = envp;
@@ -32,7 +32,7 @@ int	unset_one(char *arg)
 	return (1);
 }
 
-int unset(char **args)
+int	unset(char **args)
 {
 	while (*(++args))
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:36:26 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/14 19:07:24 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/14 12:00:16 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ void	start_one_line(char *line)
 	cmd = parse_special_characters(lst);
 	free(line);
 	full_cmd = cmd;
-	if (!full_cmd)
-		return;
 	init_sig_handler(child_sig_handler);
 	parse_brackets(cmd);
 	while (cmd)
@@ -37,11 +35,13 @@ void	start_one_line(char *line)
 		ft_com_rm_space(cmd);
 		parse_redirects(cmd);
 		open_files(cmd);
-		if (!check_syntax(cmd))
+		if (!check_syntax())
+		{
 			return ;
-//		ft_print_lst(cmd->content);
-//		printf("(: %d\n", cmd->bracket_l);
-//		printf("): %d\n", cmd->bracket_r);
+		}
+		// ft_print_lst(cmd->content);
+		// printf("(: %d\n", cmd->bracket_l);
+		// printf("): %d\n", cmd->bracket_r);
 		cmd = cmd->next;
 	}
 	execute_commands(full_cmd);

@@ -14,7 +14,7 @@
 
 int	is_in(char c, const char *set)
 {
-	int counter;
+	int	counter;
 
 	counter = -1;
 	while (set[++counter])
@@ -23,4 +23,16 @@ int	is_in(char c, const char *set)
 			return (1);
 	}
 	return (0);
+}
+
+void	split_by_pattern(t_list **lst, char *pattern)
+{
+	t_list	*tmp;
+
+	tmp = *lst;
+	while (tmp)
+	{
+		ft_split_str_in_lst(pattern, tmp);
+		tmp = tmp->next;
+	}
 }
