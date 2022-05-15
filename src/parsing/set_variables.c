@@ -15,28 +15,10 @@
 t_command	*set_variables(t_command *command)
 {
 	t_list		*lst;
-	t_list		*delete;
 
 	lst = command->content;
-	split_by_pattern(&lst, "\"", 0);
 	split_by_pattern(&lst, "$", 1);
-	while (lst)
-	{
-		if (strchr(lst->content, '$') && lst->next && ft_strchr
-			(lst->next->content, ' ') == NULL)
-		{
-			if (lst->next->content != NULL)
-				free(lst->content);
-			if (ft_strchr(lst->next->content, '?'))
-				lst->content = ft_itoa(g_msh.last_ex_code);
-			else
-				lst->content = ft_find_envp(lst->next->content);
-			delete = lst->next;
-			lst->next = delete->next;
-			ft_lstdelone(delete, free);
-		}
-		lst = lst->next;
-	}
+	lst = set_var(lst);
 	return (command);
 }
 

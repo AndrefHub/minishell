@@ -44,6 +44,76 @@ int	execute(char **command)
 	return (pid_fork);
 }
 
+char	*ft_lst_to_str(t_list *lst)
+{
+	t_list	*elem;
+	char	*out;
+
+	out = ft_strnew(0);
+	elem = lst;
+	while (elem)
+	{
+		out = ft_strjoin(out, elem->content);
+		elem = elem->next;
+	}
+	ft_lstclear(&lst, free);
+	return (out);
+}
+
+t_list	*set_var(t_list *elem)
+{
+	t_list		*lst;
+	t_list		*delete;
+	t_list		*tmp;
+
+	lst = elem;
+	tmp = elem;
+	while (lst)
+	{
+		if (ft_strchr(&((char *)lst->content)[0], '$') && lst->next && ft_strchr
+			(&((char *)lst->next->content)[0], ' ') == NULL)
+		{
+			if (lst->next->content != NULL)
+				free(lst->content);
+			if (ft_strchr(lst->next->content, '?'))
+				lst->content = ft_itoa(g_msh.last_ex_code);
+			else if (ft_strchr(lst->next->content, '$'))
+				lst->content = ft_strdup("Command forbidden");
+			else
+				lst->content = ft_find_envp(lst->next->content);
+			delete = lst->next;
+			lst->next = delete->next;
+			ft_lstdelone(delete, free);
+		}
+		lst = lst->next;
+	}
+	return (tmp);
+}
+
+void	set_var_to_quotes(t_command *command)
+{
+	t_list	*lst;
+	t_list	*elem;
+	char *to_free;
+
+	lst = command->content;
+	while (lst)
+	{
+		if (ft_strchr(lst->content, '"') != NULL)
+		{
+			elem = ft_lstnew(lst->content);
+			split_by_pattern(&elem, " ", 0);
+			split_by_pattern(&elem, "$", 0);
+			split_by_pattern(&elem, "\"", 0);
+			to_free = lst->content;
+			lst->content = ft_lst_to_str(set_var(elem));
+			free(to_free);
+		}
+		ft_putendl_fd(lst->content, 1);
+		lst = lst->next;
+	}
+}
+
 int	execute_commands(t_command *cmd)
 {
 	int			prev_link_type;
@@ -61,6 +131,7 @@ int	execute_commands(t_command *cmd)
 	{
 		ft_com_rm_space(cmd);
 		set_variables(cmd);
+		set_var_to_quotes(cmd);
 		ft_com_rm_quotes(cmd, "\"");
 		ft_com_rm_quotes(cmd, "\'");
 		parse_redirects(cmd);
