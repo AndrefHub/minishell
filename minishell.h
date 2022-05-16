@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:58:22 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 11:35:29 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 20:07:28 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ t_command	*parse_redirects(t_command *commands);
 t_command	*set_variables(t_command *command);
 void		ft_list_to_char_ptr(t_command *cmd);
 void		convert_commands_to_char_ptrs(t_command *cmd);
-t_list		*ft_split_str_in_lst(char *pattern, t_list *elem);
-void		split_by_pattern(t_list **lst, char *pattern);
+t_list		*ft_split_str_in_lst(char *pattern, t_list *elem, int mode);
+void		split_by_pattern(t_list **lst, char *pattern, int mode);
 void		ft_com_rm_space(t_command *cmd);
 t_list		*ft_rm_space(t_list **lst);
 /* t_command structure tools */
@@ -142,6 +142,10 @@ void		ft_increment_shlvl(void );
 void		update_cenvp(void );
 int			find_at_first(const char *string, char *pattern);
 char		*ft_find_envp(char *parameter);
+/* fd smth */
+void		dup2_and_close(int from, int to);
+void		init_t_pipe_fd(t_pipe_fd *fd_data);
+void		reset_t_pipe_fd(t_pipe_fd *fd_data);
 /* builtins */
 int			execute_commands(t_command *cmd);
 t_command	*pipeline(t_command *to_pipe);
@@ -153,6 +157,7 @@ int			unset(char **args);
 int			pwd(void );
 int			ft_chdir(char *dir);
 int			msh_exit(char **argv);
+int			is_dollar(t_list *lst);
 /* Signals */
 void		init_sig_handler(void (*handler) (int, siginfo_t *, void *));
 void		parent_sig_handler(int sigsum, siginfo_t *sig, void *context);
@@ -160,6 +165,9 @@ void		child_sig_handler(int sigsum, siginfo_t *sig, void *context);
 void		clear_term_signal(void );
 void		print_nothing(int mode);
 /* Start executing */
+void		start_one_line(char *line);
+int			choose_code(char *spop, int mode);
+void		check_end_and_start_one_line(char *line);
 int			execute(char **command);
 int			heredoc(char *delim);
 int			check_syntax(t_command *command);
@@ -178,4 +186,6 @@ void		set_file_in_command(t_command *command, int link_type, t_list *tmp);
 t_file		*ft_file_new(char *filename, int link_type);
 int			is_file_open(t_file *file);
 
+void		ft_com_rm_quotes(t_command *cmd, char *quote);
+char		*ftsj(const char *s1, const char *s2);
 #endif

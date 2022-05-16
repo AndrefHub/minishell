@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andref <andref@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 16:03:54 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/13 22:39:27 by andref           ###   ########.fr       */
+/*   Updated: 2022/05/15 19:54:33 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,8 @@ int	is_file_open(t_file *file)
 
 void	open_files(t_command *command)
 {
-	while (command)
-	{
-		open_infile(command->infile);
-		open_outfile(command->outfile);
-		command = command->next;
-	}
+	open_infile(command->infile);
+	open_outfile(command->outfile);
 }
 
 void	ft_free_file(t_file *file, int err)

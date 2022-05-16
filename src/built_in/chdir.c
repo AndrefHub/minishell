@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   chdir.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/15 15:53:40 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/15 16:08:32 by kdancy           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 t_envp	*make_pwd(char *key, char *value)
@@ -22,6 +34,7 @@ int	ft_chdir(char *dir)
 		free(g_msh.pwd);
 		g_msh.pwd = getcwd(NULL, 0);
 		set_envp_entry(make_pwd("PWD", g_msh.pwd));
+		g_msh.last_ex_code = 0;
 	}
 	else
 	{

@@ -26,6 +26,7 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			executing/file.c\
 			executing/pipeline.c\
 			executing/open_files.c\
+			executing/fd_additional.c\
 			signals/sig_handler.c\
 			signals/term_printing.c\
 			parsing/ft_wildcards.c\
@@ -34,6 +35,7 @@ SRCFILE	=	additional_functions/ft_command_split.c\
 			parsing/parse_semicolons.c\
 			parsing/set_variables.c\
 			parsing/escape_space.c\
+			parsing/check_last_symbol.c\
 			parsing/parse_parentheses.c
 MAIN	= main.c
 BONUS	= main_bonus.c

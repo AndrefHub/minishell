@@ -6,7 +6,7 @@
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:37:37 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 11:35:16 by kdancy           ###   ########.fr       */
+/*   Updated: 2022/05/15 15:53:16 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	convert_commands_to_char_ptrs(t_command *cmd)
 	local_copy = cmd;
 	while (local_copy)
 	{
-	ft_list_to_char_ptr(local_copy);
+		ft_list_to_char_ptr(local_copy);
 		local_copy = local_copy->next;
 	}
 }

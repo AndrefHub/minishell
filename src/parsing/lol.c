@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   lol.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/14 19:53:05 by kdancy            #+#    #+#             */
-/*   Updated: 2022/05/15 16:09:12 by kdancy           ###   ########.fr       */
+/*   Created: 2022/05/15 21:04:28 by kdancy            #+#    #+#             */
+/*   Updated: 2022/05/15 21:04:46 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	pwd(void )
+char	*ft_lst_to_char(t_list *lst)
 {
-	ft_putendl_fd(g_msh.pwd, 1);
-	g_msh.last_ex_code = 0;
-	return (1);
+	char	*str;
+
+	str = malloc(1);
+	str[0] = '\0';
+	while (lst)
+	{
+		str = ft_strjoin_gnl(str, (char *)lst->content);
+		lst = lst->next;
+	}
+	return (str);
 }
