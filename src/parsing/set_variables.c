@@ -12,66 +12,6 @@
 
 #include "../../minishell.h"
 
-char	*ft_lst_to_char(t_list *lst)
-{
-	char	*str;
-
-	str = malloc(1);
-	str[0] = '\0';
-	while (lst)
-	{
-		str = ft_strjoin_gnl(str, (char *)lst->content);
-		lst = lst->next;
-	}
-	return (str);
-}
-
-t_list	*set_var(t_list *command)
-{
-	t_list		*lst;
-	t_list		*delete;
-
-	lst = command;
-	split_by_pattern(&lst, "$", 1);
-	while (lst)
-	{
-		if (is_dollar(lst))
-		{
-			if (lst->next->content != NULL)
-				free(lst->content);
-			if (ft_strchr(lst->next->content, '?'))
-				lst->content = ft_itoa(g_msh.last_ex_code);
-			else if (ft_strchr(lst->next->content, '$'))
-				lst->content = ft_strdup("Command forbidden");
-			else
-				lst->content = ft_find_envp(lst->next->content);
-			delete = lst->next;
-			lst->next = delete->next;
-			ft_lstdelone(delete, free);
-		}
-		lst = lst->next;
-	}
-	return (command);
-}
-
-void	delete_first_and_last(t_list **note)
-{
-	t_list	*new_begin;
-
-	if (!*note || !(*note)->next || !(*note)->next->next)
-	{
-		ft_lstclear(note, free);
-		return ;
-	}
-	new_begin = (*note)->next;
-	ft_lstdelone(*note, free);
-	*note = new_begin;
-	while (new_begin && new_begin->next && new_begin->next->next)
-		new_begin = new_begin->next;
-	ft_lstdelone(new_begin->next, free);
-	new_begin->next = NULL;
-}
-
 t_command	*set_variables(t_command *command)
 {
 	t_list		*lst;
@@ -82,7 +22,8 @@ t_command	*set_variables(t_command *command)
 	lst = set_var(lst);
 	while (lst)
 	{
-		if (lst->content != NULL && ft_strchr("\'", ((char *)lst->content)[0]) != NULL)
+		if (lst->content != NULL && ft_strchr
+			("\'", ((char *)lst->content)[0]) != NULL)
 		{
 			str = lst->content;
 			note = ft_lstnew(ft_strdup(lst->content));
@@ -92,18 +33,9 @@ t_command	*set_variables(t_command *command)
 			ft_lstclear(&note, free);
 			free(str);
 		}
-		else if (lst->content != NULL && ft_strchr("\"", ((char *)lst->content)[0]) != NULL)
-		{
-			str = lst->content;
-			note = ft_lstnew(ft_strdup(lst->content));
-			split_by_pattern(&note, "\"", -1);
-			split_by_pattern(&note, "\'", -1);
-			note = set_var(note);
-			delete_first_and_last(&note);
-			lst->content = ft_lst_to_char(note);
-			ft_lstclear(&note, free);
-			free(str);
-		}
+		else if (lst->content != NULL
+			&& ft_strchr("\"", ((char *)lst->content)[0]) != NULL)
+			lst->content = ret_lst_cont(lst);
 		lst = lst->next;
 	}
 	return (command);

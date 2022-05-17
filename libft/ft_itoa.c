@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lsherry <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: kdancy <kdancy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 21:08:42 by lsherry           #+#    #+#             */
-/*   Updated: 2021/10/13 21:09:34 by lsherry          ###   ########.fr       */
+/*   Updated: 2022/05/14 22:03:21 by kdancy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_itoa(int n)
 	i = 0;
 	z = -2 * (nbr < 0) + 1;
 	len = 1 * (nbr < 0) + ft_nbrlen(nbr);
-	arr = (char *) malloc(sizeof(char) * len + 1);
+	arr = (char *) malloc(sizeof(char) * (len + 1));
 	if (!arr)
 		return (NULL);
 	while (nbr != 0)

@@ -78,26 +78,3 @@ void	check_begin_and_start_one_line(char *line)
 	}
 	start_one_line(line);
 }
-
-void	check_end_and_start_one_line(char *line)
-{
-	int	counter;
-
-	counter = ft_strlen(line);
-	while (line[--counter])
-	{
-		if (!ft_strchr("\t ", line[counter]))
-		{
-			if (ft_strchr("><|&;", line[counter]))
-			{
-				fill_error(choose_code(line + counter - 1, 0));
-				free(line);
-				check_syntax(NULL);
-				return ;
-			}
-			else
-				break ;
-		}
-	}
-	check_begin_and_start_one_line(line);
-}
