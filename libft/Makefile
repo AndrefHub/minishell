@@ -1,7 +1,7 @@
 NAME		:= libft.a
 CC			:= gcc
-CFLAGS		:= -ggdb -Wall -Wextra -Werror -c
-SRCS		:= ft_isalnum.c\
+CFLAGS		:= -Wall -Wextra -Werror -c
+SRCS		:= 	ft_isalnum.c\
 				ft_isalpha.c\
 				ft_isascii.c\
 				ft_isdigit.c\
@@ -63,10 +63,13 @@ HEADER		:= libft.h
 .PHONY: all clean fclean re bonus
 
 %.o: %.c $(HEADER)
-	$(CC) $(CFLAGS) $< -o $@ -include $(HEADER)
+	@$(CC) $(CFLAGS) $< -o $@ -include $(HEADER)
+	@printf "\033[1;36m/\033[0m"
 
 $(NAME): $(OBJS) $(HEADER)
-	ar rcs $(NAME) $(OBJS)
+	@echo
+	@ar rcs $(NAME) $(OBJS)
+	@echo "\033[1;33m"$(NAME) "libft is up to date."'\033[0m'
 
 all: $(NAME)
 
@@ -74,10 +77,12 @@ bonus: $(BONUS_OBJS) $(OBJS) $(HEADER)
 	ar rcs libft.a $(OBJS) $(BONUS_OBJS)
 
 clean:
-	$(RM) $(OBJS) $(BONUS_OBJS)
+	@$(RM) $(OBJS) $(BONUS_OBJS)
+	@echo '\033[1;31m'$(NAME) "libft deleted."'\033[0m'
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
+	@echo '\033[1;31m'$(NAME) "libft objs deleted."'\033[0m'
 
 re: fclean all
 

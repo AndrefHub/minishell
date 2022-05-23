@@ -1,7 +1,7 @@
 NAME    = minishell
 CC      = gcc
 FLAGS	= -Wall -Wextra -Werror -g
-LFLAGS	= -lreadline -L./libft -lft
+LFLAGS	= -lreadline -L/usr/local/opt/readline/lib -L./libft -lft
 SRCDIR	= src/
 READLINE_FLAGS = -I/usr/local/opt/readline/include
 SRCFILE	=	additional_functions/ft_command_split.c\
@@ -66,7 +66,7 @@ $(NAME): $(OBJS) $(OBJMAIN) $(MSHHDR)
 	@echo
 	@echo "\033[1;33m"$(NAME) "objs is up to date."'\033[0m'
 	@make -C libft
-	@$(CC) $(FLAGS) $(OBJS) $(OBJMAIN) $(LFLAGS) -o $(NAME)
+	@$(CC) $(FLAGS) $(LFLAGS) $(OBJS) $(OBJMAIN) $(LFLAGS) -o $(NAME)
 	@echo "\033[1;33m"$(NAME) "is up to date."'\033[0m'
 
 clean:
