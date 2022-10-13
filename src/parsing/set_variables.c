@@ -115,10 +115,12 @@ void	set_wildcards(t_command *command)
 	t_list	*elem;
 	t_list	*prev;
 
-	prev = command->content;
-	elem = prev->next;
-	while (elem)
-	{
+	elem = NULL;
+    prev = command->content;
+    if (prev)
+        elem = prev->next;
+    while (elem)
+    {
 		if (elem->content && (ft_strchr(elem->content, '*') || ft_strchr
 				(elem->content, '?')))
 		{
